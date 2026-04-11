@@ -2,7 +2,7 @@
   <div class="flex-1 overflow-y-auto">
     <div class="px-6 py-3 border-b border-gray-200 bg-white flex items-center justify-between">
       <h1 class="text-sm font-semibold text-gray-900">Seeds</h1>
-      <%= link_to "New Seed", new_seed_path,
+      <%= link_to "New", new_seed_path,
           data: { turbo_frame: "inspect" },
           class: "inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-gray-900 rounded-md hover:bg-gray-700" %>
     </div>
@@ -11,7 +11,7 @@
         <tr>
           <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
           <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Germination</th>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transplant</th>
+          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transplanted</th>
         </tr>
       </thead>
       <tbody id="seeds" class="bg-white divide-y divide-gray-100">
@@ -27,7 +27,7 @@
 
   <div class="w-80 shrink-0 border-l border-gray-200 bg-white overflow-y-auto">
     <%= turbo_frame_tag "inspect" do %>
-      <div class="p-6 text-center text-gray-400 text-sm mt-16">Select a seed to view details</div>
+      <%= render "form", seed: @seed %>
     <% end %>
   </div>
 </div>

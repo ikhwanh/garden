@@ -4,6 +4,7 @@ class SeedsController < ApplicationController
 
   def index
     @seeds = current_user.seeds.order(:name)
+    @seed = current_user.seeds.new
   end
 
   def show; end
@@ -52,6 +53,6 @@ class SeedsController < ApplicationController
   end
 
   def seed_params
-    params.require(:seed).permit(:name, :germination_days, :transplant_days)
+    params.require(:seed).permit(:name, :germination_days)
   end
 end

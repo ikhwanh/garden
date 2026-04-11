@@ -17,8 +17,8 @@
       <dd class="mt-0.5 text-sm text-gray-900"><%= seed.germination_days ? "#{seed.germination_days} days" : "—" %></dd>
     </div>
     <div>
-      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Transplant</dt>
-      <dd class="mt-0.5 text-sm text-gray-900"><%= seed.transplant_days ? "#{seed.transplant_days} days" : "—" %></dd>
+      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Transplanted</dt>
+      <dd class="mt-0.5 text-sm text-gray-900"><%= seed.transplanted_at ? seed.transplanted_at.strftime("%b %d, %Y") : "—" %></dd>
     </div>
   </dl>
 

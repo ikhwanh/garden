@@ -60,6 +60,6 @@ class FertilizationsController < ApplicationController
   end
 
   def fertilization_params
-    params.require(:fertilization).permit(:fertilizer_type, :applied_on, :interval_days, :amount, :unit)
+    params.require(:fertilization).permit(:fertilizer_type, :applied_on, :amount, :unit)
   end
 end

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :plants do
     resources :fertilizations, only: [ :new, :create ]
     resources :harvests, only: [ :new, :create ]
+    post :quick_fertilize, on: :member
   end
   resources :fertilizations, except: [ :new, :create ]
   resources :harvests, except: [ :new, :create ]

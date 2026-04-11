@@ -16,7 +16,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_020003) do
     t.date "applied_on", null: false
     t.datetime "created_at", null: false
     t.string "fertilizer_type", null: false
-    t.integer "interval_days"
     t.integer "plant_id", null: false
     t.string "unit"
     t.datetime "updated_at", null: false
@@ -52,7 +51,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_020003) do
     t.datetime "created_at", null: false
     t.integer "germination_days"
     t.string "name", null: false
-    t.integer "transplant_days"
+    t.date "transplanted_at"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_seeds_on_user_id"

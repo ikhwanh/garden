@@ -1,4 +1,4 @@
 <%= turbo_stream.remove "seed_#{@seed.id}" %>
 <%= turbo_stream.update "inspect" do %>
-  <div class="p-6 text-center text-gray-400 text-sm mt-16">Select a seed to view details</div>
+  <%= render "seeds/form", seed: current_user.seeds.new %>
 <% end %>

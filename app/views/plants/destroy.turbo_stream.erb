@@ -1,4 +1,4 @@
 <%= turbo_stream.remove "plant_#{@plant.id}" %>
 <%= turbo_stream.update "inspect" do %>
-  <div class="p-6 text-center text-gray-400 text-sm mt-16">Select a plant to view details</div>
+  <%= render "plants/form", plant: current_user.plants.new %>
 <% end %>

@@ -46,20 +46,28 @@
         <aside class="w-44 shrink-0 bg-white border-r border-gray-200 overflow-y-auto">
           <nav class="p-2 space-y-0.5">
             <% seeds_active = request.path.start_with?("/seeds") %>
-            <%= link_to "Seeds", seeds_path,
-                class: "flex items-center px-3 py-2 text-sm font-medium rounded-md #{seeds_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" %>
+            <%= link_to seeds_path,
+                class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{seeds_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
+              <span>&#127793;</span>Seeds
+            <% end %>
 
             <% plants_active = request.path.start_with?("/plants") %>
-            <%= link_to "Plants", plants_path,
-                class: "flex items-center px-3 py-2 text-sm font-medium rounded-md #{plants_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" %>
+            <%= link_to plants_path,
+                class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{plants_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
+              <span>&#127807;</span>Plants
+            <% end %>
 
             <% ferts_active = request.path.start_with?("/fertilizations") %>
-            <%= link_to "Fertilizations", fertilizations_path,
-                class: "flex items-center pl-6 pr-3 py-1.5 text-sm rounded-md #{ferts_active ? 'bg-gray-100 text-gray-700' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'}" %>
+            <%= link_to fertilizations_path,
+                class: "flex items-center gap-2 pl-6 pr-3 py-1.5 text-sm rounded-md #{ferts_active ? 'bg-gray-100 text-gray-700' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'}" do %>
+              <span>&#128167;</span>Fertilizations
+            <% end %>
 
             <% harvests_active = request.path.start_with?("/harvests") %>
-            <%= link_to "Harvests", harvests_path,
-                class: "flex items-center pl-6 pr-3 py-1.5 text-sm rounded-md #{harvests_active ? 'bg-gray-100 text-gray-700' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'}" %>
+            <%= link_to harvests_path,
+                class: "flex items-center gap-2 pl-6 pr-3 py-1.5 text-sm rounded-md #{harvests_active ? 'bg-gray-100 text-gray-700' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'}" do %>
+              <span>&#127806;</span>Harvests
+            <% end %>
           </nav>
         </aside>
 
