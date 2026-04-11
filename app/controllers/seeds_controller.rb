@@ -53,6 +53,6 @@ class SeedsController < ApplicationController
   end
 
   def seed_params
-    params.require(:seed).permit(:name, :germination_days)
+    params.require(:seed).permit(:name, :germination_days, :started_at)
   end
 end

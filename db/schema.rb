@@ -36,11 +36,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_020003) do
   create_table "plants", force: :cascade do |t|
     t.string "container_size"
     t.datetime "created_at", null: false
+    t.integer "days_to_maturity"
     t.string "grow_medium", null: false
     t.string "location"
     t.string "name", null: false
     t.date "planted_on", null: false
-    t.integer "seed_id", null: false
+    t.integer "seed_id"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["seed_id"], name: "index_plants_on_seed_id"
@@ -51,6 +52,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_020003) do
     t.datetime "created_at", null: false
     t.integer "germination_days"
     t.string "name", null: false
+    t.date "started_at"
     t.date "transplanted_at"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false

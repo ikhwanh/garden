@@ -29,11 +29,5 @@
         <dd class="mt-0.5 text-sm text-gray-900"><%= fertilization.amount %> <%= fertilization.unit %></dd>
       </div>
     <% end %>
-    <% if fertilization.interval_days.present? %>
-      <div>
-        <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Interval</dt>
-        <dd class="mt-0.5 text-sm text-gray-900"><%= fertilization.interval_days %> days</dd>
-      </div>
-    <% end %>
   </dl>
 </div>

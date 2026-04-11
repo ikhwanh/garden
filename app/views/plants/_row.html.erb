@@ -4,7 +4,12 @@
         data: { turbo_frame: "inspect" },
         class: "hover:text-blue-600" %>
   </td>
-  <td class="px-4 py-2.5 text-sm text-gray-500"><%= plant.seed.name %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= plant.seed&.name %></td>
   <td class="px-4 py-2.5 text-sm text-gray-500"><%= plant.grow_medium %></td>
   <td class="px-4 py-2.5 text-sm text-gray-500"><%= plant.planted_on.strftime("%b %d, %Y") %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500">
+    <% if plant.expected_crop_at %>
+      <%= plant.expected_crop_at.strftime("%b %d, %Y") %>
+    <% end %>
+  </td>
 </tr>
