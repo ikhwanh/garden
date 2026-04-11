@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :fertilizations, except: [ :new, :create ]
   resources :harvests, except: [ :new, :create ]
 
+  resource :calendar, only: :show
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   root "home#index"

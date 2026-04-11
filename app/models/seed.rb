@@ -2,7 +2,7 @@ class Seed < ApplicationRecord
   belongs_to :user
   has_many :plants, dependent: :destroy
 
-  def end_at
+  def expected_germination_on
     return nil if started_on.nil? || germination_days.nil?
     started_on + germination_days.days
   end
