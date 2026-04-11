@@ -33,6 +33,23 @@ class HomeController < ApplicationController
 
       current = current.next_month
     end
+
+    upcoming = []
+
+    current_user.plants.each do |plant|
+      date = plant.expected_crop_at
+      upcoming << { date: date, label: "Harvest #{plant.name}", type: :harvest } if date
+    end
+
+    current_user.seeds.each do |seed|
+      date = seed.expected_germination_on
+      upcoming << { date: date, label: "Germination #{seed.name}", type: :germination } if date
+    end
+
+    @upcoming_events = upcoming
+      .select { |e| e[:date] >= Date.today }
+      .sort_by { |e| e[:date] }
+      .first(3)
   end
 
   private
