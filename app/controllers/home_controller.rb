@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
+  rescue_from Pundit::NotAuthorizedError, with: :redirect_to_login
+
   def index
-    return unless user_signed_in?
+    authorize :home
 
     @cf_start_date = parse_date(params[:cf_start]) || 12.months.ago.beginning_of_month.to_date
     @cf_end_date   = parse_date(params[:cf_end])   || Date.today.end_of_month
@@ -53,6 +55,10 @@ class HomeController < ApplicationController
   end
 
   private
+
+  def redirect_to_login
+    redirect_to new_user_session_path
+  end
 
   def parse_date(val)
     Date.parse(val) if val.present?
