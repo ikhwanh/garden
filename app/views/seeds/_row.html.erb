@@ -1,0 +1,9 @@
+<tr id="seed_<%= seed.id %>" class="hover:bg-gray-50">
+  <td class="px-4 py-2.5 text-sm font-medium text-gray-900">
+    <%= link_to seed.name, seed_path(seed),
+        data: { turbo_frame: "inspect" },
+        class: "hover:text-blue-600" %>
+  </td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= seed.germination_days ? "#{seed.germination_days}d" : "—" %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= seed.transplant_days ? "#{seed.transplant_days}d" : "—" %></td>
+</tr>

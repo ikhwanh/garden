@@ -1,0 +1,4 @@
+<%= turbo_stream.append "plants", partial: "row", locals: { plant: @plant } %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "show_content", plant: @plant %>
+<% end %>

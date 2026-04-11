@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "fertilization_#{@fertilization.id}", partial: "row", locals: { fertilization: @fertilization } %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "show_content", fertilization: @fertilization %>
+<% end %>

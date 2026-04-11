@@ -1,0 +1,4 @@
+<%= turbo_stream.remove "harvest_#{@harvest.id}" %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "plants/show_content", plant: @plant %>
+<% end %>

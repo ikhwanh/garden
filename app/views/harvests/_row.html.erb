@@ -1,0 +1,16 @@
+<tr id="harvest_<%= harvest.id %>" class="hover:bg-gray-50">
+  <td class="px-4 py-2.5 text-sm font-medium text-gray-900">
+    <%= link_to harvest.harvested_on.strftime("%b %d, %Y"), harvest_path(harvest),
+        data: { turbo_frame: "inspect" },
+        class: "hover:text-blue-600" %>
+  </td>
+  <td class="px-4 py-2.5 text-sm text-gray-500">
+    <%= link_to harvest.plant.name, plant_path(harvest.plant),
+        data: { turbo_frame: "inspect" },
+        class: "hover:text-blue-600" %>
+  </td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= harvest.weight_grams.present? ? "#{harvest.weight_grams}g" : "—" %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500">
+    <%= harvest.quantity.present? ? "#{harvest.quantity} #{harvest.unit}" : "—" %>
+  </td>
+</tr>

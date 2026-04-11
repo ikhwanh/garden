@@ -1,0 +1,39 @@
+<div class="p-4 space-y-4">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <h2 class="text-base font-semibold text-gray-900">Harvest</h2>
+      <p class="text-xs text-gray-500 mt-0.5">
+        <%= link_to harvest.plant.name, plant_path(harvest.plant),
+            data: { turbo_frame: "inspect" },
+            class: "hover:text-gray-900" %>
+      </p>
+    </div>
+    <div class="flex items-center gap-3 shrink-0">
+      <%= link_to "Edit", edit_harvest_path(harvest),
+          data: { turbo_frame: "inspect" },
+          class: "text-xs text-gray-500 hover:text-gray-900" %>
+      <%= button_to "Delete", harvest_path(harvest), method: :delete,
+          data: { turbo_confirm: "Delete this harvest?" },
+          class: "text-xs text-red-500 hover:text-red-700 bg-transparent border-0 cursor-pointer p-0" %>
+    </div>
+  </div>
+
+  <dl class="space-y-3">
+    <div>
+      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Harvested On</dt>
+      <dd class="mt-0.5 text-sm text-gray-900"><%= harvest.harvested_on.strftime("%B %d, %Y") %></dd>
+    </div>
+    <% if harvest.weight_grams.present? %>
+      <div>
+        <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Weight</dt>
+        <dd class="mt-0.5 text-sm text-gray-900"><%= harvest.weight_grams %>g</dd>
+      </div>
+    <% end %>
+    <% if harvest.quantity.present? %>
+      <div>
+        <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Quantity</dt>
+        <dd class="mt-0.5 text-sm text-gray-900"><%= harvest.quantity %> <%= harvest.unit %></dd>
+      </div>
+    <% end %>
+  </dl>
+</div>

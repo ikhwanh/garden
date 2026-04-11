@@ -1,0 +1,10 @@
+<tr id="plant_<%= plant.id %>" class="hover:bg-gray-50">
+  <td class="px-4 py-2.5 text-sm font-medium text-gray-900">
+    <%= link_to plant.name, plant_path(plant),
+        data: { turbo_frame: "inspect" },
+        class: "hover:text-blue-600" %>
+  </td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= plant.seed.name %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= plant.grow_medium %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= plant.planted_on.strftime("%b %d, %Y") %></td>
+</tr>
