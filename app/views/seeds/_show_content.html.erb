@@ -18,7 +18,7 @@
     </div>
     <div>
       <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Started</dt>
-      <dd class="mt-0.5 text-sm text-gray-900"><%= seed.started_at ? seed.started_at.strftime("%b %d, %Y") : "—" %></dd>
+      <dd class="mt-0.5 text-sm text-gray-900"><%= seed.started_on ? seed.started_on.strftime("%b %d, %Y") : "—" %></dd>
     </div>
     <div>
       <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Ready</dt>
@@ -26,7 +26,7 @@
     </div>
     <div>
       <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Transplanted</dt>
-      <dd class="mt-0.5 text-sm text-gray-900"><%= seed.transplanted_at ? seed.transplanted_at.strftime("%b %d, %Y") : "—" %></dd>
+      <dd class="mt-0.5 text-sm text-gray-900"><%= seed.transplanted_on ? seed.transplanted_on.strftime("%b %d, %Y") : "—" %></dd>
     </div>
   </dl>
 

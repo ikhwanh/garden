@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_11_020003) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_11_030002) do
   create_table "fertilizations", force: :cascade do |t|
     t.decimal "amount", precision: 8, scale: 2
     t.date "applied_on", null: false
@@ -52,8 +52,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_020003) do
     t.datetime "created_at", null: false
     t.integer "germination_days"
     t.string "name", null: false
-    t.date "started_at"
-    t.date "transplanted_at"
+    t.date "started_on"
+    t.date "transplanted_on"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.index ["user_id"], name: "index_seeds_on_user_id"

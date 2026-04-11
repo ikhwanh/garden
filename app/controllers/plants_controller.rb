@@ -18,7 +18,7 @@ class PlantsController < ApplicationController
   def create
     @plant = current_user.plants.new(plant_params)
     if @plant.save
-      @plant.seed&.update_column(:transplanted_at, @plant.planted_on)
+      @plant.seed&.update_column(:transplanted_on, @plant.planted_on)
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to plant_path(@plant) }
