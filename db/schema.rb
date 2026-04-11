@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_11_030002) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_11_073415) do
+  create_table "cashflow_entries", force: :cascade do |t|
+    t.bigint "amount"
+    t.string "category"
+    t.string "cost_type"
+    t.datetime "created_at", null: false
+    t.string "description"
+    t.string "entry_type"
+    t.date "occurred_on"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_cashflow_entries_on_user_id"
+  end
+
   create_table "fertilizations", force: :cascade do |t|
     t.decimal "amount", precision: 8, scale: 2
     t.date "applied_on", null: false
@@ -71,6 +84,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_030002) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cashflow_entries", "users"
   add_foreign_key "fertilizations", "plants"
   add_foreign_key "harvests", "plants"
   add_foreign_key "plants", "seeds"

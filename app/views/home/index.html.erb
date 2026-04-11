@@ -1,9 +1,59 @@
 <% content_for :title, "Dashboard – Garden" %>
 
 <% if user_signed_in? %>
-  <div class="p-6">
+  <div class="p-6 overflow-y-auto h-full">
     <h1 class="text-lg font-semibold text-gray-900 mb-6">Dashboard</h1>
 
+    <%# Cashflow widget %>
+    <div class="mb-6">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-sm font-medium text-gray-900">Cashflow</h2>
+        <%= form_with url: root_path, method: :get, data: { turbo: false }, class: "flex items-center gap-2" do |f| %>
+          <%= f.date_field :cf_start, value: @cf_start_date,
+              class: "border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400" %>
+          <span class="text-xs text-gray-400">to</span>
+          <%= f.date_field :cf_end, value: @cf_end_date,
+              class: "border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400" %>
+          <%= f.submit "Filter", class: "px-2.5 py-1 text-xs font-medium border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 cursor-pointer" %>
+        <% end %>
+      </div>
+
+      <%# Summary numbers %>
+      <div class="grid grid-cols-3 gap-3 mb-4">
+        <div class="bg-white border border-gray-200 rounded-lg p-3">
+          <p class="text-xs text-gray-500 mb-1">Total Income</p>
+          <p class="text-base font-semibold text-green-700"><%= number_with_delimiter(@cf_total_income) %></p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-lg p-3">
+          <p class="text-xs text-gray-500 mb-1">Total Expenses</p>
+          <p class="text-base font-semibold text-red-700"><%= number_with_delimiter(@cf_total_expenses) %></p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-lg p-3">
+          <p class="text-xs text-gray-500 mb-1">Net</p>
+          <p class="text-base font-semibold <%= @cf_net >= 0 ? 'text-green-700' : 'text-red-700' %>">
+            <%= @cf_net >= 0 ? "+" : "" %><%= number_with_delimiter(@cf_net) %>
+          </p>
+        </div>
+      </div>
+
+      <%# Break-even chart %>
+      <div class="bg-white border border-gray-200 rounded-lg p-4">
+        <% if @cf_chart_labels.any? %>
+          <div class="h-56">
+            <canvas
+              data-controller="cashflow-chart"
+              data-cashflow-chart-labels-value="<%= @cf_chart_labels.to_json %>"
+              data-cashflow-chart-income-value="<%= @cf_chart_income.to_json %>"
+              data-cashflow-chart-expenses-value="<%= @cf_chart_expenses.to_json %>"
+            ></canvas>
+          </div>
+        <% else %>
+          <p class="text-xs text-gray-400 text-center py-8">No cashflow entries yet. <%= link_to "Add your first entry", cashflow_path, class: "underline hover:text-gray-600" %>.</p>
+        <% end %>
+      </div>
+    </div>
+
+    <%# Calendar export widget %>
     <% calendar = GardenCalendar.new(current_user) %>
     <div class="bg-white border border-gray-200 rounded-lg p-4 max-w-sm">
       <h2 class="text-sm font-medium text-gray-900 mb-1">Calendar export</h2>

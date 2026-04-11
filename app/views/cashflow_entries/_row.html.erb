@@ -1,0 +1,32 @@
+<tr id="cashflow_entry_<%= entry.id %>" class="hover:bg-gray-50">
+  <td class="px-4 py-2.5 text-xs text-gray-500 whitespace-nowrap"><%= entry.occurred_on.strftime("%d %b %Y") %></td>
+  <td class="px-4 py-2.5">
+    <% if entry.entry_type == "income" %>
+      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800">Income</span>
+    <% else %>
+      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">Expense</span>
+    <% end %>
+  </td>
+  <td class="px-4 py-2.5">
+    <div class="text-sm text-gray-800"><%= entry.description %></div>
+    <div class="flex gap-2 mt-0.5">
+      <% if entry.category.present? %>
+        <span class="text-xs text-gray-400"><%= entry.category.gsub("_", " ").capitalize %></span>
+      <% end %>
+      <% if entry.cost_type.present? %>
+        <span class="text-xs text-gray-400">· <%= entry.cost_type %></span>
+      <% end %>
+    </div>
+  </td>
+  <td class="px-4 py-2.5 text-sm font-medium text-right whitespace-nowrap <%= entry.entry_type == 'income' ? 'text-green-700' : 'text-red-700' %>">
+    <%= entry.entry_type == "income" ? "+" : "-" %><%= number_with_delimiter(entry.amount) %>
+  </td>
+  <td class="px-4 py-2.5 text-right whitespace-nowrap">
+    <%= link_to "Edit", edit_cashflow_entry_path(entry),
+        data: { turbo_frame: "inspect" },
+        class: "text-xs text-gray-500 hover:text-gray-700" %>
+    <%= button_to "Delete", cashflow_entry_path(entry), method: :delete,
+        data: { turbo_confirm: "Delete this entry?" },
+        class: "text-xs text-gray-500 hover:text-red-600 bg-transparent border-0 cursor-pointer px-0 ml-2" %>
+  </td>
+</tr>

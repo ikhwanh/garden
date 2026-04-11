@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   resource :calendar, only: :show
 
+  get "/cashflow", to: "cashflow#index", as: :cashflow
+  resources :cashflow_entries, except: [ :index, :show ]
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   root "home#index"

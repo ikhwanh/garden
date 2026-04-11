@@ -1,0 +1,4 @@
+<%= turbo_stream.prepend "cashflow_entries", partial: "row", locals: { entry: @entry } %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "form", entry: current_user.cashflow_entries.new %>
+<% end %>

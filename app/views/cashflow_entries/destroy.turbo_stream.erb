@@ -1,0 +1,4 @@
+<%= turbo_stream.remove "cashflow_entry_#{@entry.id}" %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "form", entry: current_user.cashflow_entries.new %>
+<% end %>

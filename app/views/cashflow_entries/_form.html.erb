@@ -1,0 +1,75 @@
+<div class="p-4"
+  data-controller="cashflow-form"
+  data-cashflow-form-income-categories-value="<%= CashflowEntry::INCOME_CATEGORIES.to_json %>"
+  data-cashflow-form-expense-categories-value="<%= CashflowEntry::EXPENSE_CATEGORIES.to_json %>">
+
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-sm font-semibold text-gray-900"><%= entry.new_record? ? "New Entry" : "Edit Entry" %></h2>
+    <%= link_to "Cancel",
+        cashflow_path,
+        data: { turbo_frame: "inspect" },
+        class: "text-xs text-gray-500 hover:text-gray-700" %>
+  </div>
+
+  <%= form_with model: entry do |f| %>
+    <% if entry.errors.any? %>
+      <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded-md">
+        <ul class="text-xs text-red-700 space-y-0.5">
+          <% entry.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="space-y-3">
+      <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1">Type <span class="text-red-500">*</span></label>
+        <%= f.select :entry_type,
+            [["Income", "income"], ["Expense", "expense"]],
+            { include_blank: "Select…" },
+            class: "w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400",
+            data: { cashflow_form_target: "entryType", action: "change->cashflow-form#update" } %>
+      </div>
+
+      <div data-cashflow-form-target="costTypeField">
+        <label class="block text-xs font-medium text-gray-700 mb-1">Cost Type</label>
+        <%= f.select :cost_type,
+            CashflowEntry::COST_TYPES.map { |t| [t.capitalize, t] },
+            { include_blank: "Select…" },
+            class: "w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400" %>
+      </div>
+
+      <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1">Category</label>
+        <%= f.select :category, [],
+            { include_blank: "Select…" },
+            class: "w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400",
+            data: { cashflow_form_target: "categorySelect" } %>
+      </div>
+
+      <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1">Amount <span class="text-red-500">*</span></label>
+        <%= f.number_field :amount, placeholder: "0", step: 1, min: 1,
+            class: "w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400" %>
+      </div>
+
+      <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1">Description <span class="text-red-500">*</span></label>
+        <%= f.text_field :description, placeholder: "e.g. Sold 2kg tomatoes",
+            class: "w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400" %>
+      </div>
+
+      <div>
+        <label class="block text-xs font-medium text-gray-700 mb-1">Date <span class="text-red-500">*</span></label>
+        <%= f.date_field :occurred_on,
+            class: "w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400" %>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <%= f.submit entry.new_record? ? "Create" : "Update",
+          class: "w-full px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-700 cursor-pointer" %>
+    </div>
+  <% end %>
+</div>

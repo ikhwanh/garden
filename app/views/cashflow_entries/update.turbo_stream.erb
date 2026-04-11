@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "cashflow_entry_#{@entry.id}", partial: "row", locals: { entry: @entry } %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "form", entry: @entry %>
+<% end %>

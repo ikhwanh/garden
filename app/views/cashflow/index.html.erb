@@ -1,0 +1,49 @@
+<% content_for :title, "Cashflow – Garden" %>
+
+<div class="flex h-full">
+  <div class="flex-1 overflow-y-auto">
+    <div class="px-6 py-3 border-b border-gray-200 bg-white flex items-center justify-between gap-4">
+      <h1 class="text-sm font-semibold text-gray-900 shrink-0">Cashflow</h1>
+
+      <%= form_with url: cashflow_path, method: :get, data: { turbo: false }, class: "flex items-center gap-2" do |f| %>
+        <%= f.date_field :start_date, value: @start_date,
+            class: "border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400" %>
+        <span class="text-xs text-gray-400">to</span>
+        <%= f.date_field :end_date, value: @end_date,
+            class: "border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400" %>
+        <%= f.submit "Filter", class: "px-2.5 py-1 text-xs font-medium border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 cursor-pointer" %>
+      <% end %>
+
+      <%= link_to "New", new_cashflow_entry_path,
+          data: { turbo_frame: "inspect" },
+          class: "inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-gray-900 rounded-md hover:bg-gray-700" %>
+    </div>
+
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+          <th class="px-4 py-2.5 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+          <th class="px-4 py-2.5"></th>
+        </tr>
+      </thead>
+      <tbody id="cashflow_entries" class="bg-white divide-y divide-gray-100">
+        <% @entries.each do |entry| %>
+          <%= render "cashflow_entries/row", entry: entry %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <% if @entries.empty? %>
+      <div class="px-6 py-12 text-center text-gray-400 text-sm">No entries yet. Click "New" to add your first income or expense.</div>
+    <% end %>
+  </div>
+
+  <div class="w-80 shrink-0 border-l border-gray-200 bg-white overflow-y-auto">
+    <%= turbo_frame_tag "inspect" do %>
+      <%= render "cashflow_entries/form", entry: @entry %>
+    <% end %>
+  </div>
+</div>
