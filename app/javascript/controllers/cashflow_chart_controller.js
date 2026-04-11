@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
-import { Chart, LineElement, PointElement, LinearScale, CategoryScale, Legend, Tooltip, Filler } from "chart.js"
+import { Chart, LineController, LineElement, PointElement, LinearScale, CategoryScale, Legend, Tooltip, Filler } from "chart.js"
 
-Chart.register(LineElement, PointElement, LinearScale, CategoryScale, Legend, Tooltip, Filler)
+Chart.register(LineController, LineElement, PointElement, LinearScale, CategoryScale, Legend, Tooltip, Filler)
 
 export default class extends Controller {
   static values = {
@@ -19,8 +19,8 @@ export default class extends Controller {
           {
             label: "Cumulative Income",
             data: this.incomeValue,
-            borderColor: "#16a34a",
-            backgroundColor: "rgba(22, 163, 74, 0.08)",
+            borderColor: "#3b82f6",
+            backgroundColor: "rgba(59, 130, 246, 0.08)",
             fill: true,
             tension: 0.3,
             pointRadius: 3,
@@ -29,8 +29,8 @@ export default class extends Controller {
           {
             label: "Cumulative Expenses",
             data: this.expensesValue,
-            borderColor: "#dc2626",
-            backgroundColor: "rgba(220, 38, 38, 0.08)",
+            borderColor: "#f97316",
+            backgroundColor: "rgba(249, 115, 22, 0.08)",
             fill: true,
             tension: 0.3,
             pointRadius: 3,
@@ -49,7 +49,7 @@ export default class extends Controller {
           },
           tooltip: {
             callbacks: {
-              label: (ctx) => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString("en", { minimumFractionDigits: 2 })}`
+              label: (ctx) => ` ${ctx.dataset.label}: Rp ${ctx.parsed.y.toLocaleString("id", { minimumFractionDigits: 0 })}`
             }
           }
         },
@@ -61,7 +61,7 @@ export default class extends Controller {
           y: {
             ticks: {
               font: { size: 11 },
-              callback: (v) => v.toLocaleString("en", { minimumFractionDigits: 0 })
+              callback: (v) => `Rp ${v.toLocaleString("id", { minimumFractionDigits: 0 })}`
             },
             grid: { color: "rgba(0,0,0,0.04)" }
           }

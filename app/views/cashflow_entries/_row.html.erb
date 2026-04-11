@@ -19,7 +19,7 @@
     </div>
   </td>
   <td class="px-4 py-2.5 text-sm font-medium text-right whitespace-nowrap <%= entry.entry_type == 'income' ? 'text-green-700' : 'text-red-700' %>">
-    <%= entry.entry_type == "income" ? "+" : "-" %><%= number_with_delimiter(entry.amount) %>
+    <%= entry.entry_type == "income" ? "+ " : "- " %><%= currency_rp(entry.amount) %>
   </td>
   <td class="px-4 py-2.5 text-right whitespace-nowrap">
     <%= link_to "Edit", edit_cashflow_entry_path(entry),
