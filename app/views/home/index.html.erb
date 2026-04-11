@@ -55,7 +55,7 @@
 
     <%# Calendar export widget %>
     <% calendar = GardenCalendar.new(current_user) %>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 max-w-sm">
+    <div class="bg-white border border-gray-200 rounded-lg p-4 max-w-sm mb-4">
       <h2 class="text-sm font-medium text-gray-900 mb-1">Calendar export</h2>
       <p class="text-xs text-gray-500 mb-3">Download your schedule — germination and harvest dates — as an .ics file to import into Google Calendar or any calendar app.</p>
       <% if calendar.any_events? %>
@@ -69,6 +69,26 @@
           Download .ics
         </span>
         <p class="mt-2 text-xs text-gray-400">Add plants with days to maturity or seeds with germination dates first.</p>
+      <% end %>
+    </div>
+
+    <%# Database import / export widget %>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 max-w-sm">
+      <h2 class="text-sm font-medium text-gray-900 mb-1">Database backup</h2>
+      <p class="text-xs text-gray-500 mb-3">Export all your data as a JSON file, or import a previously exported file to restore records.</p>
+      <div class="flex items-center gap-2 mb-3">
+        <%= link_to database_export_path, class: "inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-700 transition-colors" do %>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          Export JSON
+        <% end %>
+      </div>
+      <%= form_with url: database_import_path, method: :post, multipart: true, data: { turbo: false } do |f| %>
+        <div class="flex items-center gap-2">
+          <%= f.file_field :file, accept: ".json,application/json",
+              class: "block text-xs text-gray-500 file:mr-2 file:py-1 file:px-2.5 file:rounded file:border file:border-gray-300 file:text-xs file:font-medium file:text-gray-600 file:bg-white hover:file:bg-gray-50 file:cursor-pointer" %>
+          <%= f.submit "Import", class: "px-3 py-1.5 text-xs font-medium border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 cursor-pointer whitespace-nowrap" %>
+        </div>
+        <p class="mt-2 text-xs text-gray-400">Importing adds records — it does not overwrite existing data.</p>
       <% end %>
     </div>
   </div>
