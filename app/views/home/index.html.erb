@@ -37,6 +37,59 @@
       <% end %>
     </div>
 
+    <%# Success Rate widget %>
+    <% if @seed_rates.any? || @plant_rates.any? %>
+      <div class="bg-white border border-gray-200 rounded-lg p-4 mb-6">
+        <h2 class="text-sm font-medium text-gray-900 mb-3">Success Rate</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Germination</p>
+            <% if @seed_rates.any? %>
+              <ul class="space-y-2">
+                <% @seed_rates.each do |seed| %>
+                  <% rate = seed.success_rate %>
+                  <li>
+                    <div class="flex items-center justify-between text-xs mb-1">
+                      <span class="text-gray-700 truncate"><%= seed.name %></span>
+                      <span class="text-gray-500 ml-2 flex-shrink-0"><%= rate %>%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5">
+                      <div class="h-1.5 rounded-full <%= rate >= 75 ? 'bg-green-500' : rate >= 50 ? 'bg-yellow-400' : 'bg-red-400' %>"
+                           style="width: <%= [ rate, 100 ].min %>%"></div>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="text-xs text-gray-400">No data yet.</p>
+            <% end %>
+          </div>
+          <div>
+            <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Harvest</p>
+            <% if @plant_rates.any? %>
+              <ul class="space-y-2">
+                <% @plant_rates.each do |plant| %>
+                  <% rate = plant.success_rate %>
+                  <li>
+                    <div class="flex items-center justify-between text-xs mb-1">
+                      <span class="text-gray-700 truncate"><%= plant.name %></span>
+                      <span class="text-gray-500 ml-2 flex-shrink-0"><%= rate %>%</span>
+                    </div>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5">
+                      <div class="h-1.5 rounded-full <%= rate >= 75 ? 'bg-green-500' : rate >= 50 ? 'bg-yellow-400' : 'bg-red-400' %>"
+                           style="width: <%= [ rate, 100 ].min %>%"></div>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="text-xs text-gray-400">No data yet.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
     <%# Cashflow widget %>
     <div class="mb-6">
       <div class="flex items-center justify-between mb-3">

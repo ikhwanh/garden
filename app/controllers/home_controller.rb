@@ -52,6 +52,16 @@ class HomeController < ApplicationController
       .select { |e| e[:date] >= Date.today }
       .sort_by { |e| e[:date] }
       .first(3)
+
+    @seed_rates = current_user.seeds
+      .where.not(quantity_initial: nil).where.not(quantity_final: nil)
+      .where("quantity_initial > 0")
+      .order(:name)
+
+    @plant_rates = current_user.plants
+      .where.not(quantity_initial: nil).where.not(quantity_final: nil)
+      .where("quantity_initial > 0")
+      .order(:name)
   end
 
   private

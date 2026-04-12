@@ -84,6 +84,6 @@ class PlantsController < ApplicationController
   end
 
   def plant_params
-    params.require(:plant).permit(:name, :seed_id, :grow_medium, :planted_on, :days_to_maturity, :container_size, :location)
+    params.require(:plant).permit(:name, :seed_id, :grow_medium, :planted_on, :days_to_maturity, :container_size, :location, :quantity_initial, :quantity_final, :note)
   end
 end

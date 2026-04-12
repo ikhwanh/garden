@@ -12,4 +12,14 @@
       <%= plant.expected_crop_at.strftime("%b %d, %Y") %>
     <% end %>
   </td>
+  <td class="px-4 py-2.5 text-sm text-gray-500">
+    <% if plant.quantity_initial.present? %>
+      <%= plant.quantity_initial %>
+      <% if plant.quantity_final.present? %>
+        → <%= plant.quantity_final %>
+      <% end %>
+    <% else %>
+      —
+    <% end %>
+  </td>
 </tr>

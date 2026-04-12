@@ -28,7 +28,26 @@
       <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Transplanted</dt>
       <dd class="mt-0.5 text-sm text-gray-900"><%= seed.transplanted_on ? seed.transplanted_on.strftime("%b %d, %Y") : "—" %></dd>
     </div>
+    <% if seed.quantity_initial.present? %>
+      <div>
+        <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Quantity</dt>
+        <dd class="mt-0.5 text-sm text-gray-900">
+          <%= seed.quantity_initial %>
+          <% if seed.quantity_final.present? %>
+            → <%= seed.quantity_final %>
+            <span class="text-gray-500">(<%= seed.success_rate %>%)</span>
+          <% end %>
+        </dd>
+      </div>
+    <% end %>
   </dl>
+
+  <% if seed.note.present? %>
+    <div class="pt-3 border-t border-gray-100">
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Note</p>
+      <p class="text-sm text-gray-700 whitespace-pre-wrap"><%= seed.note %></p>
+    </div>
+  <% end %>
 
   <% if seed.plants.any? %>
     <div class="pt-3 border-t border-gray-100">

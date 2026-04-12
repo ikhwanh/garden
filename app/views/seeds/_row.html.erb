@@ -8,4 +8,14 @@
   <td class="px-4 py-2.5 text-sm text-gray-500"><%= seed.started_on ? seed.started_on.strftime("%b %d, %Y") : "—" %></td>
   <td class="px-4 py-2.5 text-sm text-gray-500"><%= seed.expected_germination_on ? seed.expected_germination_on.strftime("%b %d, %Y") : "—" %></td>
   <td class="px-4 py-2.5 text-sm text-gray-500"><%= seed.transplanted_on ? seed.transplanted_on.strftime("%b %d, %Y") : "—" %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500">
+    <% if seed.quantity_initial.present? %>
+      <%= seed.quantity_initial %>
+      <% if seed.quantity_final.present? %>
+        → <%= seed.quantity_final %>
+      <% end %>
+    <% else %>
+      —
+    <% end %>
+  </td>
 </tr>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_11_073415) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_12_000001) do
   create_table "cashflow_entries", force: :cascade do |t|
     t.bigint "amount"
     t.string "category"
@@ -53,7 +53,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_073415) do
     t.string "grow_medium", null: false
     t.string "location"
     t.string "name", null: false
+    t.text "note"
     t.date "planted_on", null: false
+    t.integer "quantity_final"
+    t.integer "quantity_initial"
     t.integer "seed_id"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
@@ -65,6 +68,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_11_073415) do
     t.datetime "created_at", null: false
     t.integer "germination_days"
     t.string "name", null: false
+    t.text "note"
+    t.integer "quantity_final"
+    t.integer "quantity_initial"
     t.date "started_on"
     t.date "transplanted_on"
     t.datetime "updated_at", null: false
