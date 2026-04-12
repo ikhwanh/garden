@@ -6,9 +6,11 @@ class HomeController < ApplicationController
 
     @cf_start_date = parse_date(params[:cf_start]) || 12.months.ago.beginning_of_month.to_date
     @cf_end_date   = parse_date(params[:cf_end])   || Date.today.end_of_month
+    @cf_cost_type  = params[:cf_cost_type].presence
 
     entries = current_user.cashflow_entries
                           .between(@cf_start_date, @cf_end_date)
+                          .then { |q| @cf_cost_type ? q.where(cost_type: @cf_cost_type) : q }
                           .chronological
 
     @cf_total_income   = entries.select { |e| e.entry_type == "income" }.sum(&:amount)

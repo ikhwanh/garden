@@ -8,6 +8,7 @@ class Plant < ApplicationRecord
 
   after_save :update_seed_quantity_final
   after_destroy :update_seed_quantity_final
+  after_destroy :clear_seed_transplanted_on
 
   def expected_crop_at
     planted_on + days_to_maturity.days if days_to_maturity.present?
@@ -25,6 +26,10 @@ class Plant < ApplicationRecord
   validates :quantity_final, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
   private
+
+  def clear_seed_transplanted_on
+    seed&.update_column(:transplanted_on, nil)
+  end
 
   def update_seed_quantity_final
     ids = [ seed_id ]

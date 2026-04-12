@@ -100,6 +100,10 @@
           <span class="text-xs text-gray-400">to</span>
           <%= f.date_field :cf_end, value: @cf_end_date,
               class: "border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400" %>
+          <%= f.select :cf_cost_type,
+              [["All types", ""], ["Fixed", "fixed"], ["Variable", "variable"]],
+              { selected: @cf_cost_type.to_s },
+              class: "border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400" %>
           <%= f.submit "Filter", class: "px-2.5 py-1 text-xs font-medium border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 cursor-pointer" %>
         <% end %>
       </div>

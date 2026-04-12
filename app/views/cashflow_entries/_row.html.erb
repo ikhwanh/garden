@@ -8,15 +8,19 @@
     <% end %>
   </td>
   <td class="px-4 py-2.5">
+    <% if entry.cost_type == "fixed" %>
+      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">Fixed</span>
+    <% elsif entry.cost_type == "variable" %>
+      <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800">Variable</span>
+    <% else %>
+      <span class="text-xs text-gray-300">—</span>
+    <% end %>
+  </td>
+  <td class="px-4 py-2.5">
     <div class="text-sm text-gray-800"><%= entry.description %></div>
-    <div class="flex gap-2 mt-0.5">
-      <% if entry.category.present? %>
-        <span class="text-xs text-gray-400"><%= entry.category.gsub("_", " ").capitalize %></span>
-      <% end %>
-      <% if entry.cost_type.present? %>
-        <span class="text-xs text-gray-400">· <%= entry.cost_type %></span>
-      <% end %>
-    </div>
+    <% if entry.category.present? %>
+      <div class="text-xs text-gray-400 mt-0.5"><%= entry.category.gsub("_", " ").capitalize %></div>
+    <% end %>
   </td>
   <td class="px-4 py-2.5 text-sm font-medium text-right whitespace-nowrap <%= entry.entry_type == 'income' ? 'text-green-700' : 'text-red-700' %>">
     <%= entry.entry_type == "income" ? "+ " : "- " %><%= currency_rp(entry.amount) %>
