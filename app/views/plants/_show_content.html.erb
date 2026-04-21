@@ -16,6 +16,10 @@
     </div>
   </div>
 
+  <% if plant.preset %>
+    <p class="text-xs text-gray-500">Preset: <span class="font-medium text-gray-700"><%= plant.preset.name %> — <%= plant.preset.grow_type %></span></p>
+  <% end %>
+
   <dl class="grid grid-cols-2 gap-x-4 gap-y-3">
     <div>
       <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Medium</dt>
@@ -64,4 +68,21 @@
     </div>
   <% end %>
 
+  <% reminders = plant.reminders.order(:due_on) %>
+  <% if reminders.any? %>
+    <div class="pt-3 border-t border-gray-100">
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Reminders</p>
+      <table class="w-full">
+        <tbody class="divide-y divide-gray-100">
+          <% reminders.each do |reminder| %>
+            <tr class="<%= reminder.notified_at ? 'opacity-40' : '' %>">
+              <td class="py-1.5 text-xs text-gray-500 w-20"><%= reminder.due_on.strftime("%b %d") %></td>
+              <td class="py-1.5 text-xs text-gray-700"><%= reminder.phase %></td>
+              <td class="py-1.5 text-xs text-gray-400 capitalize"><%= reminder.category.tr('_', ' ') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>

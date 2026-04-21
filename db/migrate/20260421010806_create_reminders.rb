@@ -5,7 +5,7 @@ class CreateReminders < ActiveRecord::Migration[8.1]
       t.string :category, null: false
       t.string :phase, null: false
       t.date :due_on, null: false
-      t.jsonb :details, null: false, default: {}
+      t.json :details, null: false, default: {}
       t.datetime :notified_at
 
       t.timestamps

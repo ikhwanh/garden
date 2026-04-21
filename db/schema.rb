@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_12_000001) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_010931) do
   create_table "cashflow_entries", force: :cascade do |t|
     t.bigint "amount"
     t.string "category"
@@ -24,28 +24,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_12_000001) do
     t.index ["user_id"], name: "index_cashflow_entries_on_user_id"
   end
 
-  create_table "fertilizations", force: :cascade do |t|
-    t.decimal "amount", precision: 8, scale: 2
-    t.date "applied_on", null: false
-    t.datetime "created_at", null: false
-    t.string "fertilizer_type", null: false
-    t.integer "plant_id", null: false
-    t.string "unit"
-    t.datetime "updated_at", null: false
-    t.index ["plant_id"], name: "index_fertilizations_on_plant_id"
-  end
-
-  create_table "harvests", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.date "harvested_on", null: false
-    t.integer "plant_id", null: false
-    t.integer "quantity"
-    t.string "unit"
-    t.datetime "updated_at", null: false
-    t.decimal "weight_grams", precision: 8, scale: 2
-    t.index ["plant_id"], name: "index_harvests_on_plant_id"
-  end
-
   create_table "plants", force: :cascade do |t|
     t.string "container_size"
     t.datetime "created_at", null: false
@@ -55,6 +33,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_12_000001) do
     t.string "name", null: false
     t.text "note"
     t.date "planted_on", null: false
+    t.integer "preset_id"
     t.integer "quantity_final"
     t.integer "quantity_initial"
     t.integer "seed_id"
@@ -62,6 +41,32 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_12_000001) do
     t.integer "user_id", null: false
     t.index ["seed_id"], name: "index_plants_on_seed_id"
     t.index ["user_id"], name: "index_plants_on_user_id"
+  end
+
+  create_table "presets", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "days_to_harvest_max"
+    t.integer "days_to_harvest_min"
+    t.string "grow_type", null: false
+    t.string "local_name"
+    t.string "name", null: false
+    t.json "preset_data", default: {}, null: false
+    t.string "slug", null: false
+    t.datetime "updated_at", null: false
+    t.index ["slug"], name: "index_presets_on_slug", unique: true
+  end
+
+  create_table "reminders", force: :cascade do |t|
+    t.string "category", null: false
+    t.datetime "created_at", null: false
+    t.json "details", default: {}, null: false
+    t.date "due_on", null: false
+    t.datetime "notified_at"
+    t.string "phase", null: false
+    t.integer "plant_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plant_id", "due_on"], name: "index_reminders_on_plant_id_and_due_on"
+    t.index ["plant_id"], name: "index_reminders_on_plant_id"
   end
 
   create_table "seeds", force: :cascade do |t|
@@ -91,9 +96,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_12_000001) do
   end
 
   add_foreign_key "cashflow_entries", "users"
-  add_foreign_key "fertilizations", "plants"
-  add_foreign_key "harvests", "plants"
   add_foreign_key "plants", "seeds"
   add_foreign_key "plants", "users"
+  add_foreign_key "reminders", "plants"
   add_foreign_key "seeds", "users"
 end

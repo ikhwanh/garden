@@ -6,6 +6,7 @@ class PlantsController < ApplicationController
     @plants = current_user.plants.includes(:seed).order(:name)
     @plant = current_user.plants.new
     @seeds = current_user.seeds.order(:name)
+    @presets = Preset.order(:name, :grow_type)
   end
 
   def show; end
@@ -13,24 +14,28 @@ class PlantsController < ApplicationController
   def new
     @plant = current_user.plants.new
     @seeds = current_user.seeds.order(:name)
+    @presets = Preset.order(:name, :grow_type)
   end
 
   def create
     @plant = current_user.plants.new(plant_params)
     if @plant.save
       @plant.seed&.update_column(:transplanted_on, @plant.planted_on)
+      ReminderGenerator.call(@plant, @plant.preset) if @plant.preset
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to plant_path(@plant) }
       end
     else
       @seeds = current_user.seeds.order(:name)
+      @presets = Preset.order(:name, :grow_type)
       render :new, status: :unprocessable_entity
     end
   end
 
   def edit
     @seeds = current_user.seeds.order(:name)
+    @presets = Preset.order(:name, :grow_type)
   end
 
   def update
@@ -41,6 +46,7 @@ class PlantsController < ApplicationController
       end
     else
       @seeds = current_user.seeds.order(:name)
+      @presets = Preset.order(:name, :grow_type)
       render :edit, status: :unprocessable_entity
     end
   end
@@ -62,6 +68,6 @@ class PlantsController < ApplicationController
   end
 
   def plant_params
-    params.require(:plant).permit(:name, :seed_id, :grow_medium, :planted_on, :days_to_maturity, :container_size, :location, :quantity_initial, :quantity_final, :note)
+    params.require(:plant).permit(:name, :seed_id, :preset_id, :grow_medium, :planted_on, :days_to_maturity, :container_size, :location, :quantity_initial, :quantity_final, :note)
   end
 end

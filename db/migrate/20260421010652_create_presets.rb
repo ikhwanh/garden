@@ -7,7 +7,7 @@ class CreatePresets < ActiveRecord::Migration[8.1]
       t.string :grow_type, null: false
       t.integer :days_to_harvest_min
       t.integer :days_to_harvest_max
-      t.jsonb :preset_data, null: false, default: {}
+      t.json :preset_data, null: false, default: {}
 
       t.timestamps
     end
