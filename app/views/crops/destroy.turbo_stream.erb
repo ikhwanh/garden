@@ -1,0 +1,4 @@
+<%= turbo_stream.remove "crop_#{@crop.id}" %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "crops/form", crop: current_user.crops.new %>
+<% end %>

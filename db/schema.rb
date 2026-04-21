@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_010931) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_120000) do
   create_table "cashflow_entries", force: :cascade do |t|
     t.bigint "amount"
     t.string "category"
@@ -24,23 +24,32 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_010931) do
     t.index ["user_id"], name: "index_cashflow_entries_on_user_id"
   end
 
-  create_table "plants", force: :cascade do |t|
-    t.string "container_size"
+  create_table "crops", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "days_to_maturity"
-    t.string "grow_medium", null: false
-    t.string "location"
     t.string "name", null: false
     t.text "note"
+    t.integer "nursery_id"
     t.date "planted_on", null: false
     t.integer "preset_id"
     t.integer "quantity_final"
     t.integer "quantity_initial"
-    t.integer "seed_id"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
-    t.index ["seed_id"], name: "index_plants_on_seed_id"
-    t.index ["user_id"], name: "index_plants_on_user_id"
+    t.index ["nursery_id"], name: "index_crops_on_nursery_id"
+    t.index ["user_id"], name: "index_crops_on_user_id"
+  end
+
+  create_table "nurseries", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name", null: false
+    t.text "note"
+    t.integer "quantity_final"
+    t.integer "quantity_initial"
+    t.date "started_on"
+    t.date "transplanted_on"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_nurseries_on_user_id"
   end
 
   create_table "presets", force: :cascade do |t|
@@ -59,28 +68,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_010931) do
   create_table "reminders", force: :cascade do |t|
     t.string "category", null: false
     t.datetime "created_at", null: false
+    t.integer "crop_id", null: false
     t.json "details", default: {}, null: false
     t.date "due_on", null: false
     t.datetime "notified_at"
     t.string "phase", null: false
-    t.integer "plant_id", null: false
     t.datetime "updated_at", null: false
-    t.index ["plant_id", "due_on"], name: "index_reminders_on_plant_id_and_due_on"
-    t.index ["plant_id"], name: "index_reminders_on_plant_id"
-  end
-
-  create_table "seeds", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.integer "germination_days"
-    t.string "name", null: false
-    t.text "note"
-    t.integer "quantity_final"
-    t.integer "quantity_initial"
-    t.date "started_on"
-    t.date "transplanted_on"
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["user_id"], name: "index_seeds_on_user_id"
+    t.index ["crop_id", "due_on"], name: "index_reminders_on_crop_id_and_due_on"
+    t.index ["crop_id"], name: "index_reminders_on_crop_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -96,8 +91,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_010931) do
   end
 
   add_foreign_key "cashflow_entries", "users"
-  add_foreign_key "plants", "seeds"
-  add_foreign_key "plants", "users"
-  add_foreign_key "reminders", "plants"
-  add_foreign_key "seeds", "users"
+  add_foreign_key "crops", "nurseries", column: "nursery_id"
+  add_foreign_key "crops", "users"
+  add_foreign_key "nurseries", "users"
+  add_foreign_key "reminders", "crops"
 end

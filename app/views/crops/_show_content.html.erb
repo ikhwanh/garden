@@ -1,0 +1,66 @@
+<div class="p-4 space-y-4">
+  <div class="flex items-start justify-between gap-2">
+    <div>
+      <h2 class="text-base font-semibold text-gray-900"><%= crop.name %></h2>
+      <% if crop.nursery %>
+        <p class="text-xs text-gray-500 mt-0.5"><%= crop.nursery.name %></p>
+      <% end %>
+    </div>
+    <div class="flex items-center gap-3 shrink-0">
+      <%= link_to "Edit", edit_crop_path(crop),
+          data: { turbo_frame: "inspect" },
+          class: "text-xs text-gray-500 hover:text-gray-900" %>
+      <%= button_to "Delete", crop_path(crop), method: :delete,
+          data: { turbo_confirm: "Delete \"#{crop.name}\"? This will also delete all its reminders." },
+          class: "text-xs text-red-500 hover:text-red-700 bg-transparent border-0 cursor-pointer p-0" %>
+    </div>
+  </div>
+
+  <% if crop.preset %>
+    <p class="text-xs text-gray-500">Preset: <span class="font-medium text-gray-700"><%= crop.preset.name %> — <%= crop.preset.grow_type %></span></p>
+  <% end %>
+
+  <dl class="grid grid-cols-2 gap-x-4 gap-y-3">
+    <div>
+      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Planted</dt>
+      <dd class="mt-0.5 text-sm text-gray-900"><%= crop.planted_on.strftime("%b %d, %Y") %></dd>
+    </div>
+    <% if crop.quantity_initial.present? %>
+      <div>
+        <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Quantity</dt>
+        <dd class="mt-0.5 text-sm text-gray-900">
+          <%= crop.quantity_initial %>
+          <% if crop.quantity_final.present? %>
+            → <%= crop.quantity_final %>
+            <span class="text-gray-500">(<%= crop.success_rate %>%)</span>
+          <% end %>
+        </dd>
+      </div>
+    <% end %>
+  </dl>
+
+  <% if crop.note.present? %>
+    <div class="pt-3 border-t border-gray-100">
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Note</p>
+      <p class="text-sm text-gray-700 whitespace-pre-wrap"><%= crop.note %></p>
+    </div>
+  <% end %>
+
+  <% reminders = crop.reminders.order(:due_on) %>
+  <% if reminders.any? %>
+    <div class="pt-3 border-t border-gray-100">
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Reminders</p>
+      <table class="w-full">
+        <tbody class="divide-y divide-gray-100">
+          <% reminders.each do |reminder| %>
+            <tr class="<%= reminder.notified_at ? 'opacity-40' : '' %>">
+              <td class="py-1.5 text-xs text-gray-500 w-20"><%= reminder.due_on.strftime("%b %d") %></td>
+              <td class="py-1.5 text-xs text-gray-700"><%= reminder.phase %></td>
+              <td class="py-1.5 text-xs text-gray-400 capitalize"><%= reminder.category.tr('_', ' ') %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>

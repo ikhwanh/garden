@@ -38,29 +38,14 @@ class HomeController < ApplicationController
       current = current.next_month
     end
 
-    upcoming = []
+    @upcoming_events = []
 
-    current_user.plants.each do |plant|
-      date = plant.expected_crop_at
-      upcoming << { date: date, label: "Harvest #{plant.name}", type: :harvest } if date
-    end
-
-    current_user.seeds.each do |seed|
-      date = seed.expected_germination_on
-      upcoming << { date: date, label: "Germination #{seed.name}", type: :germination } if date
-    end
-
-    @upcoming_events = upcoming
-      .select { |e| e[:date] >= Date.today }
-      .sort_by { |e| e[:date] }
-      .first(3)
-
-    @seed_rates = current_user.seeds
+    @nursery_rates = current_user.nurseries
       .where.not(quantity_initial: nil).where.not(quantity_final: nil)
       .where("quantity_initial > 0")
       .order(:name)
 
-    @plant_rates = current_user.plants
+    @crop_rates = current_user.crops
       .where.not(quantity_initial: nil).where.not(quantity_final: nil)
       .where("quantity_initial > 0")
       .order(:name)

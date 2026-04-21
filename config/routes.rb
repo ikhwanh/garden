@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :seeds
-  resources :plants
+  resources :nurseries
+  resources :crops
 
   resource :calendar, only: :show
 

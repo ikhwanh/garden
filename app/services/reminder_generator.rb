@@ -17,7 +17,7 @@ class ReminderGenerator
 
         due_dates_for(phase).each do |due_on|
           reminders << {
-            plant_id:   @plant.id,
+            crop_id:    @plant.id,
             category:   category,
             phase:      phase.phase_name,
             due_on:     due_on,

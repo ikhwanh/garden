@@ -1,0 +1,58 @@
+<div class="p-4 space-y-4">
+  <div class="flex items-start justify-between gap-2">
+    <h2 class="text-base font-semibold text-gray-900"><%= nursery.name %></h2>
+    <div class="flex items-center gap-3 shrink-0">
+      <%= link_to "Edit", edit_nursery_path(nursery),
+          data: { turbo_frame: "inspect" },
+          class: "text-xs text-gray-500 hover:text-gray-900" %>
+      <%= button_to "Delete", nursery_path(nursery), method: :delete,
+          data: { turbo_confirm: "Delete \"#{nursery.name}\"?" },
+          class: "text-xs text-red-500 hover:text-red-700 bg-transparent border-0 cursor-pointer p-0" %>
+    </div>
+  </div>
+
+  <dl class="space-y-3">
+    <div>
+      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Started</dt>
+      <dd class="mt-0.5 text-sm text-gray-900"><%= nursery.started_on ? nursery.started_on.strftime("%b %d, %Y") : "—" %></dd>
+    </div>
+    <div>
+      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Transplanted</dt>
+      <dd class="mt-0.5 text-sm text-gray-900"><%= nursery.transplanted_on ? nursery.transplanted_on.strftime("%b %d, %Y") : "—" %></dd>
+    </div>
+    <% if nursery.quantity_initial.present? %>
+      <div>
+        <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Quantity</dt>
+        <dd class="mt-0.5 text-sm text-gray-900">
+          <%= nursery.quantity_initial %>
+          <% if nursery.quantity_final.present? %>
+            → <%= nursery.quantity_final %>
+            <span class="text-gray-500">(<%= nursery.success_rate %>%)</span>
+          <% end %>
+        </dd>
+      </div>
+    <% end %>
+  </dl>
+
+  <% if nursery.note.present? %>
+    <div class="pt-3 border-t border-gray-100">
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Note</p>
+      <p class="text-sm text-gray-700 whitespace-pre-wrap"><%= nursery.note %></p>
+    </div>
+  <% end %>
+
+  <% if nursery.crops.any? %>
+    <div class="pt-3 border-t border-gray-100">
+      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Crops using this nursery</p>
+      <ul class="space-y-1">
+        <% nursery.crops.each do |crop| %>
+          <li>
+            <%= link_to crop.name, crop_path(crop),
+                data: { turbo_frame: "inspect" },
+                class: "text-sm text-blue-600 hover:text-blue-800" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>

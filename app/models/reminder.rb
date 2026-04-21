@@ -1,7 +1,7 @@
 class Reminder < ApplicationRecord
   CATEGORIES = %w[crop_protection pruning_trimming fertilization_schedule pest_disease_checklist soil_parameters].freeze
 
-  belongs_to :plant
+  belongs_to :crop
 
   validates :category, presence: true, inclusion: { in: CATEGORIES }
   validates :phase, presence: true

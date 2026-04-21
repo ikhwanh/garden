@@ -1,15 +1,13 @@
 class DatabaseController < ApplicationController
   def export
-    plant_ids = current_user.plants.pluck(:id)
-
-    seeds = current_user.seeds.map do |s|
-      s.as_json(except: %i[id user_id created_at updated_at])
-       .merge("original_id" => s.id)
+    nurseries = current_user.nurseries.map do |n|
+      n.as_json(except: %i[id user_id created_at updated_at])
+       .merge("original_id" => n.id)
     end
 
-    plants = current_user.plants.map do |p|
-      p.as_json(except: %i[id user_id created_at updated_at seed_id])
-       .merge("original_id" => p.id, "seed_original_id" => p.seed_id)
+    crops = current_user.crops.map do |c|
+      c.as_json(except: %i[id user_id created_at updated_at nursery_id])
+       .merge("original_id" => c.id, "nursery_original_id" => c.nursery_id)
     end
 
     cashflow_entries = current_user.cashflow_entries
@@ -18,8 +16,8 @@ class DatabaseController < ApplicationController
     data = {
       exported_at: Time.current.iso8601,
       version: 1,
-      seeds: seeds,
-      plants: plants,
+      nurseries: nurseries,
+      crops: crops,
       cashflow_entries: cashflow_entries
     }
 
@@ -39,27 +37,25 @@ class DatabaseController < ApplicationController
       return redirect_to root_path, alert: "Invalid JSON file."
     end
 
-    counts = { seeds: 0, plants: 0, cashflow_entries: 0 }
+    counts = { nurseries: 0, crops: 0, cashflow_entries: 0 }
 
     ActiveRecord::Base.transaction do
-      seed_map = {}
-      (data["seeds"] || []).each do |s|
-        seed = current_user.seeds.create!(s.except("original_id"))
-        seed_map[s["original_id"]] = seed.id if s["original_id"]
-        counts[:seeds] += 1
+      nursery_map = {}
+      (data["nurseries"] || []).each do |n|
+        nursery = current_user.nurseries.create!(n.except("original_id"))
+        nursery_map[n["original_id"]] = nursery.id if n["original_id"]
+        counts[:nurseries] += 1
       end
 
-      plant_map = {}
-      (data["plants"] || []).each do |p|
-        attrs = p.except("original_id", "seed_original_id")
-                 .merge("seed_id" => seed_map[p["seed_original_id"]])
-        plant = current_user.plants.create!(attrs)
-        plant_map[p["original_id"]] = plant.id if p["original_id"]
-        counts[:plants] += 1
+      (data["crops"] || []).each do |c|
+        attrs = c.except("original_id", "nursery_original_id")
+                 .merge("nursery_id" => nursery_map[c["nursery_original_id"]])
+        current_user.crops.create!(attrs)
+        counts[:crops] += 1
       end
 
-      (data["cashflow_entries"] || []).each do |c|
-        current_user.cashflow_entries.create!(c)
+      (data["cashflow_entries"] || []).each do |e|
+        current_user.cashflow_entries.create!(e)
         counts[:cashflow_entries] += 1
       end
     end

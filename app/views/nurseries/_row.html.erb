@@ -1,0 +1,19 @@
+<tr id="nursery_<%= nursery.id %>" class="hover:bg-gray-50">
+  <td class="px-4 py-2.5 text-sm font-medium text-gray-900">
+    <%= link_to nursery.name, nursery_path(nursery),
+        data: { turbo_frame: "inspect" },
+        class: "hover:text-blue-600" %>
+  </td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= nursery.started_on ? nursery.started_on.strftime("%b %d, %Y") : "—" %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= nursery.transplanted_on ? nursery.transplanted_on.strftime("%b %d, %Y") : "—" %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500">
+    <% if nursery.quantity_initial.present? %>
+      <%= nursery.quantity_initial %>
+      <% if nursery.quantity_final.present? %>
+        → <%= nursery.quantity_final %>
+      <% end %>
+    <% else %>
+      —
+    <% end %>
+  </td>
+</tr>

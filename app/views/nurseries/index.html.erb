@@ -1,8 +1,8 @@
 <div class="flex h-full">
   <div class="flex-1 overflow-y-auto">
     <div class="px-6 py-3 border-b border-gray-200 bg-white flex items-center justify-between">
-      <h1 class="text-sm font-semibold text-gray-900">Plants</h1>
-      <%= link_to "New", new_plant_path,
+      <h1 class="text-sm font-semibold text-gray-900">Nurseries</h1>
+      <%= link_to "New", new_nursery_path,
           data: { turbo_frame: "inspect" },
           class: "inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-gray-900 rounded-md hover:bg-gray-700" %>
     </div>
@@ -10,27 +10,25 @@
       <thead class="bg-gray-50">
         <tr>
           <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Seed</th>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Medium</th>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Planted</th>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Expected Crop</th>
+          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Started</th>
+          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transplanted</th>
           <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qty</th>
         </tr>
       </thead>
-      <tbody id="plants" class="bg-white divide-y divide-gray-100">
-        <% @plants.each do |plant| %>
-          <%= render "row", plant: plant %>
+      <tbody id="nurseries" class="bg-white divide-y divide-gray-100">
+        <% @nurseries.each do |nursery| %>
+          <%= render "row", nursery: nursery %>
         <% end %>
       </tbody>
     </table>
-    <% if @plants.empty? %>
-      <div class="px-6 py-12 text-center text-gray-400 text-sm">No plants yet. Click "New Plant" to get started.</div>
+    <% if @nurseries.empty? %>
+      <div class="px-6 py-12 text-center text-gray-400 text-sm">No nurseries yet. Click "New" to get started.</div>
     <% end %>
   </div>
 
   <div class="w-80 shrink-0 border-l border-gray-200 bg-white overflow-y-auto">
     <%= turbo_frame_tag "inspect" do %>
-      <%= render "form", plant: @plant %>
+      <%= render "form", nursery: @nursery %>
     <% end %>
   </div>
 </div>

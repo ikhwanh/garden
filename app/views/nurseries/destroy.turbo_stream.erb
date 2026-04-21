@@ -1,0 +1,4 @@
+<%= turbo_stream.remove "nursery_#{@nursery.id}" %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "nurseries/form", nursery: current_user.nurseries.new %>
+<% end %>

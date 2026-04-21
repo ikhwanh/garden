@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "nursery_#{@nursery.id}", partial: "row", locals: { nursery: @nursery } %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "show_content", nursery: @nursery %>
+<% end %>

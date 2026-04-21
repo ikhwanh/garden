@@ -1,4 +1,0 @@
-<%= turbo_stream.replace "seed_#{@seed.id}", partial: "row", locals: { seed: @seed } %>
-<%= turbo_stream.update "inspect" do %>
-  <%= render "show_content", seed: @seed %>
-<% end %>

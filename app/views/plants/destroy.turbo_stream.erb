@@ -1,4 +1,0 @@
-<%= turbo_stream.remove "plant_#{@plant.id}" %>
-<%= turbo_stream.update "inspect" do %>
-  <%= render "plants/form", plant: current_user.plants.new %>
-<% end %>

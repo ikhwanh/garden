@@ -1,0 +1,4 @@
+<%= turbo_stream.replace "crop_#{@crop.id}", partial: "row", locals: { crop: @crop } %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "show_content", crop: @crop %>
+<% end %>

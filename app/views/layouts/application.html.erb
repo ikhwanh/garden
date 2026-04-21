@@ -51,16 +51,16 @@
               <span>&#127968;</span>Dashboard
             <% end %>
 
-            <% seeds_active = request.path.start_with?("/seeds") %>
-            <%= link_to seeds_path,
-                class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{seeds_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
-              <span>&#127793;</span>Seeds
+            <% nurseries_active = request.path.start_with?("/nurseries") %>
+            <%= link_to nurseries_path,
+                class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{nurseries_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
+              <span>&#127793;</span>Nurseries
             <% end %>
 
-            <% plants_active = request.path.start_with?("/plants") %>
-            <%= link_to plants_path,
-                class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{plants_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
-              <span>&#127807;</span>Plants
+            <% crops_active = request.path.start_with?("/crops") %>
+            <%= link_to crops_path,
+                class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{crops_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
+              <span>&#127807;</span>Crops
             <% end %>
 
 
