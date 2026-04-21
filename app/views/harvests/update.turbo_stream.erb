@@ -1,4 +1,0 @@
-<%= turbo_stream.replace "harvest_#{@harvest.id}", partial: "row", locals: { harvest: @harvest } %>
-<%= turbo_stream.update "inspect" do %>
-  <%= render "show_content", harvest: @harvest %>
-<% end %>

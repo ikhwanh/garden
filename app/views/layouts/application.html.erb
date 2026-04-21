@@ -63,17 +63,6 @@
               <span>&#127807;</span>Plants
             <% end %>
 
-            <% ferts_active = request.path.start_with?("/fertilizations") %>
-            <%= link_to fertilizations_path,
-                class: "flex items-center gap-2 pl-6 pr-3 py-1.5 text-sm rounded-md #{ferts_active ? 'bg-gray-100 text-gray-700' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'}" do %>
-              <span>&#128167;</span>Fertilizations
-            <% end %>
-
-            <% harvests_active = request.path.start_with?("/harvests") %>
-            <%= link_to harvests_path,
-                class: "flex items-center gap-2 pl-6 pr-3 py-1.5 text-sm rounded-md #{harvests_active ? 'bg-gray-100 text-gray-700' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'}" do %>
-              <span>&#127806;</span>Harvests
-            <% end %>
 
             <% cashflow_active = request.path.start_with?("/cashflow") %>
             <%= link_to cashflow_path,

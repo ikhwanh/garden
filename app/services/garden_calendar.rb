@@ -5,8 +5,7 @@ class GardenCalendar
 
   def any_events?
     @user.plants.where.not(days_to_maturity: nil).exists? ||
-      @user.seeds.where.not(started_on: nil, germination_days: nil).exists? ||
-      Fertilization.joins(:plant).where(plants: { user: @user }).exists?
+      @user.seeds.where.not(started_on: nil, germination_days: nil).exists?
   end
 
   def to_ical
@@ -15,7 +14,6 @@ class GardenCalendar
 
     harvest_events(cal)
     germination_events(cal)
-    fertilization_events(cal)
 
     cal.publish
     cal.to_ical
@@ -53,17 +51,4 @@ class GardenCalendar
     end
   end
 
-  def fertilization_events(cal)
-    Fertilization.joins(:plant).where(plants: { user: @user }).each do |fert|
-      date = fert.applied_on
-      next if date < Date.today
-
-      cal.event do |e|
-        e.dtstart = Icalendar::Values::Date.new(date)
-        e.dtend   = Icalendar::Values::Date.new(date + 1)
-        e.summary = "Fertilize #{fert.plant.name}: #{fert.fertilizer_type}"
-        e.uid     = "fertilization-#{fert.id}@garden"
-      end
-    end
-  end
 end

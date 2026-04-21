@@ -1,9 +1,18 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+json_path = Rails.root.join("app/presets/preset_crops.json")
+data = JSON.parse(File.read(json_path))
+
+data["crops"].each do |crop|
+  slug = "#{crop["id"]}-#{crop["grow_type"]}"
+
+  Preset.find_or_initialize_by(slug: slug).tap do |preset|
+    preset.name               = crop["name"]
+    preset.local_name         = crop["local_name"]
+    preset.grow_type          = crop["grow_type"]
+    preset.days_to_harvest_min = crop.dig("days_to_harvest", "min")
+    preset.days_to_harvest_max = crop.dig("days_to_harvest", "max")
+    preset.preset_data        = crop["presets"]
+    preset.save!
+  end
+end
+
+puts "Seeded #{Preset.count} presets"

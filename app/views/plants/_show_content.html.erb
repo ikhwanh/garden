@@ -11,7 +11,7 @@
           data: { turbo_frame: "inspect" },
           class: "text-xs text-gray-500 hover:text-gray-900" %>
       <%= button_to "Delete", plant_path(plant), method: :delete,
-          data: { turbo_confirm: "Delete \"#{plant.name}\"? This will also delete all its fertilizations and harvests." },
+          data: { turbo_confirm: "Delete \"#{plant.name}\"? This will also delete all its reminders." },
           class: "text-xs text-red-500 hover:text-red-700 bg-transparent border-0 cursor-pointer p-0" %>
     </div>
   </div>
@@ -64,89 +64,4 @@
     </div>
   <% end %>
 
-  <%# Fertilizations sub-section %>
-  <div class="pt-3 border-t border-gray-100">
-    <div class="flex items-center justify-between mb-2">
-      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide">Fertilizations</p>
-      <%= link_to "+ Add", new_plant_fertilization_path(plant),
-          data: { turbo_frame: "inspect" },
-          class: "text-xs text-gray-500 hover:text-gray-900" %>
-    </div>
-    <%= form_with url: quick_fertilize_plant_path(plant), method: :post, class: "flex items-center gap-2 mb-3" do |f| %>
-      <%= f.select :fertilizer_type,
-          Fertilization::FERTILIZER_TYPES,
-          { include_blank: "Type…" },
-          class: "flex-1 border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400" %>
-      <%= f.submit "+3d", name: "days", value: "3", class: "px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded cursor-pointer" %>
-      <%= f.submit "+7d", name: "days", value: "7", class: "px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded cursor-pointer" %>
-      <%= f.submit "+14d", name: "days", value: "14", class: "px-2 py-1 text-xs bg-gray-100 hover:bg-gray-200 border border-gray-300 rounded cursor-pointer" %>
-    <% end %>
-    <% fertilizations = plant.fertilizations.order(applied_on: :desc) %>
-    <% if fertilizations.any? %>
-      <table class="w-full">
-        <tbody class="divide-y divide-gray-100">
-          <% fertilizations.each do |fert| %>
-            <tr id="fertilization_<%= fert.id %>">
-              <td class="py-1.5 text-sm">
-                <%= link_to fert.fertilizer_type, fertilization_path(fert),
-                    data: { turbo_frame: "inspect" },
-                    class: "text-gray-900 hover:text-blue-600" %>
-              </td>
-              <td class="py-1.5 text-xs text-gray-500"><%= fert.applied_on.strftime("%b %d") %></td>
-              <td class="py-1.5 text-xs text-gray-500">
-                <%= fert.amount.present? ? "#{fert.amount}#{fert.unit}" : "" %>
-              </td>
-              <td class="py-1.5 text-right">
-                <%= button_to "×", fertilization_path(fert), method: :delete,
-                    data: { turbo_confirm: "Delete this fertilization?" },
-                    class: "text-gray-300 hover:text-red-500 bg-transparent border-0 cursor-pointer text-lg leading-none p-0 w-5" %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p class="text-xs text-gray-400">No fertilizations yet.</p>
-    <% end %>
-  </div>
-
-  <%# Harvests sub-section %>
-  <div class="pt-3 border-t border-gray-100">
-    <div class="flex items-center justify-between mb-2">
-      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide">Harvests</p>
-      <%= link_to "+ Add", new_plant_harvest_path(plant),
-          data: { turbo_frame: "inspect" },
-          class: "text-xs text-gray-500 hover:text-gray-900" %>
-    </div>
-    <% harvests = plant.harvests.order(harvested_on: :desc) %>
-    <% if harvests.any? %>
-      <table class="w-full">
-        <tbody class="divide-y divide-gray-100">
-          <% harvests.each do |harvest| %>
-            <tr id="harvest_<%= harvest.id %>">
-              <td class="py-1.5 text-sm">
-                <%= link_to harvest.harvested_on.strftime("%b %d, %Y"), harvest_path(harvest),
-                    data: { turbo_frame: "inspect" },
-                    class: "text-gray-900 hover:text-blue-600" %>
-              </td>
-              <td class="py-1.5 text-xs text-gray-500">
-                <% if harvest.weight_grams.present? %>
-                  <%= harvest.weight_grams %>g
-                <% elsif harvest.quantity.present? %>
-                  <%= harvest.quantity %> <%= harvest.unit %>
-                <% end %>
-              </td>
-              <td class="py-1.5 text-right">
-                <%= button_to "×", harvest_path(harvest), method: :delete,
-                    data: { turbo_confirm: "Delete this harvest?" },
-                    class: "text-gray-300 hover:text-red-500 bg-transparent border-0 cursor-pointer text-lg leading-none p-0 w-5" %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p class="text-xs text-gray-400">No harvests yet.</p>
-    <% end %>
-  </div>
 </div>

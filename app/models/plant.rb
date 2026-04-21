@@ -3,8 +3,8 @@ class Plant < ApplicationRecord
 
   belongs_to :user
   belongs_to :seed, optional: true
-  has_many :fertilizations, dependent: :destroy
-  has_many :harvests, dependent: :destroy
+  belongs_to :preset, optional: true
+  has_many :reminders, dependent: :destroy
 
   after_save :update_seed_quantity_final
   after_destroy :update_seed_quantity_final

@@ -1,6 +1,6 @@
 class PlantsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_plant, only: [ :show, :edit, :update, :destroy, :quick_fertilize ]
+  before_action :set_plant, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @plants = current_user.plants.includes(:seed).order(:name)
@@ -26,28 +26,6 @@ class PlantsController < ApplicationController
     else
       @seeds = current_user.seeds.order(:name)
       render :new, status: :unprocessable_entity
-    end
-  end
-
-  def quick_fertilize
-    days = params[:days].to_i
-    fertilizer_type = params[:fertilizer_type]
-    last_fert = @plant.fertilizations.order(applied_on: :desc).first
-    base_date = last_fert ? last_fert.applied_on : Date.today
-    @fertilization = @plant.fertilizations.build(
-      fertilizer_type: fertilizer_type,
-      applied_on: base_date + days.days
-    )
-    if @fertilization.save
-      respond_to do |format|
-        format.turbo_stream
-        format.html { redirect_to plant_path(@plant) }
-      end
-    else
-      respond_to do |format|
-        format.turbo_stream { render turbo_stream: turbo_stream.replace("flash", partial: "shared/flash") }
-        format.html { redirect_to plant_path(@plant) }
-      end
     end
   end
 
@@ -80,7 +58,7 @@ class PlantsController < ApplicationController
   private
 
   def set_plant
-    @plant = current_user.plants.includes(:seed, :fertilizations, :harvests).find(params[:id])
+    @plant = current_user.plants.includes(:seed, :preset).find(params[:id])
   end
 
   def plant_params

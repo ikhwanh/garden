@@ -2,13 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :seeds
-  resources :plants do
-    resources :fertilizations, only: [ :new, :create ]
-    resources :harvests, only: [ :new, :create ]
-    post :quick_fertilize, on: :member
-  end
-  resources :fertilizations, except: [ :new, :create ]
-  resources :harvests, except: [ :new, :create ]
+  resources :plants
 
   resource :calendar, only: :show
 
