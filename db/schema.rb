@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_21_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_21_130000) do
   create_table "cashflow_entries", force: :cascade do |t|
     t.bigint "amount"
     t.string "category"
@@ -91,7 +91,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_21_120000) do
   end
 
   add_foreign_key "cashflow_entries", "users"
-  add_foreign_key "crops", "nurseries", column: "nursery_id"
+  add_foreign_key "crops", "nurseries"
   add_foreign_key "crops", "users"
   add_foreign_key "nurseries", "users"
   add_foreign_key "reminders", "crops"
