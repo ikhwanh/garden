@@ -29,6 +29,7 @@ class ReminderGenerator
       end
     end
 
+    Reminder.where(crop_id: @plant.id).delete_all
     Reminder.insert_all(reminders) if reminders.any?
   end
 
