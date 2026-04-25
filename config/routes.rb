@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :nurseries
   resources :crops
+  resources :presets
 
   resource :calendar, only: :show
 

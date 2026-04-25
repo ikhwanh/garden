@@ -1,0 +1,16 @@
+<tr id="preset_<%= preset.id %>" class="hover:bg-gray-50">
+  <td class="px-4 py-2.5 text-sm font-medium text-gray-900">
+    <%= link_to preset.name, preset_path(preset),
+        data: { turbo_frame: "inspect" },
+        class: "hover:text-blue-600" %>
+  </td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= preset.local_name.present? ? preset.local_name : "—" %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500"><%= preset.grow_type.capitalize %></td>
+  <td class="px-4 py-2.5 text-sm text-gray-500">
+    <% if preset.days_to_harvest_min.present? || preset.days_to_harvest_max.present? %>
+      <%= [preset.days_to_harvest_min, preset.days_to_harvest_max].compact.join(" – ") %> days
+    <% else %>
+      —
+    <% end %>
+  </td>
+</tr>

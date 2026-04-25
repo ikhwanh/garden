@@ -63,6 +63,11 @@
               <span>&#127807;</span>Crops
             <% end %>
 
+            <% presets_active = request.path.start_with?("/presets") %>
+            <%= link_to presets_path,
+                class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{presets_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
+              <span>&#9881;&#65039;</span>Presets
+            <% end %>
 
             <% cashflow_active = request.path.start_with?("/cashflow") %>
             <%= link_to cashflow_path,

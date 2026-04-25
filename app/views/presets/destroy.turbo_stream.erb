@@ -1,0 +1,4 @@
+<%= turbo_stream.remove "preset_#{@preset.id}" %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "presets/form", preset: Preset.new %>
+<% end %>

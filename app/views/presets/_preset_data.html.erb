@@ -1,0 +1,116 @@
+<% data = preset.preset_data %>
+<% return if data.blank? %>
+
+<%
+  section_labels = {
+    "crop_protection"       => "Crop Protection",
+    "pruning_trimming"      => "Pruning & Trimming",
+    "fertilization_schedule"=> "Fertilization Schedule",
+    "pest_disease_checklist"=> "Pest & Disease Checklist",
+    "soil_parameters"       => "Soil Parameters",
+    "growth_benchmarks"     => "Growth Benchmarks"
+  }
+  section_order = section_labels.keys
+%>
+
+<% (section_order & data.keys).each do |key| %>
+  <% phases = data[key] %>
+  <% next if phases.blank? %>
+
+  <div class="pt-3 border-t border-gray-100">
+    <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2"><%= section_labels[key] %></p>
+
+    <div class="space-y-3">
+      <% phases.each do |phase| %>
+        <div>
+          <%# Phase heading with DAP range %>
+          <% dap = phase["dap_range"] %>
+          <% dap_label = dap ? "DAP #{dap["min"]}–#{dap["max"]}" : (phase["dap"] ? "DAP #{phase["dap"]}" : nil) %>
+          <div class="flex items-baseline gap-2 mb-1">
+            <% if phase["phase"].present? %>
+              <span class="text-xs font-medium text-gray-700"><%= phase["phase"] %></span>
+            <% end %>
+            <% if dap_label %>
+              <span class="text-xs text-gray-400"><%= dap_label %></span>
+            <% end %>
+          </div>
+
+          <% case key %>
+          <% when "crop_protection", "pruning_trimming" %>
+            <% if phase["actions"].present? %>
+              <ul class="space-y-0.5 pl-3">
+                <% phase["actions"].each do |action| %>
+                  <li class="text-xs text-gray-600 before:content-['–'] before:mr-1.5 before:text-gray-400"><%= action %></li>
+                <% end %>
+              </ul>
+            <% end %>
+
+          <% when "fertilization_schedule" %>
+            <% if phase["fertilizers"].present? %>
+              <div class="flex flex-wrap gap-1 mb-1">
+                <% phase["fertilizers"].each do |f| %>
+                  <span class="inline-block px-1.5 py-0.5 bg-green-50 text-green-700 text-xs rounded"><%= f %></span>
+                <% end %>
+              </div>
+            <% end %>
+            <% if phase["interval_days"].present? %>
+              <p class="text-xs text-gray-500">Every <%= phase["interval_days"] %> days</p>
+            <% end %>
+            <% if phase["notes"].present? %>
+              <p class="text-xs text-gray-500 italic"><%= phase["notes"] %></p>
+            <% end %>
+
+          <% when "pest_disease_checklist" %>
+            <% if phase["pests"].present? %>
+              <div class="space-y-1.5">
+                <% phase["pests"].each do |pest| %>
+                  <div class="pl-3 border-l-2 border-orange-200">
+                    <p class="text-xs font-medium text-gray-700"><%= pest["name"] %></p>
+                    <p class="text-xs text-gray-500">Inspect: <span class="text-gray-600"><%= pest["inspect_part"] %></span></p>
+                    <p class="text-xs text-gray-500">Threshold: <span class="text-gray-600"><%= pest["action_threshold"] %></span></p>
+                    <% if pest["inspection_interval_days"].present? %>
+                      <p class="text-xs text-gray-500">Every <%= pest["inspection_interval_days"] %> days</p>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+
+          <% when "soil_parameters" %>
+            <% t = phase["targets"] %>
+            <% if t.present? %>
+              <div class="flex flex-wrap gap-x-4 gap-y-1">
+                <% if t["pH"] %>
+                  <span class="text-xs text-gray-600">pH <strong><%= t["pH"]["min"] %>–<%= t["pH"]["max"] %></strong></span>
+                <% end %>
+                <% if t["moisture_pct"] %>
+                  <span class="text-xs text-gray-600">Moisture <strong><%= t["moisture_pct"]["min"] %>–<%= t["moisture_pct"]["max"] %>%</strong></span>
+                <% end %>
+                <% if t["ec_ms_cm"] %>
+                  <span class="text-xs text-gray-600">EC <strong><%= t["ec_ms_cm"]["min"] %>–<%= t["ec_ms_cm"]["max"] %> mS/cm</strong></span>
+                <% end %>
+              </div>
+            <% end %>
+            <% if phase["notes"].present? %>
+              <p class="text-xs text-gray-500 italic mt-1"><%= phase["notes"] %></p>
+            <% end %>
+
+          <% when "growth_benchmarks" %>
+            <% t = phase["targets"] %>
+            <% if t.present? %>
+              <div class="flex flex-wrap gap-x-4 gap-y-1">
+                <% t.each do |metric, range| %>
+                  <% label = metric.gsub("_", " ").gsub(/\b(\w)/) { $1.upcase } %>
+                  <span class="text-xs text-gray-600"><%= label %> <strong><%= range["min"] %>–<%= range["max"] %></strong></span>
+                <% end %>
+              </div>
+            <% end %>
+            <% if phase["notes"].present? %>
+              <p class="text-xs text-gray-500 italic mt-1"><%= phase["notes"] %></p>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

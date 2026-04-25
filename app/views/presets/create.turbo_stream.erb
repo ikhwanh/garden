@@ -1,0 +1,4 @@
+<%= turbo_stream.append "presets", partial: "row", locals: { preset: @preset } %>
+<%= turbo_stream.update "inspect" do %>
+  <%= render "show_content", preset: @preset %>
+<% end %>
