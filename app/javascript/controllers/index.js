@@ -12,3 +12,6 @@ application.register("cashflow-chart", CashflowChartController)
 
 import CashflowFormController from "./cashflow_form_controller"
 application.register("cashflow-form", CashflowFormController)
+
+import CropPanelController from "./crop_panel_controller"
+application.register("crop-panel", CropPanelController)

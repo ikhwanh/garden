@@ -20,12 +20,11 @@ class HomeController < ApplicationController
                                      .sort_by { |loc, _| loc == "Unassigned" ? "zzz" : loc.downcase }
                                      .to_h
 
-    @upcoming_reminders = Reminder
+    @reminders_by_crop = Reminder
       .joins(:crop)
-      .where(crops: { user_id: current_user.id })
-      .where(due_on: Date.today..30.days.from_now)
+      .where(crops: { user_id: current_user.id, harvested_on: nil })
       .order(:due_on)
-      .includes(:crop)
+      .group_by(&:crop_id)
   end
 
   def load_finance_data

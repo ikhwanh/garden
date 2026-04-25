@@ -13,7 +13,7 @@
 
     <%# Monitoring tab %>
     <% if @active_tab == "monitoring" %>
-      <div class="flex gap-4 h-full min-h-0">
+      <div class="flex gap-4 h-full min-h-0" data-controller="crop-panel">
 
         <%# Left pane: crops grouped by location %>
         <div class="flex-1 min-w-0 overflow-y-auto">
@@ -53,7 +53,11 @@
                       <% card_class = "bg-white border-gray-200" %>
                       <% label_class = "text-gray-300" %>
                     <% end %>
-                    <div class="border <%= card_class %> rounded-xl p-3 w-36 flex-shrink-0">
+                    <div class="border <%= card_class %> rounded-xl p-3 w-36 flex-shrink-0 cursor-pointer ring-2 ring-transparent transition-all"
+                         data-action="click->crop-panel#select"
+                         data-crop-panel-crop-id-param="<%= crop.id %>"
+                         data-crop-panel-target="card"
+                         data-crop-id="<%= crop.id %>">
                       <p class="text-sm font-medium text-gray-900 truncate mb-1"><%= crop.name %></p>
                       <% if crop.expected_harvest_on %>
                         <p class="text-xs <%= label_class %>">
@@ -78,34 +82,90 @@
           <% end %>
         </div>
 
-        <%# Right pane: reminder timeline %>
-        <div class="w-64 flex-shrink-0 overflow-y-auto">
+        <%# Right pane: treatment %>
+        <div class="w-96 flex-shrink-0 overflow-y-auto">
           <div class="bg-white border border-gray-200 rounded-lg p-4">
-            <h2 class="text-sm font-medium text-gray-900 mb-3">Timeline</h2>
-            <% if @upcoming_reminders.any? %>
-              <% @upcoming_reminders.group_by(&:due_on).each do |date, reminders| %>
-                <div class="mb-4">
-                  <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1.5">
-                    <% if date == Date.today %>
-                      Today
-                    <% elsif date == Date.today + 1 %>
-                      Tomorrow
-                    <% else %>
-                      <%= date.strftime("%b %-d") %>
+            <h2 class="text-sm font-medium text-gray-900 mb-3">Treatment</h2>
+            <p class="text-xs text-gray-400" data-crop-panel-target="placeholder">Select a crop to view treatments.</p>
+
+            <% @crops_by_location.values.flatten.each do |crop| %>
+              <% crop_reminders = @reminders_by_crop[crop.id] || [] %>
+              <div class="hidden" data-crop-panel-target="panel" data-crop-id="<%= crop.id %>">
+                <% if crop_reminders.any? %>
+                  <div class="space-y-4">
+                    <% crop_reminders.each do |reminder| %>
+                      <% d = reminder.details %>
+                      <div class="border-l-2 border-gray-200 pl-3">
+                        <div class="flex items-baseline justify-between gap-2 mb-1.5">
+                          <span class="text-xs font-semibold text-gray-700"><%= reminder.category.humanize %></span>
+                          <span class="text-xs text-gray-400 flex-shrink-0"><%= reminder.due_on.strftime("%b %-d, %Y") %></span>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-1.5"><%= reminder.phase %></p>
+
+                        <% case reminder.category %>
+                        <% when "crop_protection", "pruning_trimming" %>
+                          <% if d["actions"].present? %>
+                            <ul class="space-y-0.5">
+                              <% d["actions"].each do |action| %>
+                                <li class="text-xs text-gray-600 before:content-['–'] before:mr-1.5 before:text-gray-400"><%= action %></li>
+                              <% end %>
+                            </ul>
+                          <% end %>
+
+                        <% when "fertilization_schedule" %>
+                          <% if d["fertilizers"].present? %>
+                            <div class="flex flex-wrap gap-1 mb-1">
+                              <% d["fertilizers"].each do |f| %>
+                                <span class="inline-block px-1.5 py-0.5 bg-green-50 text-green-700 text-xs rounded"><%= f %></span>
+                              <% end %>
+                            </div>
+                          <% end %>
+                          <% if d["notes"].present? %>
+                            <p class="text-xs text-gray-500 italic"><%= d["notes"] %></p>
+                          <% end %>
+
+                        <% when "pest_disease_checklist" %>
+                          <% if d["pests"].present? %>
+                            <div class="space-y-1.5">
+                              <% d["pests"].each do |pest| %>
+                                <div class="pl-2 border-l-2 border-orange-200">
+                                  <p class="text-xs font-medium text-gray-700"><%= pest["name"] %></p>
+                                  <% if pest["inspect_part"].present? %>
+                                    <p class="text-xs text-gray-500">Inspect: <span class="text-gray-600"><%= pest["inspect_part"] %></span></p>
+                                  <% end %>
+                                  <% if pest["action_threshold"].present? %>
+                                    <p class="text-xs text-gray-500">Threshold: <span class="text-gray-600"><%= pest["action_threshold"] %></span></p>
+                                  <% end %>
+                                  <% if pest["inspection_interval_days"].present? %>
+                                    <p class="text-xs text-gray-500">Every <%= pest["inspection_interval_days"] %> days</p>
+                                  <% end %>
+                                </div>
+                              <% end %>
+                            </div>
+                          <% end %>
+
+                        <% when "soil_parameters" %>
+                          <% if (t = d["targets"]).present? %>
+                            <div class="flex flex-wrap gap-x-4 gap-y-1">
+                              <% if t["pH"] %>
+                                <span class="text-xs text-gray-600">pH <strong><%= t["pH"]["min"] %>–<%= t["pH"]["max"] %></strong></span>
+                              <% end %>
+                              <% if t["moisture_pct"] %>
+                                <span class="text-xs text-gray-600">Moisture <strong><%= t["moisture_pct"]["min"] %>–<%= t["moisture_pct"]["max"] %>%</strong></span>
+                              <% end %>
+                              <% if t["ec_ms_cm"] %>
+                                <span class="text-xs text-gray-600">EC <strong><%= t["ec_ms_cm"]["min"] %>–<%= t["ec_ms_cm"]["max"] %> mS/cm</strong></span>
+                              <% end %>
+                            </div>
+                          <% end %>
+                        <% end %>
+                      </div>
                     <% end %>
-                  </p>
-                  <ul class="space-y-1.5">
-                    <% reminders.each do |reminder| %>
-                      <li class="text-xs text-gray-700 border-l-2 border-gray-200 pl-2">
-                        <span class="font-medium"><%= reminder.crop.name %></span>
-                        <span class="text-gray-400 block"><%= reminder.category.humanize %></span>
-                      </li>
-                    <% end %>
-                  </ul>
-                </div>
-              <% end %>
-            <% else %>
-              <p class="text-xs text-gray-400">No reminders in the next 30 days.</p>
+                  </div>
+                <% else %>
+                  <p class="text-xs text-gray-400">No treatments scheduled.</p>
+                <% end %>
+              </div>
             <% end %>
           </div>
         </div>
