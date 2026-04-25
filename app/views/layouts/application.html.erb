@@ -47,8 +47,15 @@
           <nav class="p-2 space-y-0.5">
             <% dashboard_active = request.path == "/" %>
             <%= link_to root_path,
-                class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{dashboard_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
+                class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{dashboard_active ? 'text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
               <span>&#127968;</span>Dashboard
+            <% end %>
+            <% if dashboard_active %>
+              <% active_tab = HomeController::TABS.include?(params[:tab]) ? params[:tab] : "monitoring" %>
+              <% [["monitoring", "Monitoring"], ["finance", "Finance"], ["tools", "Tools"]].each do |tab, label| %>
+                <%= link_to label, root_path(tab: tab),
+                    class: "flex items-center pl-9 pr-3 py-1.5 text-xs font-medium rounded-md #{active_tab == tab ? 'bg-gray-100 text-gray-900' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'}" %>
+              <% end %>
             <% end %>
 
             <% nurseries_active = request.path.start_with?("/nurseries") %>
