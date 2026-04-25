@@ -37,6 +37,34 @@
       <% end %>
     </div>
 
+    <%# Upcoming Reminders widget %>
+    <% if @upcoming_reminders.any? %>
+      <div class="bg-white border border-gray-200 rounded-lg p-4 mb-6">
+        <h2 class="text-sm font-medium text-gray-900 mb-3">Upcoming Reminders</h2>
+        <ul class="space-y-2">
+          <% @upcoming_reminders.each do |reminder| %>
+            <li class="flex items-center justify-between gap-3">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-100 text-amber-700 flex-shrink-0">
+                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </span>
+                <div class="min-w-0">
+                  <span class="text-sm text-gray-700 truncate block"><%= reminder.crop.name %></span>
+                  <span class="text-xs text-gray-400 truncate block"><%= reminder.category.humanize %> &middot; <%= reminder.phase.humanize %></span>
+                </div>
+              </div>
+              <% days_away = (reminder.due_on - Date.today).to_i %>
+              <span class="text-xs text-gray-400 flex-shrink-0 text-right">
+                <%= reminder.due_on.strftime("%b %-d") %>
+                <span class="ml-1 text-gray-300">&middot;</span>
+                <%= days_away == 0 ? "today" : "#{days_away}d" %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <%# Success Rate widget %>
     <% if @nursery_rates.any? || @crop_rates.any? %>
       <div class="bg-white border border-gray-200 rounded-lg p-4 mb-6">
