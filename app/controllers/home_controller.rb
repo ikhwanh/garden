@@ -8,10 +8,25 @@ class HomeController < ApplicationController
 
     @active_tab = TABS.include?(params[:tab]) ? params[:tab] : "finance"
 
+    load_monitoring_data if @active_tab == "monitoring"
     load_finance_data if @active_tab == "finance"
   end
 
   private
+
+  def load_monitoring_data
+    active_crops = current_user.crops.where(harvested_on: nil).includes(:preset)
+    @crops_by_location = active_crops.group_by { |c| c.location.presence || "Unassigned" }
+                                     .sort_by { |loc, _| loc == "Unassigned" ? "zzz" : loc.downcase }
+                                     .to_h
+
+    @upcoming_reminders = Reminder
+      .joins(:crop)
+      .where(crops: { user_id: current_user.id })
+      .where(due_on: Date.today..30.days.from_now)
+      .order(:due_on)
+      .includes(:crop)
+  end
 
   def load_finance_data
     @cf_start_date = parse_date(params[:cf_start]) || 12.months.ago.beginning_of_month.to_date

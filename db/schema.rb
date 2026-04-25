@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_25_062956) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_25_074533) do
   create_table "cashflow_entries", force: :cascade do |t|
     t.bigint "amount"
     t.string "category"
@@ -26,6 +26,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_25_062956) do
 
   create_table "crops", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.date "expected_harvest_on"
     t.date "harvested_on"
     t.string "name", null: false
     t.text "note"

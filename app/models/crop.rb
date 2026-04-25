@@ -4,12 +4,13 @@ class Crop < ApplicationRecord
   belongs_to :preset, optional: true
   has_many :reminders, dependent: :destroy
 
+  before_save :set_expected_harvest_on, if: -> { preset_id_changed? || planted_on_changed? }
   after_save :update_nursery_quantity_final
   after_destroy :update_nursery_quantity_final
   after_destroy :clear_nursery_transplanted_on
 
   def location
-    notes&.match(/^LOCATION:\s*(.+)/i)&.captures&.first&.strip
+    note&.match(/^LOCATION:\s*(.+)/i)&.captures&.first&.strip
   end
 
   def success_rate
@@ -23,6 +24,13 @@ class Crop < ApplicationRecord
   validates :quantity_final, numericality: { only_integer: true, greater_than_or_equal_to: 0 }, allow_nil: true
 
   private
+
+  def set_expected_harvest_on
+    self.expected_harvest_on =
+      if preset&.days_to_harvest_max && planted_on
+        planted_on + preset.days_to_harvest_max.days
+      end
+  end
 
   def clear_nursery_transplanted_on
     nursery&.update_column(:transplanted_on, nil)

@@ -13,7 +13,104 @@
 
     <%# Monitoring tab %>
     <% if @active_tab == "monitoring" %>
-      <p class="text-sm text-gray-400">Nothing here yet.</p>
+      <div class="flex gap-4 h-full min-h-0">
+
+        <%# Left pane: crops grouped by location %>
+        <div class="flex-1 min-w-0 overflow-y-auto">
+          <% if @crops_by_location.any? %>
+            <% @crops_by_location.each do |location, crops| %>
+              <div class="mb-6">
+                <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">
+                  Location: <%= location %>
+                </p>
+                <div class="flex flex-wrap gap-3">
+                  <% crops.each do |crop| %>
+                    <% if crop.expected_harvest_on %>
+                      <% days_left = (crop.expected_harvest_on - Date.today).to_i %>
+                      <% card_class = if days_left < 0
+                           "bg-red-50 border-red-200"
+                         elsif days_left == 0
+                           "bg-orange-50 border-orange-200"
+                         elsif days_left <= 7
+                           "bg-yellow-50 border-yellow-200"
+                         elsif days_left <= 14
+                           "bg-lime-50 border-lime-200"
+                         else
+                           "bg-green-50 border-green-200"
+                         end %>
+                      <% label_class = if days_left < 0
+                           "text-red-500"
+                         elsif days_left == 0
+                           "text-orange-600"
+                         elsif days_left <= 7
+                           "text-yellow-600"
+                         elsif days_left <= 14
+                           "text-lime-600"
+                         else
+                           "text-green-600"
+                         end %>
+                    <% else %>
+                      <% card_class = "bg-white border-gray-200" %>
+                      <% label_class = "text-gray-300" %>
+                    <% end %>
+                    <div class="border <%= card_class %> rounded-xl p-3 w-36 flex-shrink-0">
+                      <p class="text-sm font-medium text-gray-900 truncate mb-1"><%= crop.name %></p>
+                      <% if crop.expected_harvest_on %>
+                        <p class="text-xs <%= label_class %>">
+                          <% if days_left < 0 %>
+                            <%= days_left.abs %>d overdue
+                          <% elsif days_left == 0 %>
+                            Harvest today
+                          <% else %>
+                            <%= days_left %>d to harvest
+                          <% end %>
+                        </p>
+                      <% else %>
+                        <p class="text-xs <%= label_class %>">No harvest date</p>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% else %>
+            <p class="text-sm text-gray-400">No active crops.</p>
+          <% end %>
+        </div>
+
+        <%# Right pane: reminder timeline %>
+        <div class="w-64 flex-shrink-0 overflow-y-auto">
+          <div class="bg-white border border-gray-200 rounded-lg p-4">
+            <h2 class="text-sm font-medium text-gray-900 mb-3">Timeline</h2>
+            <% if @upcoming_reminders.any? %>
+              <% @upcoming_reminders.group_by(&:due_on).each do |date, reminders| %>
+                <div class="mb-4">
+                  <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1.5">
+                    <% if date == Date.today %>
+                      Today
+                    <% elsif date == Date.today + 1 %>
+                      Tomorrow
+                    <% else %>
+                      <%= date.strftime("%b %-d") %>
+                    <% end %>
+                  </p>
+                  <ul class="space-y-1.5">
+                    <% reminders.each do |reminder| %>
+                      <li class="text-xs text-gray-700 border-l-2 border-gray-200 pl-2">
+                        <span class="font-medium"><%= reminder.crop.name %></span>
+                        <span class="text-gray-400 block"><%= reminder.category.humanize %></span>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+            <% else %>
+              <p class="text-xs text-gray-400">No reminders in the next 30 days.</p>
+            <% end %>
+          </div>
+        </div>
+
+      </div>
     <% end %>
 
     <%# Finance tab %>
