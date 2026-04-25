@@ -47,6 +47,11 @@ class CropsController < ApplicationController
 
   def update
     if @crop.update(crop_params)
+      if @crop.preset
+        ReminderGenerator.call(@crop, @crop.preset)
+      else
+        Reminder.where(crop_id: @crop.id).delete_all
+      end
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to crop_path(@crop) }

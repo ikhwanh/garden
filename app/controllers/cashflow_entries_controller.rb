@@ -47,6 +47,6 @@ class CashflowEntriesController < ApplicationController
   end
 
   def entry_params
-    params.require(:cashflow_entry).permit(:entry_type, :amount, :description, :occurred_on)
+    params.require(:cashflow_entry).permit(:entry_type, :cost_type, :category, :amount, :description, :occurred_on)
   end
 end

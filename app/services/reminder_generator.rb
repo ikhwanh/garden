@@ -12,6 +12,7 @@ class ReminderGenerator
     reminders = []
 
     @preset.preset_data.each do |category, phases|
+      next unless PresetPhase::Base::CATEGORY_MAP.key?(category)
       phases.each do |phase_data|
         phase = PresetPhase::Base.for(category, phase_data)
 

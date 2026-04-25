@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   def index
     authorize :home
 
-    @active_tab = TABS.include?(params[:tab]) ? params[:tab] : "finance"
+    @active_tab = TABS.include?(params[:tab]) ? params[:tab] : "monitoring"
 
     load_monitoring_data if @active_tab == "monitoring"
     load_finance_data if @active_tab == "finance"
