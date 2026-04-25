@@ -1,9 +1,19 @@
 class HomeController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, with: :redirect_to_login
 
+  TABS = %w[monitoring finance tools].freeze
+
   def index
     authorize :home
 
+    @active_tab = TABS.include?(params[:tab]) ? params[:tab] : "finance"
+
+    load_finance_data if @active_tab == "finance"
+  end
+
+  private
+
+  def load_finance_data
     @cf_start_date = parse_date(params[:cf_start]) || 12.months.ago.beginning_of_month.to_date
     @cf_end_date   = parse_date(params[:cf_end])   || Date.today.end_of_month
     @cf_cost_type  = params[:cf_cost_type].presence
@@ -48,8 +58,6 @@ class HomeController < ApplicationController
       .where("quantity_initial > 0")
       .order(:name)
   end
-
-  private
 
   def redirect_to_login
     redirect_to new_user_session_path
