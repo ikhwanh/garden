@@ -3,7 +3,9 @@ class CropsController < ApplicationController
   before_action :set_crop, only: [ :show, :edit, :update, :destroy ]
 
   def index
+    @show_harvested = params[:show_harvested] == "1"
     @crops = current_user.crops.includes(:nursery).order(:name)
+    @crops = @crops.where(harvested_on: nil) unless @show_harvested
     @crop = current_user.crops.new
     @nurseries = current_user.nurseries.order(:name)
     @presets = Preset.order(:name, :grow_type)
@@ -68,6 +70,6 @@ class CropsController < ApplicationController
   end
 
   def crop_params
-    params.require(:crop).permit(:name, :nursery_id, :preset_id, :planted_on, :quantity_initial, :quantity_final, :note)
+    params.require(:crop).permit(:name, :nursery_id, :preset_id, :planted_on, :harvested_on, :quantity_initial, :quantity_final, :note)
   end
 end

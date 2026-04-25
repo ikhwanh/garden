@@ -1,8 +1,8 @@
-<tr id="crop_<%= crop.id %>" class="hover:bg-gray-50">
+<tr id="crop_<%= crop.id %>" class="hover:bg-gray-50 <%= crop.harvested_on? ? 'opacity-50' : '' %>">
   <td class="px-4 py-2.5 text-sm font-medium text-gray-900">
     <%= link_to crop.name, crop_path(crop),
         data: { turbo_frame: "inspect" },
-        class: "hover:text-blue-600" %>
+        class: "hover:text-blue-600 #{crop.harvested_on? ? 'line-through' : ''}" %>
   </td>
   <td class="px-4 py-2.5 text-sm text-gray-500"><%= crop.nursery&.name %></td>
   <td class="px-4 py-2.5 text-sm text-gray-500"><%= crop.planted_on.strftime("%b %d, %Y") %></td>
