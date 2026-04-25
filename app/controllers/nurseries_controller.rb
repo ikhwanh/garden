@@ -1,9 +1,11 @@
 class NurseriesController < ApplicationController
+  include Paginatable
+
   before_action :authenticate_user!
   before_action :set_nursery, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @nurseries = current_user.nurseries.order(:name)
+    @nurseries = paginate(current_user.nurseries.order(:name))
     @nursery = current_user.nurseries.new
   end
 

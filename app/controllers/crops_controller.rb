@@ -1,11 +1,14 @@
 class CropsController < ApplicationController
+  include Paginatable
+
   before_action :authenticate_user!
   before_action :set_crop, only: [ :show, :edit, :update, :destroy ]
 
   def index
     @show_harvested = params[:show_harvested] == "1"
-    @crops = current_user.crops.includes(:nursery).order(:name)
-    @crops = @crops.where(harvested_on: nil) unless @show_harvested
+    scope = current_user.crops.includes(:nursery).order(:name)
+    scope = scope.where(harvested_on: nil) unless @show_harvested
+    @crops = paginate(scope)
     @crop = current_user.crops.new
     @nurseries = current_user.nurseries.order(:name)
     @presets = Preset.order(:name, :grow_type)

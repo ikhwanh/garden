@@ -1,0 +1,19 @@
+<% if total_pages > 1 %>
+  <div class="px-6 py-3 border-t border-gray-200 flex items-center justify-between text-xs text-gray-500">
+    <span>Page <%= current_page %> of <%= total_pages %></span>
+    <div class="flex gap-2">
+      <% if current_page > 1 %>
+        <%= link_to "Previous", url_for_page.call(current_page - 1),
+            class: "px-2.5 py-1 border border-gray-300 rounded text-gray-600 hover:bg-gray-50" %>
+      <% else %>
+        <span class="px-2.5 py-1 border border-gray-200 rounded text-gray-300 cursor-not-allowed select-none">Previous</span>
+      <% end %>
+      <% if current_page < total_pages %>
+        <%= link_to "Next", url_for_page.call(current_page + 1),
+            class: "px-2.5 py-1 border border-gray-300 rounded text-gray-600 hover:bg-gray-50" %>
+      <% else %>
+        <span class="px-2.5 py-1 border border-gray-200 rounded text-gray-300 cursor-not-allowed select-none">Next</span>
+      <% end %>
+    </div>
+  </div>
+<% end %>

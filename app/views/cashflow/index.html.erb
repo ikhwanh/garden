@@ -37,6 +37,10 @@
       </tbody>
     </table>
 
+    <%= render "shared/pagination",
+        current_page: @current_page,
+        total_pages: @total_pages,
+        url_for_page: ->(page) { cashflow_path(page: page, start_date: @start_date, end_date: @end_date) } %>
     <% if @entries.empty? %>
       <div class="px-6 py-12 text-center text-gray-400 text-sm">No entries yet. Click "New" to add your first income or expense.</div>
     <% end %>

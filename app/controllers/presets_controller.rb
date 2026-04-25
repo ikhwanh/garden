@@ -1,9 +1,11 @@
 class PresetsController < ApplicationController
+  include Paginatable
+
   before_action :authenticate_user!
   before_action :set_preset, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @presets = Preset.order(:name)
+    @presets = paginate(Preset.order(:name))
     @preset = Preset.new
   end
 

@@ -21,6 +21,10 @@
         <% end %>
       </tbody>
     </table>
+    <%= render "shared/pagination",
+        current_page: @current_page,
+        total_pages: @total_pages,
+        url_for_page: ->(page) { nurseries_path(page: page) } %>
     <% if @nurseries.empty? %>
       <div class="px-6 py-12 text-center text-gray-400 text-sm">No nurseries yet. Click "New" to get started.</div>
     <% end %>

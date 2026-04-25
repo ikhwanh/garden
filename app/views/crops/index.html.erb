@@ -26,6 +26,10 @@
         <% end %>
       </tbody>
     </table>
+    <%= render "shared/pagination",
+        current_page: @current_page,
+        total_pages: @total_pages,
+        url_for_page: ->(page) { crops_path(page: page, show_harvested: @show_harvested ? "1" : nil) } %>
     <% if @crops.empty? %>
       <div class="px-6 py-12 text-center text-gray-400 text-sm">No crops yet. Click "New" to get started.</div>
     <% end %>

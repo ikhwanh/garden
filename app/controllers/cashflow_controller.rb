@@ -1,13 +1,14 @@
 class CashflowController < ApplicationController
+  include Paginatable
+
   before_action :authenticate_user!
 
   def index
     @start_date = parse_date(params[:start_date]) || 12.months.ago.beginning_of_month.to_date
     @end_date   = parse_date(params[:end_date])   || Date.today.end_of_month
 
-    @entries = current_user.cashflow_entries
-                           .between(@start_date, @end_date)
-                           .ordered
+    scope    = current_user.cashflow_entries.between(@start_date, @end_date).ordered
+    @entries = paginate(scope)
 
     @entry = current_user.cashflow_entries.new
   end
