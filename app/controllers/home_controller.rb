@@ -38,14 +38,6 @@ class HomeController < ApplicationController
       current = current.next_month
     end
 
-    @upcoming_events = []
-
-    @upcoming_reminders = Reminder
-      .joins(:crop)
-      .where(crops: { user_id: current_user.id })
-      .upcoming
-      .limit(10)
-
     @nursery_rates = current_user.nurseries
       .where.not(quantity_initial: nil).where.not(quantity_final: nil)
       .where("quantity_initial > 0")
