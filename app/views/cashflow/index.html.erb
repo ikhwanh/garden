@@ -19,14 +19,15 @@
           class: "inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-gray-900 rounded-md hover:bg-gray-700" %>
     </div>
 
+    <% sort_url = ->(s, d) { cashflow_path(sort: s, direction: d, start_date: @start_date, end_date: @end_date) } %>
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
         <tr>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cost Type</th>
+          <%= render "shared/sort_th", label: "Date", column: "occurred_on", sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
+          <%= render "shared/sort_th", label: "Type", column: "entry_type", sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
+          <%= render "shared/sort_th", label: "Cost Type", column: "cost_type", sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
           <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-          <th class="px-4 py-2.5 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+          <%= render "shared/sort_th", label: "Amount", column: "amount", sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url, align: "right" %>
           <th class="px-4 py-2.5"></th>
         </tr>
       </thead>
@@ -40,7 +41,7 @@
     <%= render "shared/pagination",
         current_page: @current_page,
         total_pages: @total_pages,
-        url_for_page: ->(page) { cashflow_path(page: page, start_date: @start_date, end_date: @end_date) } %>
+        url_for_page: ->(page) { cashflow_path(page: page, sort: @sort_column, direction: @sort_direction, start_date: @start_date, end_date: @end_date) } %>
     <% if @entries.empty? %>
       <div class="px-6 py-12 text-center text-gray-400 text-sm">No entries yet. Click "New" to add your first income or expense.</div>
     <% end %>

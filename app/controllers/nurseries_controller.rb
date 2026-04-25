@@ -1,11 +1,13 @@
 class NurseriesController < ApplicationController
   include Paginatable
+  include Sortable
 
   before_action :authenticate_user!
   before_action :set_nursery, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @nurseries = paginate(current_user.nurseries.order(:name))
+    scope = apply_sort(current_user.nurseries, allowed_columns: %w[name started_on transplanted_on quantity_initial], default_column: :name)
+    @nurseries = paginate(scope)
     @nursery = current_user.nurseries.new
   end
 

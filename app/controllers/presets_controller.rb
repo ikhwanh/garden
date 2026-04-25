@@ -1,11 +1,13 @@
 class PresetsController < ApplicationController
   include Paginatable
+  include Sortable
 
   before_action :authenticate_user!
   before_action :set_preset, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @presets = paginate(Preset.order(:name))
+    scope = apply_sort(Preset.all, allowed_columns: %w[name local_name grow_type days_to_harvest_min], default_column: :name)
+    @presets = paginate(scope)
     @preset = Preset.new
   end
 

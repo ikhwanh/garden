@@ -1,0 +1,13 @@
+<%# locals: (label:, column:, sort_column:, sort_direction:, url:, align: "left") %>
+<% active = sort_column.to_s == column.to_s %>
+<% next_dir = (active && sort_direction == "asc") ? "desc" : "asc" %>
+<% align_class = align == "right" ? "text-right" : "text-left" %>
+<th class="px-4 py-2.5 <%= align_class %> text-xs font-medium uppercase tracking-wider">
+  <%= link_to url.call(column, next_dir),
+      class: "group inline-flex items-center gap-1 #{active ? 'text-gray-900' : 'text-gray-500 hover:text-gray-700'}" do %>
+    <%= label %>
+    <span class="<%= active ? 'text-gray-400' : 'text-gray-300 opacity-0 group-hover:opacity-100' %>">
+      <%= (active && sort_direction == "desc") ? "↓" : "↑" %>
+    </span>
+  <% end %>
+</th>

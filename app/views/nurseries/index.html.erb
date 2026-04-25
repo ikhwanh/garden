@@ -6,13 +6,14 @@
           data: { turbo_frame: "inspect" },
           class: "inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-gray-900 rounded-md hover:bg-gray-700" %>
     </div>
+    <% sort_url = ->(s, d) { nurseries_path(sort: s, direction: d) } %>
     <table class="min-w-full divide-y divide-gray-200">
       <thead class="bg-gray-50">
         <tr>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Started</th>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transplanted</th>
-          <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Qty</th>
+          <%= render "shared/sort_th", label: "Name", column: "name", sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
+          <%= render "shared/sort_th", label: "Started", column: "started_on", sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
+          <%= render "shared/sort_th", label: "Transplanted", column: "transplanted_on", sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
+          <%= render "shared/sort_th", label: "Qty", column: "quantity_initial", sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
         </tr>
       </thead>
       <tbody id="nurseries" class="bg-white divide-y divide-gray-100">
@@ -24,7 +25,7 @@
     <%= render "shared/pagination",
         current_page: @current_page,
         total_pages: @total_pages,
-        url_for_page: ->(page) { nurseries_path(page: page) } %>
+        url_for_page: ->(page) { nurseries_path(page: page, sort: @sort_column, direction: @sort_direction) } %>
     <% if @nurseries.empty? %>
       <div class="px-6 py-12 text-center text-gray-400 text-sm">No nurseries yet. Click "New" to get started.</div>
     <% end %>
