@@ -8,6 +8,10 @@ class Crop < ApplicationRecord
   after_destroy :update_nursery_quantity_final
   after_destroy :clear_nursery_transplanted_on
 
+  def location
+    notes&.match(/^LOCATION:\s*(.+)/i)&.captures&.first&.strip
+  end
+
   def success_rate
     return nil if quantity_initial.nil? || quantity_final.nil? || quantity_initial.zero?
     (quantity_final.to_f / quantity_initial * 100).round(1)
