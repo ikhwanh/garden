@@ -25,6 +25,12 @@ class HomeController < ApplicationController
       .where(crops: { user_id: current_user.id, harvested_on: nil })
       .order(:due_on)
       .group_by(&:crop_id)
+
+    @active_nurseries = current_user.nurseries.where(transplanted_on: nil).includes(:preset)
+                                    .sort_by { |n|
+                                      max_days = n.preset&.days_to_harvest_max
+                                      n.started_on && max_days ? n.started_on + max_days : Date::Infinity.new
+                                    }
   end
 
   def load_finance_data

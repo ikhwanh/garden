@@ -6,8 +6,56 @@
     <% if @active_tab == "monitoring" %>
       <div class="flex gap-4 h-full min-h-0" data-controller="crop-panel">
 
-        <%# Left pane: crops grouped by location %>
+        <%# Left pane: nurseries + crops grouped by location %>
         <div class="w-full min-w-0 overflow-y-auto" data-crop-panel-target="main">
+
+          <%# Nurseries section %>
+          <% if @active_nurseries.any? %>
+            <div class="mb-6">
+              <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Nurseries</p>
+              <div class="flex flex-wrap gap-3">
+                <% @active_nurseries.each do |nursery| %>
+                  <% days_in = nursery.started_on ? (Date.today - nursery.started_on).to_i : nil %>
+                  <% max_days = nursery.preset&.days_to_harvest_max %>
+                  <% min_days = nursery.preset&.days_to_harvest_min %>
+                  <% if days_in && max_days %>
+                    <% card_class = if days_in > max_days
+                         "bg-red-50 border-red-200"
+                       elsif min_days && days_in >= min_days
+                         "bg-orange-50 border-orange-200"
+                       else
+                         "bg-green-50 border-green-200"
+                       end %>
+                    <% label_class = if days_in > max_days
+                         "text-red-500"
+                       elsif min_days && days_in >= min_days
+                         "text-orange-600"
+                       else
+                         "text-green-600"
+                       end %>
+                  <% else %>
+                    <% card_class = "bg-white border-gray-200" %>
+                    <% label_class = "text-gray-300" %>
+                  <% end %>
+                  <div class="border <%= card_class %> rounded-xl p-3 w-36 flex-shrink-0 cursor-pointer ring-2 ring-transparent transition-all"
+                       data-action="click->crop-panel#select"
+                       data-crop-panel-nursery-id-param="<%= nursery.id %>"
+                       data-crop-panel-target="card"
+                       data-nursery-id="<%= nursery.id %>">
+                    <p class="text-xs text-gray-400 mb-0.5">Nursery</p>
+                    <p class="text-sm font-medium text-gray-900 truncate mb-1"><%= nursery.name %></p>
+                    <% if days_in %>
+                      <p class="text-xs <%= label_class %>"><%= days_in %>d in nursery</p>
+                    <% else %>
+                      <p class="text-xs <%= label_class %>">No start date</p>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+
+          <%# Crops grouped by location %>
           <% if @crops_by_location.any? %>
             <% @crops_by_location.each do |location, crops| %>
               <div class="mb-6">
@@ -77,8 +125,34 @@
         <div class="w-1/2 flex-shrink-0 overflow-y-auto hidden" data-crop-panel-target="sidebar">
           <div class="bg-white border border-gray-200 rounded-lg p-4">
             <h2 class="text-sm font-medium text-gray-900 mb-3">Treatment</h2>
-            <p class="text-xs text-gray-400" data-crop-panel-target="placeholder">Select a crop to view treatments.</p>
+            <p class="text-xs text-gray-400" data-crop-panel-target="placeholder">Select a crop or nursery to view treatments.</p>
 
+            <%# Nursery panels %>
+            <% @active_nurseries.each do |nursery| %>
+              <div class="hidden" data-crop-panel-target="panel" data-nursery-id="<%= nursery.id %>">
+                <dl class="space-y-3 mb-4">
+                  <% if nursery.started_on %>
+                    <div>
+                      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Started</dt>
+                      <dd class="mt-0.5 text-xs text-gray-700"><%= nursery.started_on.strftime("%b %-d, %Y") %></dd>
+                    </div>
+                  <% end %>
+                  <% if nursery.quantity_initial.present? %>
+                    <div>
+                      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Quantity</dt>
+                      <dd class="mt-0.5 text-xs text-gray-700"><%= nursery.quantity_initial %></dd>
+                    </div>
+                  <% end %>
+                </dl>
+                <% if nursery.preset&.preset_data.present? %>
+                  <%= render "presets/preset_data", preset: nursery.preset %>
+                <% else %>
+                  <p class="text-xs text-gray-400">No treatment data available.</p>
+                <% end %>
+              </div>
+            <% end %>
+
+            <%# Crop panels %>
             <% @crops_by_location.values.flatten.each do |crop| %>
               <% crop_reminders = @reminders_by_crop[crop.id] || [] %>
               <div class="hidden" data-crop-panel-target="panel" data-crop-id="<%= crop.id %>">
