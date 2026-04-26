@@ -1,0 +1,325 @@
+{
+  "version": "1.0",
+  "description": "Nursery presets for crops requiring a nursery phase before field transplanting. DAP is relative to nursery start date (started_on).",
+  "nurseries": [
+    {
+      "id": "shallot_tss",
+      "name": "Shallot (True Seed / TSS)",
+      "local_name": "Bawang merah (Biji TSS)",
+      "days_in_nursery": {
+        "min": 20,
+        "max": 25
+      },
+      "presets": {
+        "crop_protection": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 25
+            },
+            "actions": [
+              "Sow seeds in sterilized cocopeat or growing media in shade house",
+              "Drench nursery tray with fungicide (mancozeb / Previcur) at 10 DAP to prevent damping-off",
+              "Protect seedlings from heavy rain and strong wind for entire nursery phase"
+            ]
+          }
+        ],
+        "pest_disease_checklist": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 25
+            },
+            "pests": [
+              {
+                "name": "Damping-off (Pythium / Rhizoctonia)",
+                "inspect_part": "stem base at soil level",
+                "action_threshold": "seedling collapse found",
+                "inspection_interval_days": 2
+              },
+              {
+                "name": "Thrips (Thrips tabaci)",
+                "inspect_part": "shoot tips & leaf underside",
+                "action_threshold": ">5 insects per clump",
+                "inspection_interval_days": 3
+              },
+              {
+                "name": "Leaf blight (Alternaria porri)",
+                "inspect_part": "leaves",
+                "action_threshold": ">5% of plants affected",
+                "inspection_interval_days": 5
+              }
+            ]
+          }
+        ],
+        "growth_benchmarks": [
+          {
+            "dap": 20,
+            "targets": {
+              "plant_height_cm": {
+                "min": 8,
+                "max": 15
+              },
+              "leaf_count": {
+                "min": 3,
+                "max": 5
+              }
+            },
+            "notes": "End of nursery phase; seedlings ready to transplant to field"
+          }
+        ],
+        "fertilization_schedule": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 25
+            },
+            "interval_days": 7,
+            "fertilizers": [
+              "Liquid organic fertilizer (diluted)",
+              "NPK foliar spray (low dose)"
+            ],
+            "notes": "Light feeding in nursery tray; avoid salt burn on young seedlings"
+          }
+        ]
+      }
+    },
+    {
+      "id": "celery",
+      "name": "Celery",
+      "local_name": "Seledri",
+      "days_in_nursery": {
+        "min": 18,
+        "max": 21
+      },
+      "presets": {
+        "crop_protection": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 21
+            },
+            "actions": [
+              "Use sterilized media to prevent damping-off",
+              "Drench nursery with Previcur or copper oxychloride at 2.5 g/L every 14 days",
+              "Protect seedlings from heavy rain and strong wind"
+            ]
+          }
+        ],
+        "pest_disease_checklist": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 21
+            },
+            "pests": [
+              {
+                "name": "Damping-off (Pythium / Rhizoctonia)",
+                "inspect_part": "stem base at soil level",
+                "action_threshold": "seedling collapse found",
+                "inspection_interval_days": 2
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "chili",
+      "name": "Chili Pepper",
+      "local_name": "Cabai",
+      "days_in_nursery": {
+        "min": 21,
+        "max": 25
+      },
+      "presets": {
+        "crop_protection": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 25
+            },
+            "actions": [
+              "Use sterilized cocopeat growing media with neem cake mixed in",
+              "Treat seeds with Thiram 3g/kg + Trichoderma harzianum 5g/kg before sowing",
+              "Apply Previcur fungicide if nursery humidity is excessive"
+            ]
+          }
+        ],
+        "pest_disease_checklist": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 25
+            },
+            "pests": [
+              {
+                "name": "Damping-off (Pythium / Rhizoctonia)",
+                "inspect_part": "stem base at soil level",
+                "action_threshold": "seedling collapse found",
+                "inspection_interval_days": 2
+              },
+              {
+                "name": "Thrips (Thrips parvispinus)",
+                "inspect_part": "shoot tips & leaf underside",
+                "action_threshold": ">5 insects per plant",
+                "inspection_interval_days": 3
+              }
+            ]
+          }
+        ],
+        "growth_benchmarks": [
+          {
+            "dap": 21,
+            "targets": {
+              "plant_height_cm": {
+                "min": 15,
+                "max": 25
+              },
+              "leaf_count": {
+                "min": 6,
+                "max": 10
+              }
+            },
+            "notes": "First V-shaped branching should be forming; ready for transplanting"
+          }
+        ]
+      }
+    },
+    {
+      "id": "tomato",
+      "name": "Tomato",
+      "local_name": "Tomat",
+      "days_in_nursery": {
+        "min": 18,
+        "max": 21
+      },
+      "presets": {
+        "crop_protection": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 21
+            },
+            "actions": [
+              "Sterilize growing media; treat seeds with Thiram or Captan",
+              "Drench nursery with Previcur to prevent damping-off",
+              "Protect seedlings from whitefly with fine mesh netting"
+            ]
+          }
+        ],
+        "pest_disease_checklist": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 21
+            },
+            "pests": [
+              {
+                "name": "Damping-off (Pythium sp.)",
+                "inspect_part": "stem base at soil level",
+                "action_threshold": "seedling collapse found",
+                "inspection_interval_days": 2
+              },
+              {
+                "name": "Whitefly (Bemisia tabaci)",
+                "inspect_part": "leaf underside",
+                "action_threshold": ">5 adults per leaf",
+                "inspection_interval_days": 3
+              }
+            ]
+          }
+        ],
+        "growth_benchmarks": [
+          {
+            "dap": 21,
+            "targets": {
+              "plant_height_cm": {
+                "min": 15,
+                "max": 20
+              },
+              "leaf_count": {
+                "min": 4,
+                "max": 6
+              }
+            },
+            "notes": "Seedlings ready for transplanting to field"
+          }
+        ]
+      }
+    },
+    {
+      "id": "eggplant",
+      "name": "Eggplant",
+      "local_name": "Terung",
+      "days_in_nursery": {
+        "min": 21,
+        "max": 25
+      },
+      "presets": {
+        "crop_protection": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 25
+            },
+            "actions": [
+              "Treat seeds with Thiram/Captan; use sterilized nursery media",
+              "Drench nursery with copper oxychloride at 14 DAP",
+              "Protect from Eggplant Fruit and Shoot Borer (EFSB) moths using net house"
+            ]
+          }
+        ],
+        "pest_disease_checklist": [
+          {
+            "phase": "Nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 25
+            },
+            "pests": [
+              {
+                "name": "Damping-off (Pythium / Rhizoctonia)",
+                "inspect_part": "stem base at soil level",
+                "action_threshold": "seedling collapse found",
+                "inspection_interval_days": 2
+              },
+              {
+                "name": "EFSB — Eggplant Fruit & Shoot Borer (Leucinodes orbonalis)",
+                "inspect_part": "shoot tips",
+                "action_threshold": "moth presence or shoot damage found",
+                "inspection_interval_days": 3
+              }
+            ]
+          }
+        ],
+        "growth_benchmarks": [
+          {
+            "dap": 25,
+            "targets": {
+              "plant_height_cm": {
+                "min": 15,
+                "max": 20
+              },
+              "leaf_count": {
+                "min": 4,
+                "max": 6
+              }
+            },
+            "notes": "Seedlings ready for transplanting to field"
+          }
+        ]
+      }
+    }
+  ]
+}

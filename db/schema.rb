@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_25_074533) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_26_065031) do
   create_table "cashflow_entries", force: :cascade do |t|
     t.bigint "amount"
     t.string "category"
@@ -45,12 +45,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_25_074533) do
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.text "note"
+    t.integer "preset_id"
     t.integer "quantity_final"
     t.integer "quantity_initial"
     t.date "started_on"
     t.date "transplanted_on"
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.index ["preset_id"], name: "index_nurseries_on_preset_id"
     t.index ["user_id"], name: "index_nurseries_on_user_id"
   end
 
@@ -95,6 +97,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_25_074533) do
   add_foreign_key "cashflow_entries", "users"
   add_foreign_key "crops", "nurseries"
   add_foreign_key "crops", "users"
+  add_foreign_key "nurseries", "presets"
   add_foreign_key "nurseries", "users"
   add_foreign_key "reminders", "crops"
 end

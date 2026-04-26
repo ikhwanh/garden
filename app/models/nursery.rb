@@ -1,5 +1,6 @@
 class Nursery < ApplicationRecord
   belongs_to :user
+  belongs_to :preset, optional: true
   has_many :crops, dependent: :destroy
 
   def success_rate

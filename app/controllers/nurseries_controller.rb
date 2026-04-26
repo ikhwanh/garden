@@ -4,6 +4,7 @@ class NurseriesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_nursery, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_nursery_presets, only: [ :index, :new, :create, :edit, :update ]
 
   def index
     scope = apply_sort(current_user.nurseries, allowed_columns: %w[name started_on transplanted_on quantity_initial], default_column: :name)
@@ -57,6 +58,10 @@ class NurseriesController < ApplicationController
   end
 
   def nursery_params
-    params.require(:nursery).permit(:name, :started_on, :quantity_initial, :note)
+    params.require(:nursery).permit(:name, :preset_id, :started_on, :quantity_initial, :note)
+  end
+
+  def set_nursery_presets
+    @nursery_presets = Preset.where(grow_type: "nursery").order(:name)
   end
 end

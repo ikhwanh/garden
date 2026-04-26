@@ -1,7 +1,8 @@
 class Preset < ApplicationRecord
-  GROW_TYPES = %w[soil hydroponic].freeze
+  GROW_TYPES = %w[soil hydroponic nursery].freeze
 
   has_many :crops
+  has_many :nurseries
 
   validates :slug, presence: true, uniqueness: true
   validates :name, presence: true
