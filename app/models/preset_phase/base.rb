@@ -4,17 +4,19 @@ class PresetPhase::Base
     "pruning_trimming"       => "PresetPhase::Action",
     "fertilization_schedule" => "PresetPhase::Fertilization",
     "pest_disease_checklist" => "PresetPhase::Pest",
-    "soil_parameters"        => "PresetPhase::SoilParameter"
+    "soil_parameters"        => "PresetPhase::SoilParameter",
+    "growth_benchmarks"      => "PresetPhase::GrowthBenchmark"
   }.freeze
 
-  attr_reader :data
+  attr_reader :data, :context
 
-  def self.for(category, data)
-    CATEGORY_MAP.fetch(category).constantize.new(data)
+  def self.for(category, data, context = {})
+    CATEGORY_MAP.fetch(category).constantize.new(data, context)
   end
 
-  def initialize(data)
-    @data = data
+  def initialize(data, context = {})
+    @data    = data
+    @context = context
   end
 
   def phase_name   = data["phase"]

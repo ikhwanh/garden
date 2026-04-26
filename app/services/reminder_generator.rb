@@ -14,7 +14,7 @@ class ReminderGenerator
     @preset.preset_data.each do |category, phases|
       next unless PresetPhase::Base::CATEGORY_MAP.key?(category)
       phases.each do |phase_data|
-        phase = PresetPhase::Base.for(category, phase_data)
+        phase = PresetPhase::Base.for(category, phase_data, context)
 
         due_dates_for(phase).each do |due_on|
           reminders << {
@@ -35,6 +35,10 @@ class ReminderGenerator
   end
 
   private
+
+  def context
+    { days_to_harvest_max: @plant.preset&.days_to_harvest_max }
+  end
 
   def due_dates_for(phase)
     base = @plant.planted_on
