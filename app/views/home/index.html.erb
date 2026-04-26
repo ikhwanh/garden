@@ -209,6 +209,24 @@
                             </div>
                           <% end %>
 
+                        <% when "growth_benchmarks" %>
+                          <% if (t = d["targets"]).present? %>
+                            <div class="flex flex-wrap gap-x-4 gap-y-1 mb-1">
+                              <% if t["plant_height_cm"] %>
+                                <span class="text-xs text-gray-600">Height <strong><%= t["plant_height_cm"]["min"] %>–<%= t["plant_height_cm"]["max"] %> cm</strong></span>
+                              <% end %>
+                              <% if t["leaf_count"] %>
+                                <span class="text-xs text-gray-600">Leaves <strong><%= t["leaf_count"]["min"] %>–<%= t["leaf_count"]["max"] %></strong></span>
+                              <% end %>
+                              <% if t["stem_diameter_cm"] %>
+                                <span class="text-xs text-gray-600">Stem <strong><%= t["stem_diameter_cm"]["min"] %>–<%= t["stem_diameter_cm"]["max"] %> cm</strong></span>
+                              <% end %>
+                            </div>
+                          <% end %>
+                          <% if d["notes"].present? %>
+                            <p class="text-xs text-gray-500 italic"><%= d["notes"] %></p>
+                          <% end %>
+
                         <% when "soil_parameters" %>
                           <% if (t = d["targets"]).present? %>
                             <div class="flex flex-wrap gap-x-4 gap-y-1">
