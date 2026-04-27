@@ -2,17 +2,6 @@
 
 class InitialSchema < ActiveRecord::Migration[8.1]
   def change
-    create_table :nurseries do |t|
-      t.references :user, null: false, foreign_key: true
-      t.string :name, null: false
-      t.date :started_on
-      t.date :transplanted_on
-      t.integer :quantity_initial
-      t.integer :quantity_final
-      t.text :note
-      t.timestamps
-    end
-
     create_table :presets do |t|
       t.string :slug, null: false
       t.string :name, null: false
@@ -25,6 +14,20 @@ class InitialSchema < ActiveRecord::Migration[8.1]
     end
     add_index :presets, :slug, unique: true
 
+    create_table :nurseries do |t|
+      t.references :user, null: false, foreign_key: true
+      t.string :name, null: false
+      t.date :started_on
+      t.date :transplanted_on
+      t.integer :quantity_initial
+      t.integer :quantity_final
+      t.text :note
+      t.integer :preset_id
+      t.timestamps
+    end
+    add_index :nurseries, :preset_id
+    add_foreign_key :nurseries, :presets
+
     create_table :crops do |t|
       t.references :user, null: false, foreign_key: true
       t.references :nursery, null: true, foreign_key: true
@@ -34,6 +37,8 @@ class InitialSchema < ActiveRecord::Migration[8.1]
       t.integer :quantity_initial
       t.integer :quantity_final
       t.text :note
+      t.date :harvested_on
+      t.date :expected_harvest_on
       t.timestamps
     end
 
