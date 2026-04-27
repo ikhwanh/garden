@@ -1,16 +1,25 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["content", "placeholder", "card", "sidebar", "main"]
-  static values = { panelUrl: String }
+  static targets = ["content", "placeholder", "card", "sidebar", "main", "presetContent", "presetPlaceholder", "presetSidebar"]
+  static values = { panelUrl: String, presetPanelUrl: String }
 
   select({ params: { cropId, nurseryId } }) {
     const isCrop = cropId !== undefined
     const id = String(isCrop ? cropId : nurseryId)
 
     this.sidebarTarget.classList.remove("hidden")
-    this.mainTarget.classList.replace("w-full", "w-1/2")
+    this.mainTarget.classList.remove("w-full", "w-1/2", "w-1/3")
     this.placeholderTarget.classList.add("hidden")
+
+    if (isCrop) {
+      this.presetSidebarTarget.classList.remove("hidden")
+      this.presetPlaceholderTarget.classList.add("hidden")
+      this.mainTarget.classList.add("w-1/3")
+    } else {
+      this.presetSidebarTarget.classList.add("hidden")
+      this.mainTarget.classList.add("w-1/2")
+    }
 
     this.cardTargets.forEach(card => {
       const cardId = isCrop ? card.dataset.cropId : card.dataset.nurseryId
@@ -20,16 +29,21 @@ export default class extends Controller {
     })
 
     const param = isCrop ? `crop_id=${id}` : `nursery_id=${id}`
-    const url = `${this.panelUrlValue}?${param}`
 
     this.contentTarget.innerHTML = '<p class="text-xs text-gray-400">Loading…</p>'
-
-    fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+    fetch(`${this.panelUrlValue}?${param}`, { headers: { "X-Requested-With": "XMLHttpRequest" } })
       .then(r => r.text())
       .then(html => {
         this.contentTarget.innerHTML = html
         this.#scrollToNearest(this.contentTarget)
       })
+
+    if (isCrop) {
+      this.presetContentTarget.innerHTML = '<p class="text-xs text-gray-400">Loading…</p>'
+      fetch(`${this.presetPanelUrlValue}?${param}`, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+        .then(r => r.text())
+        .then(html => { this.presetContentTarget.innerHTML = html })
+    }
   }
 
   #scrollToNearest(container) {

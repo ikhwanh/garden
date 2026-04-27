@@ -27,6 +27,17 @@ class HomeController < ApplicationController
     end
   end
 
+  def preset_panel
+    authorize :home, :panel?
+
+    if params[:crop_id]
+      crop = current_user.crops.includes(:preset).find(params[:crop_id])
+      render partial: "preset_panel", locals: { preset: crop.preset }
+    else
+      head :bad_request
+    end
+  end
+
   private
 
   def load_monitoring_data
