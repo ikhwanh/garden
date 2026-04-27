@@ -1,0 +1,19 @@
+<dl class="space-y-3 mb-4">
+  <% if nursery.started_on %>
+    <div>
+      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Started</dt>
+      <dd class="mt-0.5 text-xs text-gray-700"><%= nursery.started_on.strftime("%b %-d, %Y") %></dd>
+    </div>
+  <% end %>
+  <% if nursery.quantity_initial.present? %>
+    <div>
+      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Quantity</dt>
+      <dd class="mt-0.5 text-xs text-gray-700"><%= nursery.quantity_initial %></dd>
+    </div>
+  <% end %>
+</dl>
+<% if nursery.preset&.preset_data.present? %>
+  <%= render "presets/preset_data", preset: nursery.preset %>
+<% else %>
+  <p class="text-xs text-gray-400">No treatment data available.</p>
+<% end %>

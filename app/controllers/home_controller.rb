@@ -12,6 +12,21 @@ class HomeController < ApplicationController
     load_finance_data if @active_tab == "finance"
   end
 
+  def panel
+    authorize :home, :panel?
+
+    if params[:crop_id]
+      crop = current_user.crops.find(params[:crop_id])
+      reminders = Reminder.where(crop: crop).order(:due_on)
+      render partial: "crop_panel", locals: { reminders: reminders }
+    elsif params[:nursery_id]
+      nursery = current_user.nurseries.find(params[:nursery_id])
+      render partial: "nursery_panel", locals: { nursery: nursery }
+    else
+      head :bad_request
+    end
+  end
+
   private
 
   def load_monitoring_data
@@ -19,12 +34,6 @@ class HomeController < ApplicationController
     @crops_by_location = active_crops.group_by { |c| c.location.presence || "Unassigned" }
                                      .sort_by { |loc, _| loc == "Unassigned" ? "zzz" : loc.downcase }
                                      .to_h
-
-    @reminders_by_crop = Reminder
-      .joins(:crop)
-      .where(crops: { user_id: current_user.id, harvested_on: nil })
-      .order(:due_on)
-      .group_by(&:crop_id)
 
     @active_nurseries = current_user.nurseries.where(transplanted_on: nil).includes(:preset)
                                     .sort_by { |n|

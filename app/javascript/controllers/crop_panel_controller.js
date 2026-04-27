@@ -1,7 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["panel", "placeholder", "card", "sidebar", "main"]
+  static targets = ["content", "placeholder", "card", "sidebar", "main"]
+  static values = { panelUrl: String }
 
   select({ params: { cropId, nurseryId } }) {
     const isCrop = cropId !== undefined
@@ -11,14 +12,6 @@ export default class extends Controller {
     this.mainTarget.classList.replace("w-full", "w-1/2")
     this.placeholderTarget.classList.add("hidden")
 
-    let activePanel = null
-    this.panelTargets.forEach(panel => {
-      const panelId = isCrop ? panel.dataset.cropId : panel.dataset.nurseryId
-      const visible = panelId === id
-      panel.classList.toggle("hidden", !visible)
-      if (visible) activePanel = panel
-    })
-
     this.cardTargets.forEach(card => {
       const cardId = isCrop ? card.dataset.cropId : card.dataset.nurseryId
       const active = cardId === id && (isCrop ? "cropId" in card.dataset : "nurseryId" in card.dataset)
@@ -26,11 +19,21 @@ export default class extends Controller {
       card.classList.toggle("ring-transparent", !active)
     })
 
-    if (activePanel) this.#scrollToNearest(activePanel)
+    const param = isCrop ? `crop_id=${id}` : `nursery_id=${id}`
+    const url = `${this.panelUrlValue}?${param}`
+
+    this.contentTarget.innerHTML = '<p class="text-xs text-gray-400">Loading…</p>'
+
+    fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
+      .then(r => r.text())
+      .then(html => {
+        this.contentTarget.innerHTML = html
+        this.#scrollToNearest(this.contentTarget)
+      })
   }
 
-  #scrollToNearest(panel) {
-    const reminders = Array.from(panel.querySelectorAll("[data-reminder-due]"))
+  #scrollToNearest(container) {
+    const reminders = Array.from(container.querySelectorAll("[data-reminder-due]"))
     if (!reminders.length) return
 
     const today = new Date().toISOString().slice(0, 10)

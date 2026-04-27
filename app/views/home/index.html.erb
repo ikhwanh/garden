@@ -4,7 +4,7 @@
   <div class="p-6 overflow-y-auto h-full">
     <%# Monitoring tab %>
     <% if @active_tab == "monitoring" %>
-      <div class="flex gap-4 h-full min-h-0" data-controller="crop-panel">
+      <div class="flex gap-4 h-full min-h-0" data-controller="crop-panel" data-crop-panel-panel-url-value="<%= panel_path %>">
 
         <%# Left pane: nurseries + crops grouped by location %>
         <div class="w-full min-w-0 overflow-y-auto" data-crop-panel-target="main">
@@ -126,130 +126,7 @@
           <div class="bg-white border border-gray-200 rounded-lg p-4">
             <h2 class="text-sm font-medium text-gray-900 mb-3">Treatment</h2>
             <p class="text-xs text-gray-400" data-crop-panel-target="placeholder">Select a crop or nursery to view treatments.</p>
-
-            <%# Nursery panels %>
-            <% @active_nurseries.each do |nursery| %>
-              <div class="hidden" data-crop-panel-target="panel" data-nursery-id="<%= nursery.id %>">
-                <dl class="space-y-3 mb-4">
-                  <% if nursery.started_on %>
-                    <div>
-                      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Started</dt>
-                      <dd class="mt-0.5 text-xs text-gray-700"><%= nursery.started_on.strftime("%b %-d, %Y") %></dd>
-                    </div>
-                  <% end %>
-                  <% if nursery.quantity_initial.present? %>
-                    <div>
-                      <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Quantity</dt>
-                      <dd class="mt-0.5 text-xs text-gray-700"><%= nursery.quantity_initial %></dd>
-                    </div>
-                  <% end %>
-                </dl>
-                <% if nursery.preset&.preset_data.present? %>
-                  <%= render "presets/preset_data", preset: nursery.preset %>
-                <% else %>
-                  <p class="text-xs text-gray-400">No treatment data available.</p>
-                <% end %>
-              </div>
-            <% end %>
-
-            <%# Crop panels %>
-            <% @crops_by_location.values.flatten.each do |crop| %>
-              <% crop_reminders = @reminders_by_crop[crop.id] || [] %>
-              <div class="hidden" data-crop-panel-target="panel" data-crop-id="<%= crop.id %>">
-                <% if crop_reminders.any? %>
-                  <div class="space-y-4">
-                    <% crop_reminders.each do |reminder| %>
-                      <% d = reminder.details %>
-                      <div class="border-l-2 border-gray-200 pl-3" data-reminder-due="<%= reminder.due_on %>">
-                        <div class="flex items-baseline justify-between gap-2 mb-1.5">
-                          <span class="text-xs font-semibold text-gray-700"><%= reminder.category.humanize %></span>
-                          <span class="text-xs text-gray-400 flex-shrink-0"><%= reminder.due_on.strftime("%b %-d, %Y") %></span>
-                        </div>
-                        <p class="text-xs text-gray-400 mb-1.5"><%= reminder.phase %></p>
-
-                        <% case reminder.category %>
-                        <% when "crop_protection", "pruning_trimming" %>
-                          <% if d["actions"].present? %>
-                            <ul class="space-y-0.5">
-                              <% d["actions"].each do |action| %>
-                                <li class="text-xs text-gray-600 before:content-['–'] before:mr-1.5 before:text-gray-400"><%= action %></li>
-                              <% end %>
-                            </ul>
-                          <% end %>
-
-                        <% when "fertilization_schedule" %>
-                          <% if d["fertilizers"].present? %>
-                            <div class="flex flex-wrap gap-1 mb-1">
-                              <% d["fertilizers"].each do |f| %>
-                                <span class="inline-block px-1.5 py-0.5 bg-green-50 text-green-700 text-xs rounded"><%= f %></span>
-                              <% end %>
-                            </div>
-                          <% end %>
-                          <% if d["notes"].present? %>
-                            <p class="text-xs text-gray-500 italic"><%= d["notes"] %></p>
-                          <% end %>
-
-                        <% when "pest_disease_checklist" %>
-                          <% if d["pests"].present? %>
-                            <div class="space-y-1.5">
-                              <% d["pests"].each do |pest| %>
-                                <div class="pl-2 border-l-2 border-orange-200">
-                                  <p class="text-xs font-medium text-gray-700"><%= pest["name"] %></p>
-                                  <% if pest["inspect_part"].present? %>
-                                    <p class="text-xs text-gray-500">Inspect: <span class="text-gray-600"><%= pest["inspect_part"] %></span></p>
-                                  <% end %>
-                                  <% if pest["action_threshold"].present? %>
-                                    <p class="text-xs text-gray-500">Threshold: <span class="text-gray-600"><%= pest["action_threshold"] %></span></p>
-                                  <% end %>
-                                  <% if pest["inspection_interval_days"].present? %>
-                                    <p class="text-xs text-gray-500">Every <%= pest["inspection_interval_days"] %> days</p>
-                                  <% end %>
-                                </div>
-                              <% end %>
-                            </div>
-                          <% end %>
-
-                        <% when "growth_benchmarks" %>
-                          <% if (t = d["targets"]).present? %>
-                            <div class="flex flex-wrap gap-x-4 gap-y-1 mb-1">
-                              <% if t["plant_height_cm"] %>
-                                <span class="text-xs text-gray-600">Height <strong><%= t["plant_height_cm"]["min"] %>–<%= t["plant_height_cm"]["max"] %> cm</strong></span>
-                              <% end %>
-                              <% if t["leaf_count"] %>
-                                <span class="text-xs text-gray-600">Leaves <strong><%= t["leaf_count"]["min"] %>–<%= t["leaf_count"]["max"] %></strong></span>
-                              <% end %>
-                              <% if t["stem_diameter_cm"] %>
-                                <span class="text-xs text-gray-600">Stem <strong><%= t["stem_diameter_cm"]["min"] %>–<%= t["stem_diameter_cm"]["max"] %> cm</strong></span>
-                              <% end %>
-                            </div>
-                          <% end %>
-                          <% if d["notes"].present? %>
-                            <p class="text-xs text-gray-500 italic"><%= d["notes"] %></p>
-                          <% end %>
-
-                        <% when "soil_parameters" %>
-                          <% if (t = d["targets"]).present? %>
-                            <div class="flex flex-wrap gap-x-4 gap-y-1">
-                              <% if t["pH"] %>
-                                <span class="text-xs text-gray-600">pH <strong><%= t["pH"]["min"] %>–<%= t["pH"]["max"] %></strong></span>
-                              <% end %>
-                              <% if t["moisture_pct"] %>
-                                <span class="text-xs text-gray-600">Moisture <strong><%= t["moisture_pct"]["min"] %>–<%= t["moisture_pct"]["max"] %>%</strong></span>
-                              <% end %>
-                              <% if t["ec_ms_cm"] %>
-                                <span class="text-xs text-gray-600">EC <strong><%= t["ec_ms_cm"]["min"] %>–<%= t["ec_ms_cm"]["max"] %> mS/cm</strong></span>
-                              <% end %>
-                            </div>
-                          <% end %>
-                        <% end %>
-                      </div>
-                    <% end %>
-                  </div>
-                <% else %>
-                  <p class="text-xs text-gray-400">No treatments scheduled.</p>
-                <% end %>
-              </div>
-            <% end %>
+            <div data-crop-panel-target="content"></div>
           </div>
         </div>
 
