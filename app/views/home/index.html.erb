@@ -6,30 +6,76 @@
     <% if @active_tab == "monitoring" %>
       <div class="flex gap-4 h-full min-h-0" data-controller="crop-panel" data-crop-panel-panel-url-value="<%= panel_path %>" data-crop-panel-preset-panel-url-value="<%= preset_panel_path %>">
 
-        <%# Left pane: nurseries + crops grouped by location %>
+        <%# Left pane: all nurseries and crops in one flat group %>
         <div class="w-full min-w-0 overflow-y-auto" data-crop-panel-target="main">
+          <% if @active_nurseries.any? || @crops_by_location.any? %>
+            <div class="flex flex-wrap gap-3">
 
-          <%# Nurseries section %>
-          <% if @active_nurseries.any? %>
-            <div class="mb-6">
-              <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Nurseries</p>
-              <div class="flex flex-wrap gap-3">
-                <% @active_nurseries.each do |nursery| %>
-                  <% days_in = nursery.started_on ? (Date.today - nursery.started_on).to_i : nil %>
-                  <% max_days = nursery.preset&.days_to_harvest_max %>
-                  <% min_days = nursery.preset&.days_to_harvest_min %>
-                  <% if days_in && max_days %>
-                    <% card_class = if days_in > max_days
+              <%# Nursery cards %>
+              <% @active_nurseries.each do |nursery| %>
+                <% days_in = nursery.started_on ? (Date.today - nursery.started_on).to_i : nil %>
+                <% max_days = nursery.preset&.days_to_harvest_max %>
+                <% min_days = nursery.preset&.days_to_harvest_min %>
+                <% if days_in && max_days %>
+                  <% card_class = if days_in > max_days
+                       "bg-red-50 border-red-200"
+                     elsif min_days && days_in >= min_days
+                       "bg-orange-50 border-orange-200"
+                     else
+                       "bg-green-50 border-green-200"
+                     end %>
+                  <% label_class = if days_in > max_days
+                       "text-red-500"
+                     elsif min_days && days_in >= min_days
+                       "text-orange-600"
+                     else
+                       "text-green-600"
+                     end %>
+                <% else %>
+                  <% card_class = "bg-white border-gray-200" %>
+                  <% label_class = "text-gray-300" %>
+                <% end %>
+                <div class="border <%= card_class %> rounded-xl p-3 w-36 flex-shrink-0 cursor-pointer ring-2 ring-transparent transition-all"
+                     data-action="click->crop-panel#select"
+                     data-crop-panel-nursery-id-param="<%= nursery.id %>"
+                     data-crop-panel-target="card"
+                     data-nursery-id="<%= nursery.id %>">
+                  <div class="mb-1">
+                    <span class="inline-block text-[10px] font-medium px-1.5 py-0.5 rounded bg-purple-100 text-purple-600">Nursery</span>
+                  </div>
+                  <p class="text-sm font-medium text-gray-900 truncate mb-1"><%= nursery.name %></p>
+                  <% if days_in %>
+                    <p class="text-xs <%= label_class %>"><%= days_in %>d in nursery</p>
+                  <% else %>
+                    <p class="text-xs <%= label_class %>">No start date</p>
+                  <% end %>
+                </div>
+              <% end %>
+
+              <%# Crop cards %>
+              <% @crops_by_location.each do |location, crops| %>
+                <% crops.each do |crop| %>
+                  <% if crop.expected_harvest_on %>
+                    <% days_left = (crop.expected_harvest_on - Date.today).to_i %>
+                    <% card_class = if days_left < 0
                          "bg-red-50 border-red-200"
-                       elsif min_days && days_in >= min_days
+                       elsif days_left == 0
                          "bg-orange-50 border-orange-200"
+                       elsif days_left <= 7
+                         "bg-yellow-50 border-yellow-200"
+                       elsif days_left <= 14
+                         "bg-lime-50 border-lime-200"
                        else
                          "bg-green-50 border-green-200"
                        end %>
-                    <% label_class = if days_in > max_days
+                    <% label_class = if days_left < 0
                          "text-red-500"
-                       elsif min_days && days_in >= min_days
+                       elsif days_left == 0
                          "text-orange-600"
+                       elsif days_left <= 7
+                         "text-yellow-600"
+                       elsif days_left <= 14
+                         "text-lime-600"
                        else
                          "text-green-600"
                        end %>
@@ -39,83 +85,32 @@
                   <% end %>
                   <div class="border <%= card_class %> rounded-xl p-3 w-36 flex-shrink-0 cursor-pointer ring-2 ring-transparent transition-all"
                        data-action="click->crop-panel#select"
-                       data-crop-panel-nursery-id-param="<%= nursery.id %>"
+                       data-crop-panel-crop-id-param="<%= crop.id %>"
                        data-crop-panel-target="card"
-                       data-nursery-id="<%= nursery.id %>">
-                    <p class="text-xs text-gray-400 mb-0.5">Nursery</p>
-                    <p class="text-sm font-medium text-gray-900 truncate mb-1"><%= nursery.name %></p>
-                    <% if days_in %>
-                      <p class="text-xs <%= label_class %>"><%= days_in %>d in nursery</p>
+                       data-crop-id="<%= crop.id %>">
+                    <div class="mb-1">
+                      <span class="inline-block text-[10px] font-medium px-1.5 py-0.5 rounded bg-green-100 text-green-700">Crop</span>
+                    </div>
+                    <p class="text-sm font-medium text-gray-900 truncate mb-1"><%= crop.name %></p>
+                    <p class="text-xs text-gray-400 truncate mb-0.5"><%= location %></p>
+                    <% if crop.expected_harvest_on %>
+                      <p class="text-xs <%= label_class %>">
+                        <% if days_left < 0 %>
+                          <%= days_left.abs %>d overdue
+                        <% elsif days_left == 0 %>
+                          Harvest today
+                        <% else %>
+                          <%= days_left %>d to harvest
+                        <% end %>
+                      </p>
                     <% else %>
-                      <p class="text-xs <%= label_class %>">No start date</p>
+                      <p class="text-xs <%= label_class %>">No harvest date</p>
                     <% end %>
                   </div>
                 <% end %>
-              </div>
-            </div>
-          <% end %>
+              <% end %>
 
-          <%# Crops grouped by location %>
-          <% if @crops_by_location.any? %>
-            <% @crops_by_location.each do |location, crops| %>
-              <div class="mb-6">
-                <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">
-                  Location: <%= location %>
-                </p>
-                <div class="flex flex-wrap gap-3">
-                  <% crops.each do |crop| %>
-                    <% if crop.expected_harvest_on %>
-                      <% days_left = (crop.expected_harvest_on - Date.today).to_i %>
-                      <% card_class = if days_left < 0
-                           "bg-red-50 border-red-200"
-                         elsif days_left == 0
-                           "bg-orange-50 border-orange-200"
-                         elsif days_left <= 7
-                           "bg-yellow-50 border-yellow-200"
-                         elsif days_left <= 14
-                           "bg-lime-50 border-lime-200"
-                         else
-                           "bg-green-50 border-green-200"
-                         end %>
-                      <% label_class = if days_left < 0
-                           "text-red-500"
-                         elsif days_left == 0
-                           "text-orange-600"
-                         elsif days_left <= 7
-                           "text-yellow-600"
-                         elsif days_left <= 14
-                           "text-lime-600"
-                         else
-                           "text-green-600"
-                         end %>
-                    <% else %>
-                      <% card_class = "bg-white border-gray-200" %>
-                      <% label_class = "text-gray-300" %>
-                    <% end %>
-                    <div class="border <%= card_class %> rounded-xl p-3 w-36 flex-shrink-0 cursor-pointer ring-2 ring-transparent transition-all"
-                         data-action="click->crop-panel#select"
-                         data-crop-panel-crop-id-param="<%= crop.id %>"
-                         data-crop-panel-target="card"
-                         data-crop-id="<%= crop.id %>">
-                      <p class="text-sm font-medium text-gray-900 truncate mb-1"><%= crop.name %></p>
-                      <% if crop.expected_harvest_on %>
-                        <p class="text-xs <%= label_class %>">
-                          <% if days_left < 0 %>
-                            <%= days_left.abs %>d overdue
-                          <% elsif days_left == 0 %>
-                            Harvest today
-                          <% else %>
-                            <%= days_left %>d to harvest
-                          <% end %>
-                        </p>
-                      <% else %>
-                        <p class="text-xs <%= label_class %>">No harvest date</p>
-                      <% end %>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
+            </div>
           <% else %>
             <p class="text-sm text-gray-400">No active crops.</p>
           <% end %>
