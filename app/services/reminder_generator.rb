@@ -1,4 +1,12 @@
 class ReminderGenerator
+  SKIPPED_CATEGORIES = %w[
+    crop_protection
+    pruning_trimming
+    pest_disease_checklist
+    growth_benchmarks
+    soil_parameters
+  ].freeze
+
   def self.call(plant, preset)
     new(plant, preset).call
   end
@@ -13,6 +21,7 @@ class ReminderGenerator
 
     @preset.preset_data.each do |category, phases|
       next unless PresetPhase::Base::CATEGORY_MAP.key?(category)
+      next if SKIPPED_CATEGORIES.include?(category)
       phases.each do |phase_data|
         phase = PresetPhase::Base.for(category, phase_data, context)
 
