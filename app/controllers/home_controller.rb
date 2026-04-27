@@ -33,6 +33,9 @@ class HomeController < ApplicationController
     if params[:crop_id]
       crop = current_user.crops.includes(:preset).find(params[:crop_id])
       render partial: "preset_panel", locals: { preset: crop.preset }
+    elsif params[:nursery_id]
+      nursery = current_user.nurseries.includes(:preset).find(params[:nursery_id])
+      render partial: "preset_panel", locals: { preset: nursery.preset }
     else
       head :bad_request
     end
@@ -40,17 +43,92 @@ class HomeController < ApplicationController
 
   private
 
-  def load_monitoring_data
-    active_crops = current_user.crops.where(harvested_on: nil).includes(:preset)
-    @crops_by_location = active_crops.group_by { |c| c.location.presence || "Unassigned" }
-                                     .sort_by { |loc, _| loc == "Unassigned" ? "zzz" : loc.downcase }
-                                     .to_h
+  MONITORING_SORT_COLUMNS = %w[name type location status].freeze
+  MONITORING_PER_PAGE = 25
 
-    @active_nurseries = current_user.nurseries.where(transplanted_on: nil).includes(:preset)
-                                    .sort_by { |n|
-                                      max_days = n.preset&.days_to_harvest_max
-                                      n.started_on && max_days ? n.started_on + max_days : Date::Infinity.new
-                                    }
+  def load_monitoring_data
+    @sort_column    = MONITORING_SORT_COLUMNS.include?(params[:sort]) ? params[:sort] : "status"
+    @sort_direction = params[:direction] == "desc" ? "desc" : "asc"
+
+    nurseries = current_user.nurseries.where(transplanted_on: nil).includes(:preset).to_a
+    crops     = current_user.crops.where(harvested_on: nil).includes(:preset).to_a
+
+    rows = build_monitoring_rows(nurseries, crops)
+    rows = sort_monitoring_rows(rows, @sort_column, @sort_direction)
+
+    @total_pages  = [ (rows.size.to_f / MONITORING_PER_PAGE).ceil, 1 ].max
+    @current_page = [ [ params[:page].to_i, 1 ].max, @total_pages ].min
+    offset = (@current_page - 1) * MONITORING_PER_PAGE
+    @monitoring_rows = rows[offset, MONITORING_PER_PAGE] || []
+  end
+
+  def build_monitoring_rows(nurseries, crops)
+    rows = []
+
+    nurseries.each do |nursery|
+      days_in  = nursery.started_on ? (Date.today - nursery.started_on).to_i : nil
+      max_days = nursery.preset&.days_to_harvest_max
+      min_days = nursery.preset&.days_to_harvest_min
+
+      if days_in && max_days
+        sv = max_days - days_in
+        label_class = days_in > max_days ? "text-red-500" :
+                      (min_days && days_in >= min_days ? "text-orange-600" : "text-green-600")
+      else
+        sv = Float::INFINITY
+        label_class = "text-gray-300"
+      end
+
+      rows << { type: "nursery", name: nursery.name, location: nil,
+                status_text: days_in ? "#{days_in}d in nursery" : "No start date",
+                status_class: label_class, status_value: sv, object: nursery }
+    end
+
+    crops.each do |crop|
+      if crop.expected_harvest_on
+        days_left   = (crop.expected_harvest_on - Date.today).to_i
+        sv          = days_left
+        label_class = days_left < 0  ? "text-red-500"    :
+                      days_left == 0 ? "text-orange-600"  :
+                      days_left <= 7 ? "text-yellow-600"  :
+                      days_left <= 14 ? "text-lime-600"   : "text-green-600"
+        status_text = days_left < 0  ? "#{days_left.abs}d overdue" :
+                      days_left == 0 ? "Harvest today"              :
+                      "#{days_left}d to harvest"
+      else
+        sv = Float::INFINITY
+        label_class = "text-gray-300"
+        status_text = "No harvest date"
+      end
+
+      rows << { type: "crop", name: crop.name,
+                location: crop.location.presence || "Unassigned",
+                status_text: status_text, status_class: label_class,
+                status_value: sv, object: crop }
+    end
+
+    rows
+  end
+
+  def sort_monitoring_rows(rows, col, dir)
+    rows.sort_by! do |row|
+      case col
+      when "name"     then row[:name].downcase
+      when "type"     then "#{row[:type]}|#{row[:name].downcase}"
+      when "location" then "#{row[:location].to_s.downcase}|#{row[:name].downcase}"
+      when "status"
+        sv = row[:status_value]
+        sv == Float::INFINITY ? 999_999 : sv
+      else
+        row[:name].downcase
+      end
+    end
+    rows.reverse! if dir == "desc"
+    if col == "status"
+      with_date, without_date = rows.partition { |r| r[:status_value] != Float::INFINITY }
+      rows = with_date + without_date
+    end
+    rows
   end
 
   def load_finance_data
