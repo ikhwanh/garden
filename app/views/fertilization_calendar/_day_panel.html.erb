@@ -1,0 +1,50 @@
+<turbo-frame id="day-detail">
+  <div class="p-5">
+    <div class="flex items-center gap-2 mb-4">
+      <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      <h3 class="text-sm font-semibold text-gray-900">
+        <%= date.strftime("%A, %B %-d, %Y") %>
+      </h3>
+    </div>
+
+    <% if entries.empty? %>
+      <p class="text-sm text-gray-400">No fertilization scheduled for this day.</p>
+    <% else %>
+      <p class="text-xs text-gray-400 mb-3"><%= entries.size %> <%= "event".pluralize(entries.size) %></p>
+      <div class="space-y-3">
+        <% entries.each do |entry| %>
+          <div class="border border-gray-100 rounded-lg p-3 hover:border-green-200 transition-colors">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-[10px] font-medium px-1.5 py-0.5 rounded bg-green-100 text-green-700 shrink-0">Fertilization</span>
+              <span class="text-xs font-medium text-gray-800 truncate"><%= entry.crop.name %></span>
+            </div>
+            <% if entry.phase_name.present? %>
+              <p class="text-[11px] text-gray-500 mb-2 capitalize"><%= entry.phase_name.humanize %> phase</p>
+            <% end %>
+            <% if entry.fertilizers.any? %>
+              <ul class="space-y-1">
+                <% entry.fertilizers.each do |f| %>
+                  <li class="flex items-start gap-1.5 text-xs text-gray-600">
+                    <span class="text-green-500 mt-px leading-none">•</span>
+                    <span>
+                      <% if f.is_a?(Hash) %>
+                        <%= [ f["name"], f["dose"] && "#{f["dose"]} #{f["unit"]}" ].compact.join(" — ") %>
+                      <% else %>
+                        <%= f %>
+                      <% end %>
+                    </span>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+            <% if entry.notes.present? %>
+              <p class="text-[11px] text-gray-400 mt-2 italic border-t border-gray-50 pt-2"><%= entry.notes %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</turbo-frame>

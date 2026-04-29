@@ -84,6 +84,12 @@
                 class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{cashflow_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
               <span>&#128184;</span>Cashflow
             <% end %>
+
+            <% fert_cal_active = request.path.start_with?("/fertilization_calendar") %>
+            <%= link_to fertilization_calendar_path,
+                class: "flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-md #{fert_cal_active ? 'bg-gray-100 text-gray-900' : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}" do %>
+              <span>&#128197;</span>Calendar
+            <% end %>
           </nav>
         </aside>
 

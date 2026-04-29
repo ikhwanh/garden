@@ -1,0 +1,98 @@
+<% content_for :title, "Fertilization Calendar – Garden" %>
+
+<% prev_month  = @date.prev_month %>
+<% next_month  = @date.next_month %>
+<% grid_start  = @date.beginning_of_week(:monday) %>
+<% grid_end    = @date.end_of_month.end_of_week(:monday) %>
+<% today       = Date.today %>
+
+<div class="flex h-full"
+     data-controller="fertilization-calendar"
+     data-fertilization-calendar-day-url-value="<%= fertilization_calendar_day_path %>">
+
+  <%# Calendar panel %>
+  <div class="w-[460px] shrink-0 border-r border-gray-200 flex flex-col overflow-y-auto">
+
+    <%# Month navigation %>
+    <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between shrink-0">
+      <div class="flex items-center gap-2">
+        <%= link_to fertilization_calendar_path(year: prev_month.year, month: prev_month.month),
+            class: "p-1 rounded hover:bg-gray-100 text-gray-500 transition-colors" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        <% end %>
+        <h2 class="text-sm font-semibold text-gray-900 w-32 text-center">
+          <%= @date.strftime("%B %Y") %>
+        </h2>
+        <%= link_to fertilization_calendar_path(year: next_month.year, month: next_month.month),
+            class: "p-1 rounded hover:bg-gray-100 text-gray-500 transition-colors" do %>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <% end %>
+      </div>
+      <%= link_to "Export .ics", fertilization_calendar_export_path,
+          class: "text-xs px-2.5 py-1.5 border border-gray-200 rounded-md text-gray-600 hover:bg-gray-50 transition-colors" %>
+    </div>
+
+    <%# Day-of-week headers %>
+    <div class="grid grid-cols-7 border-b border-gray-200 bg-gray-50 shrink-0">
+      <% %w[Mon Tue Wed Thu Fri Sat Sun].each do |day| %>
+        <div class="py-2 text-center text-[10px] font-medium text-gray-400 uppercase tracking-wide">
+          <%= day %>
+        </div>
+      <% end %>
+    </div>
+
+    <%# Day grid %>
+    <div class="grid grid-cols-7">
+      <% (grid_start..grid_end).each do |day| %>
+        <% in_month  = day.month == @date.month %>
+        <% events    = in_month ? (@events[day] || []) : [] %>
+        <% is_today  = day == today %>
+        <div class="min-h-[64px] border-b border-r border-gray-100 cursor-pointer select-none transition-colors
+                    <%= in_month ? 'bg-white hover:bg-gray-50' : 'bg-gray-50/60 cursor-default' %>"
+             <%= in_month ? "data-fertilization-calendar-target='day' data-action='click->fertilization-calendar#selectDay' data-fertilization-calendar-date-param='#{day}'" : "" %>>
+          <div class="p-1.5">
+            <span class="inline-flex items-center justify-center w-6 h-6 text-xs rounded-full
+                         <%= is_today ? 'bg-green-600 text-white font-semibold' : (in_month ? 'text-gray-700' : 'text-gray-300') %>">
+              <%= day.day %>
+            </span>
+          </div>
+          <% if events.any? %>
+            <div class="px-1.5 pb-1.5 flex items-center flex-wrap gap-1">
+              <% events.first(3).each do %>
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0"></span>
+              <% end %>
+              <% if events.size > 3 %>
+                <span class="text-[9px] text-green-600 font-medium leading-none">+<%= events.size - 3 %></span>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <%# Legend %>
+    <div class="px-4 py-2.5 border-t border-gray-100 flex items-center gap-4 text-[11px] text-gray-400 shrink-0 mt-auto">
+      <span class="flex items-center gap-1.5">
+        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-600 text-white text-[10px] font-semibold">9</span>
+        Today
+      </span>
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+        Fertilization event
+      </span>
+    </div>
+  </div>
+
+  <%# Day detail panel (Turbo Frame) %>
+  <div class="flex-1 overflow-y-auto bg-white">
+    <turbo-frame id="day-detail">
+      <div class="flex flex-col items-center justify-center h-48 mt-16">
+        <svg class="w-8 h-8 text-gray-200 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        <p class="text-sm text-gray-300">Select a day to view schedule</p>
+      </div>
+    </turbo-frame>
+  </div>
+
+</div>

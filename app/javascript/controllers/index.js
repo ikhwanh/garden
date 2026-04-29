@@ -15,3 +15,6 @@ application.register("cashflow-form", CashflowFormController)
 
 import CropPanelController from "./crop_panel_controller"
 application.register("crop-panel", CropPanelController)
+
+import FertilizationCalendarController from "./fertilization_calendar_controller"
+application.register("fertilization-calendar", FertilizationCalendarController)

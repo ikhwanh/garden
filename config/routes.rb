@@ -7,6 +7,10 @@ Rails.application.routes.draw do
 
   resource :calendar, only: :show
 
+  get  "fertilization_calendar",        to: "fertilization_calendar#index",  as: :fertilization_calendar
+  get  "fertilization_calendar/day",    to: "fertilization_calendar#day",    as: :fertilization_calendar_day
+  get  "fertilization_calendar/export", to: "fertilization_calendar#export", as: :fertilization_calendar_export
+
   get "/cashflow", to: "cashflow#index", as: :cashflow
   resources :cashflow_entries, except: [ :index, :show ]
 
