@@ -40,8 +40,8 @@ class Dashboard::MonitoringController < ApplicationController
     preset = obj.preset
     active_phases, upcoming_phases = phase_split(preset, dap)
 
-    render partial: "detail_panel", locals: {
-      obj: obj, kind: kind, dap: dap,
+    render partial: "detail_panel_#{kind}", locals: {
+      obj: obj, dap: dap,
       preset: preset, active_phases: active_phases, upcoming_phases: upcoming_phases
     }
   end
