@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     get "monitoring",    to: "monitoring#index",         as: :monitoring
     get "finance",       to: "finance#index",            as: :finance
     get "tools",         to: "tools#index",              as: :tools
-    get "preset_panel",  to: "monitoring#preset_panel",  as: :preset_panel
+    get "detail_panel",  to: "monitoring#detail_panel",  as: :detail_panel
   end
 
   root "dashboard/monitoring#index"

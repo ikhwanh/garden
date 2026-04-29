@@ -22,18 +22,28 @@ class Dashboard::MonitoringController < ApplicationController
     @monitoring_rows = rows[offset, PER_PAGE] || []
   end
 
-  def preset_panel
+  def detail_panel
     authorize :home, :panel?
 
     if params[:crop_id]
-      crop = current_user.crops.includes(:preset).find(params[:crop_id])
-      render partial: "preset_panel", locals: { preset: crop.preset }
+      obj  = current_user.crops.includes(:preset).find(params[:crop_id])
+      dap  = (Date.today - obj.planted_on).to_i
+      kind = "crop"
     elsif params[:nursery_id]
-      nursery = current_user.nurseries.includes(:preset).find(params[:nursery_id])
-      render partial: "preset_panel", locals: { preset: nursery.preset }
+      obj  = current_user.nurseries.includes(:preset).find(params[:nursery_id])
+      dap  = obj.started_on ? (Date.today - obj.started_on).to_i : nil
+      kind = "nursery"
     else
-      head :bad_request
+      head :bad_request and return
     end
+
+    preset = obj.preset
+    active_phases, upcoming_phases = phase_split(preset, dap)
+
+    render partial: "detail_panel", locals: {
+      obj: obj, kind: kind, dap: dap,
+      preset: preset, active_phases: active_phases, upcoming_phases: upcoming_phases
+    }
   end
 
   private
@@ -105,6 +115,36 @@ class Dashboard::MonitoringController < ApplicationController
       rows = with_date + without_date
     end
     rows
+  end
+
+  def phase_split(preset, dap)
+    return [ {}, {} ] unless preset&.preset_data.present? && dap
+
+    section_order = %w[crop_protection pruning_trimming fertilization_schedule
+                       pest_disease_checklist soil_parameters growth_benchmarks]
+    data = preset.preset_data
+
+    active   = {}
+    upcoming = {}
+
+    section_order.each do |key|
+      phases = data[key]
+      next if phases.blank?
+
+      active[key] = phases.find { |p|
+        r = p["dap_range"]
+        r && dap >= r["min"].to_i && dap <= r["max"].to_i
+      }
+
+      upcoming[key] = phases
+        .select  { |p| p.dig("dap_range", "min").to_i > dap }
+        .min_by  { |p| p.dig("dap_range", "min").to_i }
+    end
+
+    active.compact!
+    upcoming.compact!
+
+    [ active, upcoming ]
   end
 
   def redirect_to_login

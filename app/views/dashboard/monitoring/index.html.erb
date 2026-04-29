@@ -3,76 +3,82 @@
 <% sort_url = ->(s, d) { dashboard_monitoring_path(sort: s, direction: d) } %>
 <div class="flex h-full"
      data-controller="crop-panel"
-     data-crop-panel-preset-panel-url-value="<%= dashboard_preset_panel_path %>">
+     data-crop-panel-detail-panel-url-value="<%= dashboard_detail_panel_path %>">
 
-  <%# Main table area %>
-  <div class="flex-1 min-w-0 overflow-y-auto">
-    <div class="px-6 py-3 border-b border-gray-200 bg-white flex items-center justify-between">
-      <h1 class="text-sm font-semibold text-gray-900">Monitoring</h1>
+  <%# Card list %>
+  <div class="w-64 shrink-0 border-r border-gray-200 flex flex-col">
+
+    <%# Sort bar %>
+    <div class="px-3 py-2 border-b border-gray-200 bg-gray-50 flex items-center gap-1 flex-wrap">
+      <% [["status", "Status"], ["name", "Name"], ["type", "Type"], ["location", "Location"]].each do |col, label| %>
+        <% active = @sort_column == col %>
+        <% next_dir = active && @sort_direction == "asc" ? "desc" : "asc" %>
+        <%= link_to sort_url.call(col, next_dir),
+            class: "px-2 py-0.5 text-[10px] rounded transition-colors #{active ? 'bg-gray-200 text-gray-800 font-semibold' : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'}" do %>
+          <%= label %><%= active ? (@sort_direction == "desc" ? " ↓" : " ↑") : "" %>
+        <% end %>
+      <% end %>
     </div>
 
-    <% if @monitoring_rows.any? %>
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <%= render "shared/sort_th", label: "Type",     column: "type",     sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
-            <%= render "shared/sort_th", label: "Name",     column: "name",     sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
-            <%= render "shared/sort_th", label: "Location", column: "location", sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
-            <%= render "shared/sort_th", label: "Status",   column: "status",   sort_column: @sort_column, sort_direction: @sort_direction, url: sort_url %>
-            <th class="px-4 py-2.5 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-100">
+    <%# Cards %>
+    <div class="flex-1 overflow-y-auto">
+      <% if @monitoring_rows.any? %>
+        <div class="divide-y divide-gray-100">
           <% @monitoring_rows.each do |row| %>
             <% obj = row[:object] %>
             <% is_nursery = row[:type] == "nursery" %>
-            <tr class="hover:bg-gray-50 ring-2 ring-inset ring-transparent transition-all"
-                data-crop-panel-target="card"
-                <%= is_nursery ? "data-nursery-id=#{obj.id}" : "data-crop-id=#{obj.id}" %>>
-              <td class="px-4 py-2.5">
+            <div class="px-4 py-3 cursor-pointer hover:bg-gray-50 border-l-2 border-transparent transition-all select-none"
+                 data-crop-panel-target="card"
+                 data-action="click->crop-panel#showDetail"
+                 <%= is_nursery ? "data-crop-panel-nursery-id-param=#{obj.id}" : "data-crop-panel-crop-id-param=#{obj.id}" %>>
+              <div class="flex items-center gap-1.5 mb-0.5">
                 <% if is_nursery %>
-                  <span class="inline-block text-[10px] font-medium px-1.5 py-0.5 rounded bg-purple-100 text-purple-600">Nursery</span>
+                  <span class="inline-block text-[9px] font-medium px-1 py-0.5 rounded bg-purple-100 text-purple-600">Nursery</span>
                 <% else %>
-                  <span class="inline-block text-[10px] font-medium px-1.5 py-0.5 rounded bg-green-100 text-green-700">Crop</span>
+                  <span class="inline-block text-[9px] font-medium px-1 py-0.5 rounded bg-green-100 text-green-700">Crop</span>
                 <% end %>
-              </td>
-              <td class="px-4 py-2.5 text-sm font-medium text-gray-900"><%= row[:name] %></td>
-              <td class="px-4 py-2.5 text-sm text-gray-400"><%= row[:location] || "—" %></td>
-              <td class="px-4 py-2.5 text-xs <%= row[:status_class] %>"><%= row[:status_text] %></td>
-              <td class="px-4 py-2.5">
-                <div class="flex gap-2">
-                  <% if is_nursery %>
-                    <a href="#" class="text-[10px] text-blue-600 hover:underline"
-                       data-action="click->crop-panel#showPanel"
-                       data-crop-panel-nursery-id-param="<%= obj.id %>"
-                       data-crop-panel-panel-param="preset">preset</a>
-                  <% else %>
-                    <a href="#" class="text-[10px] text-blue-600 hover:underline"
-                       data-action="click->crop-panel#showPanel"
-                       data-crop-panel-crop-id-param="<%= obj.id %>"
-                       data-crop-panel-panel-param="preset">preset</a>
-                  <% end %>
-                </div>
-              </td>
-            </tr>
+                <% if row[:location] && row[:location] != "Unassigned" %>
+                  <span class="text-[9px] text-gray-400 truncate"><%= row[:location] %></span>
+                <% end %>
+              </div>
+              <p class="text-sm font-medium text-gray-900 truncate leading-snug"><%= row[:name] %></p>
+              <p class="text-[11px] mt-0.5 <%= row[:status_class] %>"><%= row[:status_text] %></p>
+            </div>
           <% end %>
-        </tbody>
-      </table>
-      <%= render "shared/pagination",
-          current_page: @current_page,
-          total_pages: @total_pages,
-          url_for_page: ->(page) { dashboard_monitoring_path(page: page, sort: @sort_column, direction: @sort_direction) } %>
-    <% else %>
-      <p class="text-sm text-gray-400 px-6 py-12 text-center">No active crops or nurseries.</p>
-    <% end %>
+        </div>
+
+        <% if @total_pages > 1 %>
+          <div class="px-4 py-2 border-t border-gray-200 flex items-center justify-between text-[10px] text-gray-400">
+            <span>Page <%= @current_page %> / <%= @total_pages %></span>
+            <div class="flex gap-1.5">
+              <% if @current_page > 1 %>
+                <%= link_to "←", dashboard_monitoring_path(page: @current_page - 1, sort: @sort_column, direction: @sort_direction),
+                    class: "px-1.5 py-0.5 border border-gray-200 rounded hover:bg-gray-50" %>
+              <% else %>
+                <span class="px-1.5 py-0.5 border border-gray-100 rounded text-gray-200">←</span>
+              <% end %>
+              <% if @current_page < @total_pages %>
+                <%= link_to "→", dashboard_monitoring_path(page: @current_page + 1, sort: @sort_column, direction: @sort_direction),
+                    class: "px-1.5 py-0.5 border border-gray-200 rounded hover:bg-gray-50" %>
+              <% else %>
+                <span class="px-1.5 py-0.5 border border-gray-100 rounded text-gray-200">→</span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+      <% else %>
+        <p class="text-xs text-gray-400 px-4 py-12 text-center">No active crops or nurseries.</p>
+      <% end %>
+    </div>
   </div>
 
-  <%# Inspect pane %>
-  <div class="w-80 shrink-0 border-l border-gray-200 bg-white overflow-y-auto hidden" data-crop-panel-target="sidebar">
-    <div class="px-4 py-3 border-b border-gray-200">
-      <h2 class="text-sm font-medium text-gray-900" data-crop-panel-target="panelTitle"></h2>
+  <%# Detail pane %>
+  <div class="flex-1 overflow-y-auto bg-white">
+    <div class="flex items-center justify-center h-full" data-crop-panel-target="emptyState">
+      <p class="text-sm text-gray-300">Select a crop or nursery</p>
     </div>
-    <div class="p-4" data-crop-panel-target="content"></div>
+    <div class="hidden" data-crop-panel-target="content"></div>
   </div>
 
 </div>
