@@ -1,25 +1,6 @@
 <% content_for :title, "Tools – Garden" %>
 
 <div class="p-6 overflow-y-auto h-full">
-  <%# Calendar export widget %>
-  <% calendar = GardenCalendar.new(current_user) %>
-  <div class="bg-white border border-gray-200 rounded-lg p-4 max-w-sm mb-4">
-    <h2 class="text-sm font-medium text-gray-900 mb-1">Calendar export</h2>
-    <p class="text-xs text-gray-500 mb-3">Download your schedule — germination and harvest dates — as an .ics file to import into Google Calendar or any calendar app.</p>
-    <% if calendar.any_events? %>
-      <%= link_to calendar_path, class: "inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-700 transition-colors" do %>
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-        Download .ics
-      <% end %>
-    <% else %>
-      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 text-gray-400 text-sm font-medium rounded-md cursor-not-allowed">
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-        Download .ics
-      </span>
-      <p class="mt-2 text-xs text-gray-400">No calendar events available.</p>
-    <% end %>
-  </div>
-
   <%# Database import / export widget %>
   <div class="bg-white border border-gray-200 rounded-lg p-4 max-w-sm">
     <h2 class="text-sm font-medium text-gray-900 mb-1">Database backup</h2>

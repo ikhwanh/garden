@@ -11,7 +11,7 @@
           data: { turbo_frame: "inspect" },
           class: "text-xs text-gray-500 hover:text-gray-900" %>
       <%= button_to "Delete", crop_path(crop), method: :delete,
-          data: { turbo_confirm: "Delete \"#{crop.name}\"? This will also delete all its reminders." },
+          data: { turbo_confirm: "Delete \"#{crop.name}\"?" },
           class: "text-xs text-red-500 hover:text-red-700 bg-transparent border-0 cursor-pointer p-0" %>
     </div>
   </div>
@@ -52,21 +52,4 @@
     </div>
   <% end %>
 
-  <% reminders = crop.reminders.order(:due_on) %>
-  <% if reminders.any? %>
-    <div class="pt-3 border-t border-gray-100">
-      <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Reminders</p>
-      <table class="w-full">
-        <tbody class="divide-y divide-gray-100">
-          <% reminders.each do |reminder| %>
-            <tr class="<%= reminder.notified_at ? 'opacity-40' : '' %>">
-              <td class="py-1.5 text-xs text-gray-500 w-20"><%= reminder.due_on.strftime("%b %d") %></td>
-              <td class="py-1.5 text-xs text-gray-700"><%= reminder.phase.humanize %></td>
-              <td class="py-1.5 text-xs text-gray-400 capitalize"><%= reminder.category.tr('_', ' ') %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  <% end %>
 </div>

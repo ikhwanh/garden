@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   resources :crops
   resources :presets
 
-  resource :calendar, only: :show
-
   get "/cashflow", to: "cashflow#index", as: :cashflow
   resources :cashflow_entries, except: [ :index, :show ]
 

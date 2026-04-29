@@ -28,7 +28,6 @@ class CropsController < ApplicationController
     @crop = current_user.crops.new(crop_params)
     if @crop.save
       @crop.nursery&.update_column(:transplanted_on, @crop.planted_on)
-      ReminderGenerator.call(@crop, @crop.preset) if @crop.preset
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to crop_path(@crop) }
@@ -47,11 +46,6 @@ class CropsController < ApplicationController
 
   def update
     if @crop.update(crop_params)
-      if @crop.preset
-        ReminderGenerator.call(@crop, @crop.preset)
-      else
-        Reminder.where(crop_id: @crop.id).delete_all
-      end
       respond_to do |format|
         format.turbo_stream
         format.html { redirect_to crop_path(@crop) }

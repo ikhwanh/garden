@@ -2,8 +2,6 @@ class Crop < ApplicationRecord
   belongs_to :user
   belongs_to :nursery, optional: true
   belongs_to :preset, optional: true
-  has_many :reminders, dependent: :destroy
-
   before_save :set_expected_harvest_on, if: -> { preset_id_changed? || planted_on_changed? }
   after_save :update_nursery_quantity_final
   after_destroy :update_nursery_quantity_final
