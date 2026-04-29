@@ -129,8 +129,8 @@
             },
             "targets": {
               "pH": {
-                "min": 6.0,
-                "max": 7.0
+                "min": 5.5,
+                "max": 6.5
               },
               "moisture_pct": {
                 "min": 60,
@@ -151,8 +151,8 @@
             },
             "targets": {
               "pH": {
-                "min": 6.0,
-                "max": 7.0
+                "min": 5.5,
+                "max": 6.5
               },
               "moisture_pct": {
                 "min": 55,
@@ -268,10 +268,10 @@
       "local_name": "Bawang merah (Biji TSS)",
       "grow_type": "soil",
       "days_to_harvest": {
-        "min": 50,
-        "max": 65
+        "min": 75,
+        "max": 90
       },
-      "notes": "Grown from True Seed of Shallot (TSS). Nursery phase (20–25 days) is managed separately. DAP is relative to transplant date. Produces larger bulbs with higher yield than bulb-planted shallot.",
+      "notes": "Grown from True Seed of Shallot (TSS). Nursery phase (30–45 days) is managed separately. DAP is relative to transplant date. Produces larger bulbs with higher yield than bulb-planted shallot.",
       "presets": {
         "crop_protection": [
           {
@@ -639,8 +639,8 @@
             },
             "targets": {
               "pH": {
-                "min": 6.0,
-                "max": 7.0
+                "min": 5.5,
+                "max": 6.5
               },
               "moisture_pct": {
                 "min": 55,
@@ -760,7 +760,7 @@
         "min": 64,
         "max": 99
       },
-      "notes": "Nursery phase (18–21 days) is managed separately. DAP is relative to transplant date.",
+      "notes": "Nursery phase (40–60 days) is managed separately. DAP is relative to transplant date.",
       "presets": {
         "crop_protection": [
           {
@@ -1264,8 +1264,8 @@
             },
             "targets": {
               "pH": {
-                "min": 6.0,
-                "max": 7.0
+                "min": 5.5,
+                "max": 6.5
               },
               "moisture_pct": {
                 "min": 65,

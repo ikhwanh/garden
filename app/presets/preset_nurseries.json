@@ -7,8 +7,8 @@
       "name": "Shallot (True Seed / TSS)",
       "local_name": "Bawang merah (Biji TSS)",
       "days_in_nursery": {
-        "min": 20,
-        "max": 25
+        "min": 30,
+        "max": 45
       },
       "presets": {
         "crop_protection": [
@@ -16,7 +16,7 @@
             "phase": "nursery",
             "dap_range": {
               "min": 0,
-              "max": 25
+              "max": 45
             },
             "actions": [
               "Sow seeds in sterilized cocopeat or growing media in shade house",
@@ -30,7 +30,7 @@
             "phase": "nursery",
             "dap_range": {
               "min": 0,
-              "max": 25
+              "max": 45
             },
             "pests": [
               {
@@ -56,7 +56,7 @@
         ],
         "growth_benchmarks": [
           {
-            "dap": 20,
+            "dap": 30,
             "targets": {
               "plant_height_cm": {
                 "min": 8,
@@ -67,6 +67,20 @@
                 "max": 5
               }
             },
+            "notes": "Mid-nursery check; seedlings should be vigorous and upright"
+          },
+          {
+            "dap": 40,
+            "targets": {
+              "plant_height_cm": {
+                "min": 12,
+                "max": 20
+              },
+              "leaf_count": {
+                "min": 4,
+                "max": 6
+              }
+            },
             "notes": "End of nursery phase; seedlings ready to transplant to field"
           }
         ],
@@ -75,7 +89,7 @@
             "phase": "nursery",
             "dap_range": {
               "min": 0,
-              "max": 25
+              "max": 45
             },
             "interval_days": 7,
             "fertilizers": [
@@ -92,8 +106,8 @@
       "name": "Celery",
       "local_name": "Seledri",
       "days_in_nursery": {
-        "min": 18,
-        "max": 21
+        "min": 40,
+        "max": 60
       },
       "presets": {
         "crop_protection": [
@@ -101,7 +115,7 @@
             "phase": "nursery",
             "dap_range": {
               "min": 0,
-              "max": 21
+              "max": 60
             },
             "actions": [
               "Use sterilized media to prevent damping-off",
@@ -115,7 +129,7 @@
             "phase": "nursery",
             "dap_range": {
               "min": 0,
-              "max": 21
+              "max": 60
             },
             "pests": [
               {
@@ -123,8 +137,44 @@
                 "inspect_part": "stem base at soil level",
                 "action_threshold": "seedling collapse found",
                 "inspection_interval_days": 2
+              },
+              {
+                "name": "Aphid (Myzus persicae)",
+                "inspect_part": "young shoots & leaf underside",
+                "action_threshold": "visible colonies found",
+                "inspection_interval_days": 5
               }
             ]
+          }
+        ],
+        "growth_benchmarks": [
+          {
+            "dap": 21,
+            "targets": {
+              "plant_height_cm": {
+                "min": 3,
+                "max": 6
+              },
+              "leaf_count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            "notes": "First true leaves emerging; germination complete"
+          },
+          {
+            "dap": 50,
+            "targets": {
+              "plant_height_cm": {
+                "min": 12,
+                "max": 15
+              },
+              "leaf_count": {
+                "min": 4,
+                "max": 6
+              }
+            },
+            "notes": "Seedlings ready for transplanting; roots should be 7-8 cm long"
           }
         ]
       }
