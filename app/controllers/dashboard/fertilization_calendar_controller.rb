@@ -1,4 +1,4 @@
-class FertilizationCalendarController < ApplicationController
+class Dashboard::FertilizationCalendarController < ApplicationController
   before_action :authenticate_user!
 
   def index
@@ -22,7 +22,7 @@ class FertilizationCalendarController < ApplicationController
     all_events = builder.all_events
 
     if all_events.empty?
-      redirect_to fertilization_calendar_path, alert: "No fertilization schedule to export."
+      redirect_to dashboard_fertilization_calendar_path, alert: "No fertilization schedule to export."
       return
     end
 

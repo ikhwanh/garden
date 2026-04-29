@@ -8,7 +8,7 @@
 
 <div class="flex h-full"
      data-controller="fertilization-calendar"
-     data-fertilization-calendar-day-url-value="<%= fertilization_calendar_day_path %>">
+     data-fertilization-calendar-day-url-value="<%= dashboard_fertilization_calendar_day_path %>">
 
   <%# Calendar panel %>
   <div class="w-[460px] shrink-0 border-r border-gray-200 flex flex-col overflow-y-auto">
@@ -16,19 +16,19 @@
     <%# Month navigation %>
     <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between shrink-0">
       <div class="flex items-center gap-2">
-        <%= link_to fertilization_calendar_path(year: prev_month.year, month: prev_month.month),
+        <%= link_to dashboard_fertilization_calendar_path(year: prev_month.year, month: prev_month.month),
             class: "p-1 rounded hover:bg-gray-100 text-gray-500 transition-colors" do %>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
         <% end %>
         <h2 class="text-sm font-semibold text-gray-900 w-32 text-center">
           <%= @date.strftime("%B %Y") %>
         </h2>
-        <%= link_to fertilization_calendar_path(year: next_month.year, month: next_month.month),
+        <%= link_to dashboard_fertilization_calendar_path(year: next_month.year, month: next_month.month),
             class: "p-1 rounded hover:bg-gray-100 text-gray-500 transition-colors" do %>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         <% end %>
       </div>
-      <%= link_to "Export .ics", fertilization_calendar_export_path,
+      <%= link_to "Export .ics", dashboard_fertilization_calendar_export_path,
           class: "text-xs px-2.5 py-1.5 border border-gray-200 rounded-md text-gray-600 hover:bg-gray-50 transition-colors" %>
     </div>
 
@@ -47,8 +47,8 @@
         <% in_month  = day.month == @date.month %>
         <% events    = in_month ? (@events[day] || []) : [] %>
         <% is_today  = day == today %>
-        <div class="min-h-[64px] border-b border-r border-gray-100 cursor-pointer select-none transition-colors
-                    <%= in_month ? 'bg-white hover:bg-gray-50' : 'bg-gray-50/60 cursor-default' %>"
+        <div class="min-h-[64px] border-b border-r border-gray-100 select-none transition-colors
+                    <%= in_month ? 'bg-white hover:bg-gray-50 cursor-pointer' : 'bg-gray-50/60 cursor-default' %>"
              <%= in_month ? "data-fertilization-calendar-target='day' data-action='click->fertilization-calendar#selectDay' data-fertilization-calendar-date-param='#{day}'" : "" %>>
           <div class="p-1.5">
             <span class="inline-flex items-center justify-center w-6 h-6 text-xs rounded-full
