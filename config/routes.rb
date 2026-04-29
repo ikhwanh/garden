@@ -15,7 +15,12 @@ Rails.application.routes.draw do
 
   get "up" => "rails/health#show", as: :rails_health_check
 
-  get "/preset_panel", to: "home#preset_panel", as: :preset_panel
+  namespace :dashboard do
+    get "monitoring",    to: "monitoring#index",         as: :monitoring
+    get "finance",       to: "finance#index",            as: :finance
+    get "tools",         to: "tools#index",              as: :tools
+    get "preset_panel",  to: "monitoring#preset_panel",  as: :preset_panel
+  end
 
-  root "home#index"
+  root "dashboard/monitoring#index"
 end

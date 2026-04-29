@@ -1,0 +1,109 @@
+<% content_for :title, "Finance – Garden" %>
+
+<div class="p-6 overflow-y-auto h-full">
+  <%# Success Rate widget %>
+  <% if @nursery_rates.any? || @crop_rates.any? %>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 mb-6">
+      <h2 class="text-sm font-medium text-gray-900 mb-3">Success Rate</h2>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Nursery</p>
+          <% if @nursery_rates.any? %>
+            <ul class="space-y-2">
+              <% @nursery_rates.each do |nursery| %>
+                <% rate = nursery.success_rate %>
+                <li>
+                  <div class="flex items-center justify-between text-xs mb-1">
+                    <span class="text-gray-700 truncate"><%= nursery.name %></span>
+                    <span class="text-gray-500 ml-2 flex-shrink-0"><%= rate %>%</span>
+                  </div>
+                  <div class="w-full bg-gray-100 rounded-full h-1.5">
+                    <div class="h-1.5 rounded-full <%= rate >= 75 ? 'bg-green-500' : rate >= 50 ? 'bg-yellow-400' : 'bg-red-400' %>"
+                         style="width: <%= [ rate, 100 ].min %>%"></div>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-xs text-gray-400">No data yet.</p>
+          <% end %>
+        </div>
+        <div>
+          <p class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">Harvest</p>
+          <% if @crop_rates.any? %>
+            <ul class="space-y-2">
+              <% @crop_rates.each do |crop| %>
+                <% rate = crop.success_rate %>
+                <li>
+                  <div class="flex items-center justify-between text-xs mb-1">
+                    <span class="text-gray-700 truncate"><%= crop.name %></span>
+                    <span class="text-gray-500 ml-2 flex-shrink-0"><%= rate %>%</span>
+                  </div>
+                  <div class="w-full bg-gray-100 rounded-full h-1.5">
+                    <div class="h-1.5 rounded-full <%= rate >= 75 ? 'bg-green-500' : rate >= 50 ? 'bg-yellow-400' : 'bg-red-400' %>"
+                         style="width: <%= [ rate, 100 ].min %>%"></div>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p class="text-xs text-gray-400">No data yet.</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <%# Cashflow widget %>
+  <div class="mb-6">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-sm font-medium text-gray-900">Cashflow</h2>
+      <%= form_with url: dashboard_finance_path, method: :get, data: { turbo: false }, class: "flex items-center gap-2" do |f| %>
+        <%= f.date_field :cf_start, value: @cf_start_date,
+            class: "border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400" %>
+        <span class="text-xs text-gray-400">to</span>
+        <%= f.date_field :cf_end, value: @cf_end_date,
+            class: "border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400" %>
+        <%= f.select :cf_cost_type,
+            [["All types", ""], ["Fixed", "fixed"], ["Variable", "variable"]],
+            { selected: @cf_cost_type.to_s },
+            class: "border border-gray-300 rounded-md px-2 py-1 text-xs focus:outline-none focus:ring-1 focus:ring-gray-400" %>
+        <%= f.submit "Filter", class: "px-2.5 py-1 text-xs font-medium border border-gray-300 rounded-md text-gray-600 hover:bg-gray-50 cursor-pointer" %>
+      <% end %>
+    </div>
+
+    <%# Summary numbers %>
+    <div class="grid grid-cols-3 gap-3 mb-4">
+      <div class="bg-white border border-gray-200 rounded-lg p-3">
+        <p class="text-xs text-gray-500 mb-1">Total Income</p>
+        <p class="text-base font-semibold text-green-700"><%= currency_rp(@cf_total_income) %></p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-lg p-3">
+        <p class="text-xs text-gray-500 mb-1">Total Expenses</p>
+        <p class="text-base font-semibold text-red-700"><%= currency_rp(@cf_total_expenses) %></p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-lg p-3">
+        <p class="text-xs text-gray-500 mb-1">Net</p>
+        <p class="text-base font-semibold <%= @cf_net >= 0 ? 'text-green-700' : 'text-red-700' %>">
+          <%= @cf_net >= 0 ? "+ " : "- " %><%= currency_rp(@cf_net.abs) %>
+        </p>
+      </div>
+    </div>
+
+    <%# Break-even chart %>
+    <div class="bg-white border border-gray-200 rounded-lg p-4">
+      <% if @cf_chart_labels.any? %>
+        <div class="h-56">
+          <canvas
+            data-controller="cashflow-chart"
+            data-cashflow-chart-labels-value="<%= @cf_chart_labels.to_json %>"
+            data-cashflow-chart-income-value="<%= @cf_chart_income.to_json %>"
+            data-cashflow-chart-expenses-value="<%= @cf_chart_expenses.to_json %>"
+          ></canvas>
+        </div>
+      <% else %>
+        <p class="text-xs text-gray-400 text-center py-8">No cashflow entries yet. <%= link_to "Add your first entry", cashflow_path, class: "underline hover:text-gray-600" %>.</p>
+      <% end %>
+    </div>
+  </div>
+</div>
