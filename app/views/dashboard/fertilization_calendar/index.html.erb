@@ -49,7 +49,11 @@
         <% is_today  = day == today %>
         <div class="min-h-[64px] border-b border-r border-gray-100 select-none transition-colors
                     <%= in_month ? 'bg-white hover:bg-gray-50 cursor-pointer' : 'bg-gray-50/60 cursor-default' %>"
-             <%= in_month ? "data-fertilization-calendar-target='day' data-action='click->fertilization-calendar#selectDay' data-fertilization-calendar-date-param='#{day}'" : "" %>>
+             <% if in_month %>
+               data-fertilization-calendar-target="day"
+               data-action="click->fertilization-calendar#selectDay"
+               data-fertilization-calendar-date-param="<%= day %>"
+             <% end %>>
           <div class="p-1.5">
             <span class="inline-flex items-center justify-center w-6 h-6 text-xs rounded-full
                          <%= is_today ? 'bg-green-600 text-white font-semibold' : (in_month ? 'text-gray-700' : 'text-gray-300') %>">
