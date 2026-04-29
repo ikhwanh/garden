@@ -6,7 +6,6 @@
     <% sort_url = ->(s, d) { root_path(tab: "monitoring", sort: s, direction: d) } %>
     <div class="flex h-full"
          data-controller="crop-panel"
-         data-crop-panel-panel-url-value="<%= panel_path %>"
          data-crop-panel-preset-panel-url-value="<%= preset_panel_path %>">
 
       <%# Main table area %>
@@ -55,10 +54,6 @@
                            data-action="click->crop-panel#showPanel"
                            data-crop-panel-crop-id-param="<%= obj.id %>"
                            data-crop-panel-panel-param="preset">preset</a>
-                        <a href="#" class="text-[10px] text-blue-600 hover:underline"
-                           data-action="click->crop-panel#showPanel"
-                           data-crop-panel-crop-id-param="<%= obj.id %>"
-                           data-crop-panel-panel-param="treatment">treatment</a>
                       <% end %>
                     </div>
                   </td>

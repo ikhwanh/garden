@@ -12,21 +12,6 @@ class HomeController < ApplicationController
     load_finance_data if @active_tab == "finance"
   end
 
-  def panel
-    authorize :home, :panel?
-
-    if params[:crop_id]
-      crop = current_user.crops.find(params[:crop_id])
-      reminders = Reminder.where(crop: crop).order(:due_on)
-      render partial: "crop_panel", locals: { reminders: reminders }
-    elsif params[:nursery_id]
-      nursery = current_user.nurseries.find(params[:nursery_id])
-      render partial: "nursery_panel", locals: { nursery: nursery }
-    else
-      head :bad_request
-    end
-  end
-
   def preset_panel
     authorize :home, :panel?
 
