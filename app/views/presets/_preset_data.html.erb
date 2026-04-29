@@ -28,7 +28,7 @@
           <% dap_label = dap ? "DAP #{dap["min"]}–#{dap["max"]}" : (phase["dap"] ? "DAP #{phase["dap"]}" : nil) %>
           <div class="flex items-baseline gap-2 mb-1">
             <% if phase["phase"].present? %>
-              <span class="text-xs font-medium text-gray-700"><%= phase["phase"] %></span>
+              <span class="text-xs font-medium text-gray-700"><%= phase["phase"].humanize %></span>
             <% end %>
             <% if dap_label %>
               <span class="text-xs text-gray-400"><%= dap_label %></span>

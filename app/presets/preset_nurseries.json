@@ -13,7 +13,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -27,7 +27,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -72,7 +72,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -98,7 +98,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 21
@@ -112,7 +112,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 21
@@ -140,7 +140,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -154,7 +154,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -204,7 +204,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 21
@@ -218,7 +218,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 21
@@ -268,7 +268,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -282,7 +282,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Nursery",
+            "phase": "nursery",
             "dap_range": {
               "min": 0,
               "max": 25

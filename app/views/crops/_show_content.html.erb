@@ -61,7 +61,7 @@
           <% reminders.each do |reminder| %>
             <tr class="<%= reminder.notified_at ? 'opacity-40' : '' %>">
               <td class="py-1.5 text-xs text-gray-500 w-20"><%= reminder.due_on.strftime("%b %d") %></td>
-              <td class="py-1.5 text-xs text-gray-700"><%= reminder.phase %></td>
+              <td class="py-1.5 text-xs text-gray-700"><%= reminder.phase.humanize %></td>
               <td class="py-1.5 text-xs text-gray-400 capitalize"><%= reminder.category.tr('_', ' ') %></td>
             </tr>
           <% end %>

@@ -16,7 +16,7 @@ class GardenCalendar
       cal.event do |e|
         e.dtstart     = Icalendar::Values::Date.new(reminder.due_on)
         e.dtend       = Icalendar::Values::Date.new(reminder.due_on)
-        e.summary     = "#{reminder.crop.name} – #{reminder.phase}"
+        e.summary     = "#{reminder.crop.name} – #{reminder.phase.humanize}"
         e.description = format_details(reminder.details)
         e.uid         = "reminder-#{reminder.id}@garden"
       end

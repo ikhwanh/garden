@@ -14,7 +14,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Early vegetative",
+            "phase": "early_vegetative",
             "dap_range": {
               "min": 0,
               "max": 20
@@ -26,7 +26,7 @@
             ]
           },
           {
-            "phase": "Active vegetative",
+            "phase": "active_vegetative",
             "dap_range": {
               "min": 20,
               "max": 40
@@ -38,7 +38,7 @@
             ]
           },
           {
-            "phase": "Bulb formation",
+            "phase": "bulb_formation",
             "dap_range": {
               "min": 40,
               "max": 60
@@ -52,7 +52,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 75
@@ -66,7 +66,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 40
@@ -93,7 +93,7 @@
             ]
           },
           {
-            "phase": "Bulb formation",
+            "phase": "bulb_formation",
             "dap_range": {
               "min": 40,
               "max": 75
@@ -122,7 +122,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 60
@@ -144,7 +144,7 @@
             "notes": "Good drainage required — avoid waterlogging"
           },
           {
-            "phase": "Bulb formation",
+            "phase": "bulb_formation",
             "dap_range": {
               "min": 40,
               "max": 75
@@ -208,7 +208,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -221,7 +221,7 @@
             "notes": "Apply once at planting"
           },
           {
-            "phase": "Early vegetative",
+            "phase": "early_vegetative",
             "dap_range": {
               "min": 7,
               "max": 20
@@ -234,7 +234,7 @@
             "notes": "Promote leaf growth"
           },
           {
-            "phase": "Active vegetative",
+            "phase": "active_vegetative",
             "dap_range": {
               "min": 20,
               "max": 45
@@ -247,7 +247,7 @@
             "notes": null
           },
           {
-            "phase": "Bulb formation",
+            "phase": "bulb_formation",
             "dap_range": {
               "min": 45,
               "max": 55
@@ -275,7 +275,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Early vegetative",
+            "phase": "early_vegetative",
             "dap_range": {
               "min": 0,
               "max": 20
@@ -287,7 +287,7 @@
             ]
           },
           {
-            "phase": "Active vegetative",
+            "phase": "active_vegetative",
             "dap_range": {
               "min": 20,
               "max": 40
@@ -299,7 +299,7 @@
             ]
           },
           {
-            "phase": "Bulb formation",
+            "phase": "bulb_formation",
             "dap_range": {
               "min": 40,
               "max": 65
@@ -313,7 +313,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 65
@@ -327,7 +327,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Early vegetative",
+            "phase": "early_vegetative",
             "dap_range": {
               "min": 0,
               "max": 20
@@ -348,7 +348,7 @@
             ]
           },
           {
-            "phase": "Bulb formation",
+            "phase": "bulb_formation",
             "dap_range": {
               "min": 40,
               "max": 65
@@ -377,7 +377,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 65
@@ -399,7 +399,7 @@
             "notes": "Well-drained, fertile soil preferred; raised beds 20–30 cm high recommended"
           },
           {
-            "phase": "Bulb formation",
+            "phase": "bulb_formation",
             "dap_range": {
               "min": 40,
               "max": 65
@@ -463,7 +463,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -477,7 +477,7 @@
             "notes": "Apply once at transplanting into main field"
           },
           {
-            "phase": "Early vegetative",
+            "phase": "early_vegetative",
             "dap_range": {
               "min": 7,
               "max": 25
@@ -490,7 +490,7 @@
             "notes": "Promote leaf and tiller growth after transplant"
           },
           {
-            "phase": "Active vegetative",
+            "phase": "active_vegetative",
             "dap_range": {
               "min": 25,
               "max": 43
@@ -503,7 +503,7 @@
             "notes": null
           },
           {
-            "phase": "Bulb formation",
+            "phase": "bulb_formation",
             "dap_range": {
               "min": 43,
               "max": 55
@@ -530,7 +530,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Early vegetative",
+            "phase": "early_vegetative",
             "dap_range": {
               "min": 0,
               "max": 30
@@ -542,7 +542,7 @@
             ]
           },
           {
-            "phase": "Active vegetative",
+            "phase": "active_vegetative",
             "dap_range": {
               "min": 30,
               "max": 70
@@ -554,7 +554,7 @@
             ]
           },
           {
-            "phase": "Clove formation",
+            "phase": "clove_formation",
             "dap_range": {
               "min": 70,
               "max": 110
@@ -568,7 +568,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 120
@@ -582,7 +582,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 60
@@ -609,7 +609,7 @@
             ]
           },
           {
-            "phase": "Clove formation",
+            "phase": "clove_formation",
             "dap_range": {
               "min": 60,
               "max": 120
@@ -632,7 +632,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 120
@@ -696,7 +696,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -710,7 +710,7 @@
             "notes": "Apply once at planting; dolomite corrects pH and adds Mg & S"
           },
           {
-            "phase": "Early vegetative",
+            "phase": "early_vegetative",
             "dap_range": {
               "min": 7,
               "max": 30
@@ -723,7 +723,7 @@
             "notes": "Push vegetative growth; sulfur from ZA benefits allium flavor"
           },
           {
-            "phase": "Active vegetative",
+            "phase": "active_vegetative",
             "dap_range": {
               "min": 30,
               "max": 65
@@ -736,7 +736,7 @@
             "notes": null
           },
           {
-            "phase": "Clove formation",
+            "phase": "clove_formation",
             "dap_range": {
               "min": 65,
               "max": 100
@@ -764,7 +764,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 49
@@ -776,7 +776,7 @@
             ]
           },
           {
-            "phase": "Stalk development",
+            "phase": "stalk_development",
             "dap_range": {
               "min": 49,
               "max": 99
@@ -790,7 +790,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 39
@@ -802,7 +802,7 @@
             ]
           },
           {
-            "phase": "Stalk development",
+            "phase": "stalk_development",
             "dap_range": {
               "min": 39,
               "max": 99
@@ -815,7 +815,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 99
@@ -850,7 +850,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 99
@@ -914,7 +914,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -927,7 +927,7 @@
             "notes": "Incorporate into field before transplanting; high phosphorus supports root establishment"
           },
           {
-            "phase": "Early vegetative",
+            "phase": "early_vegetative",
             "dap_range": {
               "min": 7,
               "max": 24
@@ -940,7 +940,7 @@
             "notes": "Nitrogen push to drive leaf & stalk mass"
           },
           {
-            "phase": "Stalk development",
+            "phase": "stalk_development",
             "dap_range": {
               "min": 24,
               "max": 69
@@ -967,7 +967,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Establishment",
+            "phase": "establishment",
             "dap_range": {
               "min": 0,
               "max": 30
@@ -979,7 +979,7 @@
             ]
           },
           {
-            "phase": "Vine spreading",
+            "phase": "vine_spreading",
             "dap_range": {
               "min": 30,
               "max": 70
@@ -991,7 +991,7 @@
             ]
           },
           {
-            "phase": "Root bulking",
+            "phase": "root_bulking",
             "dap_range": {
               "min": 70,
               "max": 130
@@ -1005,7 +1005,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "Vine spreading",
+            "phase": "vine_spreading",
             "dap_range": {
               "min": 20,
               "max": 70
@@ -1019,7 +1019,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Establishment & vine spread",
+            "phase": "establishment_vine_spread",
             "dap_range": {
               "min": 0,
               "max": 70
@@ -1046,7 +1046,7 @@
             ]
           },
           {
-            "phase": "Root bulking",
+            "phase": "root_bulking",
             "dap_range": {
               "min": 70,
               "max": 130
@@ -1075,7 +1075,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 130
@@ -1135,7 +1135,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -1148,7 +1148,7 @@
             "notes": "Apply in furrows at planting; avoid excessive nitrogen which promotes vines over roots"
           },
           {
-            "phase": "Early growth",
+            "phase": "early_growth",
             "dap_range": {
               "min": 7,
               "max": 30
@@ -1161,7 +1161,7 @@
             "notes": "Phosphorus and potassium encourage root initiation"
           },
           {
-            "phase": "Root bulking",
+            "phase": "root_bulking",
             "dap_range": {
               "min": 50,
               "max": 80
@@ -1188,7 +1188,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Establishment",
+            "phase": "establishment",
             "dap_range": {
               "min": 0,
               "max": 15
@@ -1200,7 +1200,7 @@
             ]
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 15,
               "max": 50
@@ -1214,7 +1214,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 70
@@ -1228,7 +1228,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 70
@@ -1257,7 +1257,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 70
@@ -1317,7 +1317,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -1330,7 +1330,7 @@
             "notes": "Apply before transplanting; mix well into soil"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 14,
               "max": 35
@@ -1343,7 +1343,7 @@
             "notes": "Nitrogen-focused to drive fast leaf elongation"
           },
           {
-            "phase": "Pre-harvest",
+            "phase": "pre_harvest",
             "dap_range": {
               "min": 35,
               "max": 55
@@ -1370,7 +1370,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -1382,7 +1382,7 @@
             ]
           },
           {
-            "phase": "Generative",
+            "phase": "generative",
             "dap_range": {
               "min": 25,
               "max": 55
@@ -1394,7 +1394,7 @@
             ]
           },
           {
-            "phase": "Harvest",
+            "phase": "harvest",
             "dap_range": {
               "min": 55,
               "max": 95
@@ -1408,7 +1408,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "Early vegetative",
+            "phase": "early_vegetative",
             "dap_range": {
               "min": 0,
               "max": 15
@@ -1419,7 +1419,7 @@
             ]
           },
           {
-            "phase": "Generative",
+            "phase": "generative",
             "dap_range": {
               "min": 15,
               "max": 55
@@ -1431,7 +1431,7 @@
             ]
           },
           {
-            "phase": "Harvest",
+            "phase": "harvest",
             "dap_range": {
               "min": 55,
               "max": 95
@@ -1444,7 +1444,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -1471,7 +1471,7 @@
             ]
           },
           {
-            "phase": "Generative",
+            "phase": "generative",
             "dap_range": {
               "min": 25,
               "max": 55
@@ -1498,7 +1498,7 @@
             ]
           },
           {
-            "phase": "Harvest",
+            "phase": "harvest",
             "dap_range": {
               "min": 55,
               "max": 95
@@ -1521,7 +1521,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -1543,7 +1543,7 @@
             "notes": null
           },
           {
-            "phase": "Generative & harvest",
+            "phase": "generative_harvest",
             "dap_range": {
               "min": 25,
               "max": 95
@@ -1597,7 +1597,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 14
@@ -1610,7 +1610,7 @@
             "notes": "Apply once at transplanting"
           },
           {
-            "phase": "Early vegetative",
+            "phase": "early_vegetative",
             "dap_range": {
               "min": 14,
               "max": 35
@@ -1623,7 +1623,7 @@
             "notes": "Promote vegetative growth"
           },
           {
-            "phase": "Flowering",
+            "phase": "flowering",
             "dap_range": {
               "min": 35,
               "max": 60
@@ -1637,7 +1637,7 @@
             "notes": "Boron critical for fruit set"
           },
           {
-            "phase": "Fruit enlargement",
+            "phase": "fruit_enlargement",
             "dap_range": {
               "min": 60,
               "max": 80
@@ -1651,7 +1651,7 @@
             "notes": "Calcium prevents blossom end rot"
           },
           {
-            "phase": "Harvest",
+            "phase": "harvest",
             "dap_range": {
               "min": 80,
               "max": 120
@@ -1679,7 +1679,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 29
@@ -1691,7 +1691,7 @@
             ]
           },
           {
-            "phase": "Generative & harvest",
+            "phase": "generative_harvest",
             "dap_range": {
               "min": 29,
               "max": 69
@@ -1705,7 +1705,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 24
@@ -1717,7 +1717,7 @@
             ]
           },
           {
-            "phase": "Harvest",
+            "phase": "harvest",
             "dap_range": {
               "min": 39,
               "max": 69
@@ -1731,7 +1731,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 29
@@ -1758,7 +1758,7 @@
             ]
           },
           {
-            "phase": "Generative & harvest",
+            "phase": "generative_harvest",
             "dap_range": {
               "min": 29,
               "max": 69
@@ -1787,7 +1787,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 29
@@ -1809,7 +1809,7 @@
             "notes": null
           },
           {
-            "phase": "Fruit development",
+            "phase": "fruit_development",
             "dap_range": {
               "min": 29,
               "max": 69
@@ -1859,7 +1859,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 14
@@ -1873,7 +1873,7 @@
             "notes": "Apply once at transplanting"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 14,
               "max": 35
@@ -1886,7 +1886,7 @@
             "notes": "Build canopy; phosphorus supports root development"
           },
           {
-            "phase": "Flowering",
+            "phase": "flowering",
             "dap_range": {
               "min": 35,
               "max": 55
@@ -1900,7 +1900,7 @@
             "notes": "Boron for fruit set; calcium prevents BER"
           },
           {
-            "phase": "Fruit development",
+            "phase": "fruit_development",
             "dap_range": {
               "min": 55,
               "max": 90
@@ -1928,7 +1928,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 40
@@ -1942,7 +1942,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 40
@@ -1956,7 +1956,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 40
@@ -1985,7 +1985,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 40
@@ -2035,7 +2035,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 3
@@ -2048,7 +2048,7 @@
             "notes": "Mix into soil before direct seeding"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 10,
               "max": 25
@@ -2075,7 +2075,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 35
@@ -2089,7 +2089,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 35
@@ -2103,7 +2103,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 35
@@ -2126,7 +2126,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 35
@@ -2172,7 +2172,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 3
@@ -2185,7 +2185,7 @@
             "notes": "Broadcast before seeding or transplanting"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 7,
               "max": 21
@@ -2216,7 +2216,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 28
@@ -2230,7 +2230,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 28
@@ -2243,7 +2243,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 28
@@ -2266,7 +2266,7 @@
         ],
         "solution_parameters": [
           {
-            "phase": "Seedling / establishment",
+            "phase": "seedling",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -2288,7 +2288,7 @@
             "notes": "Low EC to avoid seedling stress; use half-strength AB Mix"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 7,
               "max": 28
@@ -2334,7 +2334,7 @@
         ],
         "nutrient_schedule": [
           {
-            "phase": "Seedling",
+            "phase": "seedling",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -2346,7 +2346,7 @@
             "notes": "Use rockwool or cocopeat plugs in net pots"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 7,
               "max": 28
@@ -2372,7 +2372,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 50
@@ -2386,7 +2386,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 50
@@ -2400,7 +2400,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 50
@@ -2429,7 +2429,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 50
@@ -2483,7 +2483,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 5
@@ -2496,7 +2496,7 @@
             "notes": "Incorporate before transplanting"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 10,
               "max": 30
@@ -2528,7 +2528,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 40
@@ -2542,7 +2542,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 40
@@ -2555,7 +2555,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 40
@@ -2584,7 +2584,7 @@
         ],
         "solution_parameters": [
           {
-            "phase": "Seedling",
+            "phase": "seedling",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -2606,7 +2606,7 @@
             "notes": "Half-strength AB Mix; target pH 6.0 for optimal calcium uptake"
           },
           {
-            "phase": "Vegetative & heading",
+            "phase": "vegetative_heading",
             "dap_range": {
               "min": 7,
               "max": 40
@@ -2652,7 +2652,7 @@
         ],
         "nutrient_schedule": [
           {
-            "phase": "Seedling",
+            "phase": "seedling",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -2664,7 +2664,7 @@
             "notes": "Use rockwool or cocopeat media plugs"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 7,
               "max": 40
@@ -2690,7 +2690,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 45
@@ -2704,7 +2704,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 45
@@ -2718,7 +2718,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 45
@@ -2747,7 +2747,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 45
@@ -2797,7 +2797,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 5
@@ -2810,7 +2810,7 @@
             "notes": "Incorporate before transplanting"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 10,
               "max": 30
@@ -2841,7 +2841,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 35
@@ -2855,7 +2855,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 35
@@ -2868,7 +2868,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 35
@@ -2891,7 +2891,7 @@
         ],
         "solution_parameters": [
           {
-            "phase": "Seedling",
+            "phase": "seedling",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -2913,7 +2913,7 @@
             "notes": "Germinate in rockwool; transfer at 2-true-leaf stage"
           },
           {
-            "phase": "Vegetative & heading",
+            "phase": "vegetative_heading",
             "dap_range": {
               "min": 7,
               "max": 35
@@ -2959,7 +2959,7 @@
         ],
         "nutrient_schedule": [
           {
-            "phase": "Seedling",
+            "phase": "seedling",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -2971,7 +2971,7 @@
             "notes": null
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 7,
               "max": 35
@@ -2997,7 +2997,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -3009,7 +3009,7 @@
             ]
           },
           {
-            "phase": "Generative & harvest",
+            "phase": "generative_harvest",
             "dap_range": {
               "min": 25,
               "max": 60
@@ -3023,7 +3023,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 14,
               "max": 30
@@ -3035,7 +3035,7 @@
             ]
           },
           {
-            "phase": "Harvest",
+            "phase": "harvest",
             "dap_range": {
               "min": 35,
               "max": 60
@@ -3048,7 +3048,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 60
@@ -3083,7 +3083,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 60
@@ -3143,7 +3143,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -3156,7 +3156,7 @@
             "notes": "Apply once at planting"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 7,
               "max": 25
@@ -3169,7 +3169,7 @@
             "notes": "Push canopy growth before flowering"
           },
           {
-            "phase": "Flowering & fruiting",
+            "phase": "flowering_fruiting",
             "dap_range": {
               "min": 25,
               "max": 50
@@ -3198,7 +3198,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 30
@@ -3210,7 +3210,7 @@
             ]
           },
           {
-            "phase": "Fruiting & harvest",
+            "phase": "fruiting_harvest",
             "dap_range": {
               "min": 30,
               "max": 75
@@ -3224,7 +3224,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 25
@@ -3235,7 +3235,7 @@
             ]
           },
           {
-            "phase": "Fruiting",
+            "phase": "fruiting",
             "dap_range": {
               "min": 25,
               "max": 75
@@ -3248,7 +3248,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 0,
               "max": 30
@@ -3275,7 +3275,7 @@
             ]
           },
           {
-            "phase": "Fruiting",
+            "phase": "fruiting",
             "dap_range": {
               "min": 30,
               "max": 75
@@ -3304,7 +3304,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 75
@@ -3350,7 +3350,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 14
@@ -3363,7 +3363,7 @@
             "notes": "Apply once at transplanting"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 14,
               "max": 40
@@ -3376,7 +3376,7 @@
             "notes": "Build strong vegetative framework before flowering"
           },
           {
-            "phase": "Flowering",
+            "phase": "flowering",
             "dap_range": {
               "min": 40,
               "max": 60
@@ -3390,7 +3390,7 @@
             "notes": "Boron for fruit set; reduce nitrogen"
           },
           {
-            "phase": "Fruiting & harvest",
+            "phase": "fruiting_harvest",
             "dap_range": {
               "min": 60,
               "max": 100
@@ -3418,7 +3418,7 @@
       "presets": {
         "crop_protection": [
           {
-            "phase": "Establishment",
+            "phase": "establishment",
             "dap_range": {
               "min": 0,
               "max": 14
@@ -3430,7 +3430,7 @@
             ]
           },
           {
-            "phase": "Vegetative & flowering",
+            "phase": "vegetative_flowering",
             "dap_range": {
               "min": 14,
               "max": 45
@@ -3442,7 +3442,7 @@
             ]
           },
           {
-            "phase": "Harvest",
+            "phase": "harvest",
             "dap_range": {
               "min": 45,
               "max": 65
@@ -3456,7 +3456,7 @@
         ],
         "pruning_trimming": [
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 14,
               "max": 40
@@ -3470,7 +3470,7 @@
         ],
         "pest_disease_checklist": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 65
@@ -3505,7 +3505,7 @@
         ],
         "soil_parameters": [
           {
-            "phase": "All phases",
+            "phase": "all_phases",
             "dap_range": {
               "min": 0,
               "max": 65
@@ -3561,7 +3561,7 @@
         ],
         "fertilization_schedule": [
           {
-            "phase": "Basal fertilizer",
+            "phase": "basal",
             "dap_range": {
               "min": 0,
               "max": 7
@@ -3575,7 +3575,7 @@
             "notes": "Low nitrogen base; Rhizobium fixes atmospheric N2"
           },
           {
-            "phase": "Vegetative",
+            "phase": "vegetative",
             "dap_range": {
               "min": 14,
               "max": 30
@@ -3588,7 +3588,7 @@
             "notes": "Phosphorus and potassium; avoid excess nitrogen to encourage pod production"
           },
           {
-            "phase": "Flowering & harvest",
+            "phase": "flowering_harvest",
             "dap_range": {
               "min": 35,
               "max": 60

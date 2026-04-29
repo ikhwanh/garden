@@ -7,7 +7,7 @@
           <span class="text-xs font-semibold text-gray-700"><%= reminder.category.humanize %></span>
           <span class="text-xs text-gray-400 flex-shrink-0"><%= reminder.due_on.strftime("%b %-d, %Y") %></span>
         </div>
-        <p class="text-xs text-gray-400 mb-1.5"><%= reminder.phase %></p>
+        <p class="text-xs text-gray-400 mb-1.5"><%= reminder.phase.humanize %></p>
 
         <% case reminder.category %>
         <% when "crop_protection", "pruning_trimming" %>
