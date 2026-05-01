@@ -60,13 +60,17 @@ class Dashboard::MonitoringController < ApplicationController
         sv = max_days - days_in
         label_class = days_in > max_days ? "text-red-500" :
                       (min_days && days_in >= min_days ? "text-orange-600" : "text-green-600")
+        status_text = sv < 0  ? "#{sv.abs}d overdue"    :
+                      sv == 0 ? "Transplant today"       :
+                      "#{sv}d to transplant"
       else
         sv = Float::INFINITY
         label_class = "text-gray-300"
+        status_text = days_in ? "No transplant date" : "No start date"
       end
 
       rows << { type: "nursery", name: nursery.name, location: nil,
-                status_text: days_in ? "#{days_in}d in nursery" : "No start date",
+                status_text: status_text,
                 status_class: label_class, status_value: sv, object: nursery }
     end
 

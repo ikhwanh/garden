@@ -308,6 +308,106 @@
       }
     },
     {
+      "id": "spring_onion",
+      "name": "Spring Onion",
+      "local_name": "Daun bawang",
+      "days_in_nursery": {
+        "min": 20,
+        "max": 30
+      },
+      "presets": {
+        "crop_protection": [
+          {
+            "phase": "nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 30
+            },
+            "actions": [
+              "Use sterilized media (soil + organic manure 1:1) to prevent damping-off",
+              "Treat seeds with Trichoderma viride or Bavistin before sowing",
+              "Cover seedbed with wet sacking or banana leaves until germination; remove once shoots emerge",
+              "Maintain shade netting during first week; reduce to 50% shade thereafter"
+            ]
+          }
+        ],
+        "pest_disease_checklist": [
+          {
+            "phase": "nursery",
+            "dap_range": {
+              "min": 0,
+              "max": 30
+            },
+            "pests": [
+              {
+                "name": "Damping-off (Pythium / Rhizoctonia)",
+                "inspect_part": "stem base at soil level",
+                "action_threshold": "seedling collapse found",
+                "inspection_interval_days": 3
+              },
+              {
+                "name": "Thrips (Thrips tabaci)",
+                "inspect_part": "leaf tips & inner whorl",
+                "action_threshold": ">5 insects per plant",
+                "inspection_interval_days": 7
+              },
+              {
+                "name": "Aphid (Myzus persicae)",
+                "inspect_part": "young shoots & leaf underside",
+                "action_threshold": "visible colonies found",
+                "inspection_interval_days": 7
+              }
+            ]
+          }
+        ],
+        "growth_benchmarks": [
+          {
+            "dap": 14,
+            "targets": {
+              "plant_height_cm": {
+                "min": 2,
+                "max": 5
+              },
+              "leaf_count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            "notes": "Germination complete; first true leaf emerging — thin seedlings to 2 cm spacing"
+          },
+          {
+            "dap": 25,
+            "targets": {
+              "plant_height_cm": {
+                "min": 8,
+                "max": 12
+              },
+              "leaf_count": {
+                "min": 2,
+                "max": 3
+              }
+            },
+            "notes": "Seedlings ready for transplanting; stems should be upright and uniformly green"
+          }
+        ],
+        "fertilization_schedule": [
+          {
+            "phase": "nursery",
+            "dap_range": {
+              "min": 14,
+              "max": 30
+            },
+            "interval_days": 14,
+            "fertilizers": [
+              "Diluted NPK 21-0-0 (very low dose)",
+              "Liquid organic fertilizer"
+            ],
+            "notes": "Light feeding only; high nitrogen at low concentration to push leaf elongation without burning young seedlings"
+          }
+        ]
+      }
+    },
+    {
       "id": "eggplant",
       "name": "Eggplant",
       "local_name": "Terung",

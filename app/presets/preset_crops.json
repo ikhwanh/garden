@@ -1185,6 +1185,7 @@
         "min": 50,
         "max": 70
       },
+      "notes": "Nursery phase (20–30 days) is managed separately. DAP is relative to transplant date.",
       "presets": {
         "crop_protection": [
           {
