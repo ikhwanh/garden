@@ -5,8 +5,17 @@ class PresetsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_preset, only: [ :show, :edit, :update, :destroy ]
 
+  COMPATIBILITY_ORDER = { compatible: 0, marginal: 1, incompatible: 2, incomplete_profile: 3, unknown: 4 }.freeze
+
   def index
-    scope = apply_sort(Preset.all, allowed_columns: %w[name local_name grow_type days_min], default_column: :name)
+    scope = apply_sort(
+      Preset.all,
+      allowed_columns: %w[name local_name grow_type days_min],
+      default_column: :name,
+      virtual_columns: {
+        "compatibility" => ->(p) { COMPATIBILITY_ORDER[PresetCompatibility.check(p, current_user).level] || 99 }
+      }
+    )
     @presets = paginate(scope)
     @preset = Preset.new
   end
@@ -57,6 +66,6 @@ class PresetsController < ApplicationController
   end
 
   def preset_params
-    params.require(:preset).permit(:slug, :name, :local_name, :grow_type, :days_min, :days_max, :growing_conditions)
+    params.require(:preset).permit(:slug, :name, :local_name, :grow_type, :days_min, :days_max)
   end
 end

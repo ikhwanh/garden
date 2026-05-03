@@ -1,5 +1,6 @@
 <% content_for :title, "Account settings — Garden" %>
 
+<div class="h-full overflow-y-auto">
 <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
   <div class="mb-8">
     <h1 class="text-2xl font-bold text-gray-900">Account settings</h1>
@@ -56,6 +57,35 @@
     <% end %>
   </div>
 
+  <div class="bg-white rounded-2xl shadow-sm border border-gray-200 px-8 py-8 mb-6">
+    <h2 class="text-sm font-semibold text-gray-900 mb-1">Farm profile</h2>
+    <p class="text-sm text-gray-500 mb-5">Used to check crop compatibility with your growing environment.</p>
+
+    <%= form_for(current_user, url: farm_profile_path, method: :patch) do |f| %>
+      <div class="space-y-4">
+        <div>
+          <%= f.label :altitude_masl, "Altitude (masl)", class: "block text-sm font-medium text-gray-700 mb-1.5" %>
+          <%= f.number_field :altitude_masl, min: 0, max: 5000, placeholder: "e.g. 200",
+                class: "block w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition" %>
+        </div>
+        <div>
+          <%= f.label :avg_temp_c, "Average temperature (°C)", class: "block text-sm font-medium text-gray-700 mb-1.5" %>
+          <%= f.number_field :avg_temp_c, min: 0, max: 50, step: 0.1, placeholder: "e.g. 27",
+                class: "block w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition" %>
+        </div>
+        <div>
+          <%= f.label :avg_humidity_pct, "Average humidity (%)", class: "block text-sm font-medium text-gray-700 mb-1.5" %>
+          <%= f.number_field :avg_humidity_pct, min: 0, max: 100, step: 0.1, placeholder: "e.g. 75",
+                class: "block w-full px-3.5 py-2.5 border border-gray-300 rounded-lg text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition" %>
+        </div>
+        <div class="pt-1">
+          <%= f.submit "Save farm profile",
+                class: "px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors cursor-pointer" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
   <div class="bg-white rounded-2xl shadow-sm border border-red-100 px-8 py-6">
     <h2 class="text-sm font-semibold text-red-700 mb-1">Danger zone</h2>
     <p class="text-sm text-gray-500 mb-4">Permanently delete your account and all associated data.</p>
@@ -64,4 +94,5 @@
           method: :delete,
           class: "px-4 py-2 border border-red-300 text-red-700 text-sm font-medium rounded-lg hover:bg-red-50 transition-colors cursor-pointer" %>
   </div>
+</div>
 </div>

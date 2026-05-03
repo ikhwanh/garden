@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_03_063856) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_03_065221) do
   create_table "cashflow_entries", force: :cascade do |t|
     t.bigint "amount"
     t.string "category"
@@ -61,7 +61,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_03_063856) do
     t.integer "days_max"
     t.integer "days_min"
     t.string "grow_type", null: false
-    t.text "growing_conditions"
+    t.json "growing_conditions"
     t.string "local_name"
     t.string "name", null: false
     t.json "preset_data", default: {}, null: false
@@ -84,6 +84,9 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_03_063856) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "altitude_masl"
+    t.decimal "avg_humidity_pct"
+    t.decimal "avg_temp_c"
     t.datetime "created_at", null: false
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false

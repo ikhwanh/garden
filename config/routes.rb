@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+  patch "/farm_profile", to: "farm_profile#update", as: :farm_profile
 
   resources :nurseries
   resources :crops

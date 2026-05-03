@@ -13,4 +13,9 @@
       —
     <% end %>
   </td>
+  <td class="px-4 py-2.5">
+    <% if preset.growing_conditions.present? %>
+      <%= compatibility_badge(PresetCompatibility.check(preset, current_user)) %>
+    <% end %>
+  </td>
 </tr>

@@ -10,6 +10,7 @@ crop_data["crops"].each do |crop|
     preset.days_min = crop.dig("days_to_harvest", "min")
     preset.days_max = crop.dig("days_to_harvest", "max")
     preset.preset_data         = crop["presets"]
+    preset.growing_conditions  = crop["growing_conditions"]
     preset.save!
   end
 end
@@ -26,6 +27,7 @@ nursery_data["nurseries"].each do |nursery|
     preset.days_min = nursery.dig("days_in_nursery", "min")
     preset.days_max = nursery.dig("days_in_nursery", "max")
     preset.preset_data         = nursery["presets"]
+    preset.growing_conditions  = nursery["growing_conditions"]
     preset.save!
   end
 end

@@ -27,9 +27,61 @@
       </div>
     <% end %>
     <% if preset.growing_conditions.present? %>
+      <% compat = PresetCompatibility.check(preset, current_user) %>
       <div>
-        <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Growing Conditions</dt>
-        <dd class="mt-0.5 text-sm text-gray-900"><%= preset.growing_conditions %></dd>
+        <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Compatibility</dt>
+        <dd class="flex flex-col gap-1.5">
+          <%= compatibility_badge(compat) %>
+          <% if compat.level == :incomplete_profile %>
+            <p class="text-xs text-gray-400">
+              <%= link_to "Set up your farm profile", edit_user_registration_path, class: "underline hover:text-gray-600" %>
+              to check if this crop suits your environment.
+            </p>
+          <% elsif compat.reasons.any? %>
+            <ul class="text-xs text-gray-500 space-y-0.5 list-disc list-inside">
+              <% compat.reasons.each do |reason| %>
+                <li><%= reason %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </dd>
+      </div>
+      <% cond = preset.growing_conditions %>
+      <div>
+        <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">Growing Conditions</dt>
+        <dd class="space-y-1">
+          <% if cond["altitude_masl"] %>
+            <p class="text-xs text-gray-600">
+              <span class="font-medium text-gray-700">Altitude:</span>
+              <%= cond.dig("altitude_masl", "min") %>–<%= cond.dig("altitude_masl", "max") %> masl
+            </p>
+          <% end %>
+          <% if cond["temperature_c"] %>
+            <p class="text-xs text-gray-600">
+              <span class="font-medium text-gray-700">Temp:</span>
+              <%= cond.dig("temperature_c", "min") %>–<%= cond.dig("temperature_c", "max") %>°C
+              <% opt_min = cond.dig("temperature_c", "optimal_min"); opt_max = cond.dig("temperature_c", "optimal_max") %>
+              <% if opt_min && opt_max %>
+                <span class="text-gray-400">(opt. <%= opt_min %>–<%= opt_max %>°C)</span>
+              <% end %>
+            </p>
+          <% end %>
+          <% if cond["humidity_pct"] %>
+            <p class="text-xs text-gray-600">
+              <span class="font-medium text-gray-700">Humidity:</span>
+              <%= cond.dig("humidity_pct", "min") %>–<%= cond.dig("humidity_pct", "max") %>%
+            </p>
+          <% end %>
+          <% if cond["light_hours_per_day"] %>
+            <p class="text-xs text-gray-600">
+              <span class="font-medium text-gray-700">Light:</span>
+              <%= cond.dig("light_hours_per_day", "min") %>–<%= cond.dig("light_hours_per_day", "max") %> hrs/day
+            </p>
+          <% end %>
+          <% if cond["notes"].present? %>
+            <p class="text-xs text-gray-400 italic mt-1"><%= cond["notes"] %></p>
+          <% end %>
+        </dd>
       </div>
     <% end %>
   </dl>
