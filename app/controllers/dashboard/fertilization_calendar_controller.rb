@@ -8,13 +8,25 @@ class Dashboard::FertilizationCalendarController < ApplicationController
 
     builder = FertilizationScheduleBuilder.new(current_user)
     @events = builder.events_for_month(@year, @month)
+
+    month_range       = @date..@date.end_of_month
+    active_crops      = current_user.crops.where(harvested_on: nil)
+    @plant_events     = active_crops.where(planted_on: month_range).group_by(&:planted_on)
+    @harvest_events   = active_crops.where(expected_harvest_on: month_range).group_by(&:expected_harvest_on)
   end
 
   def day
     @date    = Date.parse(params[:date])
     builder  = FertilizationScheduleBuilder.new(current_user)
     @entries = builder.events_for_month(@date.year, @date.month).fetch(@date, [])
-    render partial: "day_panel", locals: { date: @date, entries: @entries }, layout: false
+
+    active_crops   = current_user.crops.where(harvested_on: nil)
+    planted_crops  = active_crops.where(planted_on: @date)
+    harvest_crops  = active_crops.where(expected_harvest_on: @date)
+
+    render partial: "day_panel",
+           locals: { date: @date, entries: @entries, planted_crops: planted_crops, harvest_crops: harvest_crops },
+           layout: false
   end
 
   def export

@@ -44,9 +44,12 @@
     <%# Day grid %>
     <div class="grid grid-cols-7">
       <% (grid_start..grid_end).each do |day| %>
-        <% in_month  = day.month == @date.month %>
-        <% events    = in_month ? (@events[day] || []) : [] %>
-        <% is_today  = day == today %>
+        <% in_month       = day.month == @date.month %>
+        <% fert_events    = in_month ? (@events[day] || []) : [] %>
+        <% plant_crops    = in_month ? (@plant_events[day] || []) : [] %>
+        <% harvest_crops  = in_month ? (@harvest_events[day] || []) : [] %>
+        <% is_today       = day == today %>
+        <% total_events   = fert_events.size + plant_crops.size + harvest_crops.size %>
         <div class="min-h-[64px] border-b border-r border-gray-100 select-none transition-colors
                     <%= in_month ? 'bg-white hover:bg-gray-50 cursor-pointer' : 'bg-gray-50/60 cursor-default' %>"
              <% if in_month %>
@@ -60,13 +63,29 @@
               <%= day.day %>
             </span>
           </div>
-          <% if events.any? %>
+          <% if total_events > 0 %>
+            <% dots_shown = 0 %>
             <div class="px-1.5 pb-1.5 flex items-center flex-wrap gap-1">
-              <% events.first(3).each do %>
-                <span class="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0"></span>
+              <% plant_crops.each do |_| %>
+                <% if dots_shown < 3 %>
+                  <span class="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0"></span>
+                  <% dots_shown += 1 %>
+                <% end %>
               <% end %>
-              <% if events.size > 3 %>
-                <span class="text-[9px] text-green-600 font-medium leading-none">+<%= events.size - 3 %></span>
+              <% harvest_crops.each do |_| %>
+                <% if dots_shown < 3 %>
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0"></span>
+                  <% dots_shown += 1 %>
+                <% end %>
+              <% end %>
+              <% fert_events.each do |_| %>
+                <% if dots_shown < 3 %>
+                  <span class="w-1.5 h-1.5 rounded-full bg-green-500 shrink-0"></span>
+                  <% dots_shown += 1 %>
+                <% end %>
+              <% end %>
+              <% if total_events > 3 %>
+                <span class="text-[9px] text-gray-500 font-medium leading-none">+<%= total_events - 3 %></span>
               <% end %>
             </div>
           <% end %>
@@ -76,13 +95,17 @@
 
     <%# Legend %>
     <div class="px-4 py-2.5 border-t border-gray-100 flex items-center gap-4 text-[11px] text-gray-400 shrink-0 mt-auto">
-      <%# <span class="flex items-center gap-1.5">
-        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-600 text-white text-[10px] font-semibold">9</span>
-        Today
-      </span> %>
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+        Planted
+      </span>
+      <span class="flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+        Expected harvest
+      </span>
       <span class="flex items-center gap-1.5">
         <span class="w-2 h-2 rounded-full bg-green-500"></span>
-        Fertilization event
+        Fertilization
       </span>
     </div>
   </div>
