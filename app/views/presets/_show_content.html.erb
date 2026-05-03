@@ -18,12 +18,18 @@
       <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Grow Type</dt>
       <dd class="mt-0.5 text-sm text-gray-900"><%= preset.grow_type.capitalize %></dd>
     </div>
-    <% if preset.days_to_harvest_min.present? || preset.days_to_harvest_max.present? %>
+    <% if !preset.nursery? && (preset.days_min.present? || preset.days_max.present?) %>
       <div>
         <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Days to Harvest</dt>
         <dd class="mt-0.5 text-sm text-gray-900">
-          <%= [preset.days_to_harvest_min, preset.days_to_harvest_max].compact.join(" – ") %> days
+          <%= [preset.days_min, preset.days_max].compact.join(" – ") %> days
         </dd>
+      </div>
+    <% end %>
+    <% if preset.growing_conditions.present? %>
+      <div>
+        <dt class="text-xs font-medium text-gray-400 uppercase tracking-wide">Growing Conditions</dt>
+        <dd class="mt-0.5 text-sm text-gray-900"><%= preset.growing_conditions %></dd>
       </div>
     <% end %>
   </dl>

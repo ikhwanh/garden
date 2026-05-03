@@ -7,8 +7,8 @@
   <td class="px-4 py-2.5 text-sm text-gray-500"><%= preset.local_name.present? ? preset.local_name : "—" %></td>
   <td class="px-4 py-2.5 text-sm text-gray-500"><%= preset.grow_type.capitalize %></td>
   <td class="px-4 py-2.5 text-sm text-gray-500">
-    <% if preset.days_to_harvest_min.present? || preset.days_to_harvest_max.present? %>
-      <%= [preset.days_to_harvest_min, preset.days_to_harvest_max].compact.join(" – ") %> days
+    <% if !preset.nursery? && (preset.days_min.present? || preset.days_max.present?) %>
+      <%= [preset.days_min, preset.days_max].compact.join(" – ") %> days
     <% else %>
       —
     <% end %>

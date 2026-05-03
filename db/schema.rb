@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_29_123304) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_03_063856) do
   create_table "cashflow_entries", force: :cascade do |t|
     t.bigint "amount"
     t.string "category"
@@ -58,9 +58,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_29_123304) do
 
   create_table "presets", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "days_to_harvest_max"
-    t.integer "days_to_harvest_min"
+    t.integer "days_max"
+    t.integer "days_min"
     t.string "grow_type", null: false
+    t.text "growing_conditions"
     t.string "local_name"
     t.string "name", null: false
     t.json "preset_data", default: {}, null: false

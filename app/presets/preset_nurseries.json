@@ -10,6 +10,27 @@
         "min": 30,
         "max": 45
       },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 18,
+          "max": 28,
+          "optimal_min": 20,
+          "optimal_max": 25
+        },
+        "humidity_pct": {
+          "min": 60,
+          "max": 85
+        },
+        "light_hours_per_day": {
+          "min": 6,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 600
+        },
+        "notes": "Use shade house (50–70% shade net) to prevent seedling scorch; consistent moisture in cocopeat media critical; target dappled/filtered sunlight throughout nursery phase"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -109,6 +130,27 @@
         "min": 40,
         "max": 60
       },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 16,
+          "max": 24,
+          "optimal_min": 16,
+          "optimal_max": 21
+        },
+        "humidity_pct": {
+          "min": 60,
+          "max": 85
+        },
+        "light_hours_per_day": {
+          "min": 4,
+          "max": 6
+        },
+        "altitude_masl": {
+          "min": 700,
+          "max": 2000
+        },
+        "notes": "Highland nursery conditions (>700 masl) preferred; celery seeds require light for germination — do not cover deeply; very slow germination (14–25 days); maintain filtered/indirect light throughout"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -187,6 +229,27 @@
         "min": 21,
         "max": 25
       },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 18,
+          "max": 32,
+          "optimal_min": 22,
+          "optimal_max": 27
+        },
+        "humidity_pct": {
+          "min": 60,
+          "max": 85
+        },
+        "light_hours_per_day": {
+          "min": 6,
+          "max": 10
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1000
+        },
+        "notes": "Optimal germination at 22–27°C; 30–50% shade net prevents seedling scorch while allowing adequate light (8,000–10,000 lux); high humidity combined with poor airflow causes damping-off"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -251,6 +314,27 @@
         "min": 18,
         "max": 21
       },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 14,
+          "max": 28,
+          "optimal_min": 18,
+          "optimal_max": 24
+        },
+        "humidity_pct": {
+          "min": 60,
+          "max": 80
+        },
+        "light_hours_per_day": {
+          "min": 6,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1500
+        },
+        "notes": "Bright but filtered light (30–50% shade) produces compact, strong seedlings; avoid high temperature combined with low light which causes etiolation; harden off 5–7 days before field transplanting"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -314,6 +398,27 @@
       "days_in_nursery": {
         "min": 20,
         "max": 30
+      },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 16,
+          "max": 29,
+          "optimal_min": 18,
+          "optimal_max": 25
+        },
+        "humidity_pct": {
+          "min": 60,
+          "max": 85
+        },
+        "light_hours_per_day": {
+          "min": 4,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1500
+        },
+        "notes": "Use 50% shade net in first week, then reduce to full sun as seedlings strengthen; keep seedbed moist but not waterlogged; transplant when 8–12 cm tall"
       },
       "presets": {
         "crop_protection": [
@@ -414,6 +519,27 @@
       "days_in_nursery": {
         "min": 21,
         "max": 25
+      },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 21,
+          "max": 32,
+          "optimal_min": 24,
+          "optimal_max": 29
+        },
+        "humidity_pct": {
+          "min": 70,
+          "max": 90
+        },
+        "light_hours_per_day": {
+          "min": 4,
+          "max": 6
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1200
+        },
+        "notes": "Cold-sensitive even in nursery — germination requires 27–32°C; net house essential to exclude EFSB moths; 30–50% shade net prevents seedling scorch; high humidity requires good ventilation to prevent damping-off"
       },
       "presets": {
         "crop_protection": [

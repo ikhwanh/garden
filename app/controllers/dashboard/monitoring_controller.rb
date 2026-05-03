@@ -53,8 +53,8 @@ class Dashboard::MonitoringController < ApplicationController
 
     nurseries.each do |nursery|
       days_in  = nursery.started_on ? (Date.today - nursery.started_on).to_i : nil
-      max_days = nursery.preset&.days_to_harvest_max
-      min_days = nursery.preset&.days_to_harvest_min
+      max_days = nursery.preset&.days_max
+      min_days = nursery.preset&.days_min
 
       if days_in && max_days
         sv = max_days - days_in

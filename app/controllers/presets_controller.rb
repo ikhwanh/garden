@@ -6,7 +6,7 @@ class PresetsController < ApplicationController
   before_action :set_preset, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    scope = apply_sort(Preset.all, allowed_columns: %w[name local_name grow_type days_to_harvest_min], default_column: :name)
+    scope = apply_sort(Preset.all, allowed_columns: %w[name local_name grow_type days_min], default_column: :name)
     @presets = paginate(scope)
     @preset = Preset.new
   end
@@ -57,6 +57,6 @@ class PresetsController < ApplicationController
   end
 
   def preset_params
-    params.require(:preset).permit(:slug, :name, :local_name, :grow_type, :days_to_harvest_min, :days_to_harvest_max)
+    params.require(:preset).permit(:slug, :name, :local_name, :grow_type, :days_min, :days_max, :growing_conditions)
   end
 end

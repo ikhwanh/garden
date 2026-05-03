@@ -25,8 +25,8 @@ class Crop < ApplicationRecord
 
   def set_expected_harvest_on
     self.expected_harvest_on =
-      if preset&.days_to_harvest_max && planted_on
-        planted_on + preset.days_to_harvest_max.days
+      if preset&.days_max && planted_on
+        planted_on + preset.days_max.days
       end
   end
 

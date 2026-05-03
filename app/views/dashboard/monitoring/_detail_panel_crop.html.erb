@@ -8,7 +8,7 @@
     "growth_benchmarks"      => "Growth Benchmarks"
   }
 
-  total_days    = preset&.days_to_harvest_max
+  total_days    = preset&.days_max
   progress_pct  = (total_days&.positive? && dap) ? [(dap.to_f / total_days * 100).round(1), 100].min : nil
   days_to_harvest = obj.expected_harvest_on ? (obj.expected_harvest_on - Date.today).to_i : nil
 %>

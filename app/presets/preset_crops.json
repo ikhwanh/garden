@@ -11,6 +11,27 @@
         "min": 60,
         "max": 75
       },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 15,
+          "max": 32,
+          "optimal_min": 25,
+          "optimal_max": 30
+        },
+        "humidity_pct": {
+          "min": 40,
+          "max": 80
+        },
+        "light_hours_per_day": {
+          "min": 6,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 450
+        },
+        "notes": "Full sun required; humidity above 80% increases Alternaria and thrips risk; grows best at 0–450 masl in lowland tropical Indonesia"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -272,6 +293,27 @@
         "max": 90
       },
       "notes": "Grown from True Seed of Shallot (TSS). Nursery phase (30–45 days) is managed separately. DAP is relative to transplant date. Produces larger bulbs with higher yield than bulb-planted shallot.",
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 15,
+          "max": 32,
+          "optimal_min": 25,
+          "optimal_max": 30
+        },
+        "humidity_pct": {
+          "min": 40,
+          "max": 80
+        },
+        "light_hours_per_day": {
+          "min": 6,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 600
+        },
+        "notes": "Full sun required; humidity above 80% increases disease pressure; TSS cultivar performs better at mid-elevation (200–600 masl); similar conditions to bulb-planted shallot"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -527,6 +569,27 @@
         "min": 90,
         "max": 120
       },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 13,
+          "max": 25,
+          "optimal_min": 15,
+          "optimal_max": 18
+        },
+        "humidity_pct": {
+          "min": 50,
+          "max": 80
+        },
+        "light_hours_per_day": {
+          "min": 8,
+          "max": 12
+        },
+        "altitude_masl": {
+          "min": 700,
+          "max": 2000
+        },
+        "notes": "Highland conditions (>700 masl) essential for bulb development in Indonesia; cool temperatures during clove formation are critical — lowland production results in severely poor bulbing"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -761,6 +824,27 @@
         "max": 99
       },
       "notes": "Nursery phase (40–60 days) is managed separately. DAP is relative to transplant date.",
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 16,
+          "max": 24,
+          "optimal_min": 16,
+          "optimal_max": 21
+        },
+        "humidity_pct": {
+          "min": 50,
+          "max": 85
+        },
+        "light_hours_per_day": {
+          "min": 6,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 700,
+          "max": 2000
+        },
+        "notes": "Cool highland climate required (>700 masl in Indonesia); 30–50% shade cloth recommended in tropical conditions to prevent heat stress and leaf curl; consistent moisture critical to prevent stringy stalks"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -963,6 +1047,27 @@
       "days_to_harvest": {
         "min": 100,
         "max": 130
+      },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 18,
+          "max": 30,
+          "optimal_min": 20,
+          "optimal_max": 30
+        },
+        "humidity_pct": {
+          "min": 50,
+          "max": 85
+        },
+        "light_hours_per_day": {
+          "min": 8,
+          "max": 12
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1000
+        },
+        "notes": "Full sun promotes vine and root growth; drought-tolerant once established but consistent moisture needed during root bulking (DAP 50–80); light well-drained ridged soil essential"
       },
       "presets": {
         "crop_protection": [
@@ -1186,6 +1291,27 @@
         "max": 70
       },
       "notes": "Nursery phase (20–30 days) is managed separately. DAP is relative to transplant date.",
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 15,
+          "max": 29,
+          "optimal_min": 20,
+          "optimal_max": 25
+        },
+        "humidity_pct": {
+          "min": 45,
+          "max": 80
+        },
+        "light_hours_per_day": {
+          "min": 6,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1500
+        },
+        "notes": "Tolerates partial shade in hot weather; grows year-round in Indonesian lowlands; high humidity increases purple blotch and downy mildew risk"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -1368,6 +1494,27 @@
         "max": 120
       },
       "notes": "Nursery phase (21–25 days) is managed separately. DAP is relative to transplant date.",
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 18,
+          "max": 32,
+          "optimal_min": 22,
+          "optimal_max": 30
+        },
+        "humidity_pct": {
+          "min": 60,
+          "max": 85
+        },
+        "light_hours_per_day": {
+          "min": 8,
+          "max": 12
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1000
+        },
+        "notes": "Full sun essential; high humidity (>80%) during vegetative phase promotes thrips and Fusarium wilt; Above 32°C causes flower drop and poor fruit set; humidity above 85% promotes anthracnose on fruit; harvest every 3–5 days to maintain productivity"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -1677,6 +1824,27 @@
         "max": 90
       },
       "notes": "Nursery phase (18–21 days) is managed separately. DAP is relative to transplant date.",
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 16,
+          "max": 32,
+          "optimal_min": 18,
+          "optimal_max": 29
+        },
+        "humidity_pct": {
+          "min": 50,
+          "max": 80
+        },
+        "light_hours_per_day": {
+          "min": 8,
+          "max": 12
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1500
+        },
+        "notes": "Full sun required; maintain day/night temperature differential of 5–7°C for optimal development; Fruit set inhibited above 32°C or below 16°C; excessive humidity (>80%) promotes late blight and blossom end rot; consistent soil moisture prevents fruit cracking"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -1926,6 +2094,27 @@
         "min": 25,
         "max": 40
       },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 15,
+          "max": 30,
+          "optimal_min": 20,
+          "optimal_max": 28
+        },
+        "humidity_pct": {
+          "min": 50,
+          "max": 80
+        },
+        "light_hours_per_day": {
+          "min": 4,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 2000
+        },
+        "notes": "Tolerates partial shade in hot weather; bolts prematurely above 30°C or under long photoperiods; fast-growing in Indonesian lowlands year-round"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -2073,6 +2262,27 @@
         "min": 25,
         "max": 35
       },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 20,
+          "max": 35,
+          "optimal_min": 25,
+          "optimal_max": 30
+        },
+        "humidity_pct": {
+          "min": 60,
+          "max": 90
+        },
+        "light_hours_per_day": {
+          "min": 6,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 500
+        },
+        "notes": "Heat- and moisture-loving semi-aquatic crop; thrives in Indonesian lowland tropical conditions year-round; tolerates flooded soil conditions"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -2213,6 +2423,27 @@
       "days_to_harvest": {
         "min": 20,
         "max": 28
+      },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 20,
+          "max": 30,
+          "optimal_min": 25,
+          "optimal_max": 30
+        },
+        "humidity_pct": {
+          "min": 60,
+          "max": 85
+        },
+        "light_hours_per_day": {
+          "min": 10,
+          "max": 14
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 500
+        },
+        "notes": "DFT system provides more stable nutrient contact than NFT for kangkung; air temperature 25–30°C ideal; supplement with LED lighting if natural light is insufficient; solution temperature tracked separately in solution_parameters"
       },
       "presets": {
         "crop_protection": [
@@ -2370,6 +2601,27 @@
         "min": 35,
         "max": 50
       },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 15,
+          "max": 30,
+          "optimal_min": 18,
+          "optimal_max": 24
+        },
+        "humidity_pct": {
+          "min": 45,
+          "max": 80
+        },
+        "light_hours_per_day": {
+          "min": 6,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 500,
+          "max": 2000
+        },
+        "notes": "Extremely heat-sensitive; 30–50% shade cloth essential in Indonesian lowlands to prevent bolting and tipburn; highland planting (>600 masl) recommended for best quality; humidity above 70% promotes downy mildew"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -2525,6 +2777,27 @@
       "days_to_harvest": {
         "min": 28,
         "max": 40
+      },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 18,
+          "max": 28,
+          "optimal_min": 18,
+          "optimal_max": 24
+        },
+        "humidity_pct": {
+          "min": 50,
+          "max": 75
+        },
+        "light_hours_per_day": {
+          "min": 12,
+          "max": 16
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 2000
+        },
+        "notes": "Controlled environment preferred; maintain air temperature below 28°C to prevent bolting; water temperature 18–26°C (tracked in solution_parameters); supplemental LED enables year-round production in Indonesia"
       },
       "presets": {
         "crop_protection": [
@@ -2688,6 +2961,27 @@
         "min": 30,
         "max": 45
       },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 16,
+          "max": 30,
+          "optimal_min": 21,
+          "optimal_max": 24
+        },
+        "humidity_pct": {
+          "min": 50,
+          "max": 80
+        },
+        "light_hours_per_day": {
+          "min": 6,
+          "max": 8
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1500
+        },
+        "notes": "Fast-growing brassica; heat above 28°C accelerates bolting; best in Indonesian dry season; consistent moisture produces compact heads; diamondback moth pressure increases with high humidity"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -2838,6 +3132,27 @@
       "days_to_harvest": {
         "min": 25,
         "max": 35
+      },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 18,
+          "max": 28,
+          "optimal_min": 20,
+          "optimal_max": 24
+        },
+        "humidity_pct": {
+          "min": 50,
+          "max": 75
+        },
+        "light_hours_per_day": {
+          "min": 10,
+          "max": 14
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 2000
+        },
+        "notes": "DFT system outperforms NFT for pakcoy in Indonesian trials; air temperature 20–24°C optimal; controlled environment reduces diamondback moth pressure significantly; solution temperature tracked in solution_parameters"
       },
       "presets": {
         "crop_protection": [
@@ -2994,6 +3309,27 @@
       "days_to_harvest": {
         "min": 40,
         "max": 60
+      },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 15,
+          "max": 32,
+          "optimal_min": 25,
+          "optimal_max": 30
+        },
+        "humidity_pct": {
+          "min": 50,
+          "max": 75
+        },
+        "light_hours_per_day": {
+          "min": 8,
+          "max": 12
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1000
+        },
+        "notes": "Full sun required; sensitive to water stress during fruit development; humidity above 75% increases downy and powdery mildew risk; grows well from lowland to 1,000 masl in Indonesia"
       },
       "presets": {
         "crop_protection": [
@@ -3196,6 +3532,27 @@
         "max": 100
       },
       "notes": "Nursery phase (21–25 days) is managed separately. DAP is relative to transplant date.",
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 18,
+          "max": 35,
+          "optimal_min": 22,
+          "optimal_max": 30
+        },
+        "humidity_pct": {
+          "min": 50,
+          "max": 85
+        },
+        "light_hours_per_day": {
+          "min": 8,
+          "max": 12
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 1200
+        },
+        "notes": "Cold-sensitive; temperatures below 18°C cause leaf drop and poor fruit set; high humidity (>85%) promotes EFSB and Phomopsis; full sun essential for good yield in Indonesian lowlands"
+      },
       "presets": {
         "crop_protection": [
           {
@@ -3415,6 +3772,27 @@
       "days_to_harvest": {
         "min": 45,
         "max": 65
+      },
+      "growing_conditions": {
+        "temperature_c": {
+          "min": 20,
+          "max": 35,
+          "optimal_min": 25,
+          "optimal_max": 32
+        },
+        "humidity_pct": {
+          "min": 60,
+          "max": 85
+        },
+        "light_hours_per_day": {
+          "min": 8,
+          "max": 12
+        },
+        "altitude_masl": {
+          "min": 0,
+          "max": 800
+        },
+        "notes": "Heat-loving tropical legume; grows well year-round in Indonesian lowlands; high humidity increases pod borer and fungal disease pressure; Rhizobium inoculation reduces nitrogen fertilizer requirement"
       },
       "presets": {
         "crop_protection": [
