@@ -1,6 +1,15 @@
 <% content_for :title, "Tools – Garden" %>
 
 <div class="p-6 overflow-y-auto h-full">
+  <%# Preset seed widget %>
+  <div class="bg-white border border-gray-200 rounded-lg p-4 max-w-sm mb-4">
+    <h2 class="text-sm font-medium text-gray-900 mb-1">Seed presets</h2>
+    <p class="text-xs text-gray-500 mb-3">Load built-in crop and nursery presets from the bundled JSON files. Safe to run multiple times — existing presets are updated, not duplicated.</p>
+    <%= button_to "Run seed", dashboard_seed_presets_path,
+        method: :post,
+        class: "inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-900 text-white text-sm font-medium rounded-md hover:bg-gray-700 transition-colors cursor-pointer" %>
+  </div>
+
   <%# Database import / export widget %>
   <div class="bg-white border border-gray-200 rounded-lg p-4 max-w-sm">
     <h2 class="text-sm font-medium text-gray-900 mb-1">Database backup</h2>

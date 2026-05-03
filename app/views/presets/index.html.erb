@@ -2,9 +2,6 @@
   <div class="flex-1 overflow-y-auto">
     <div class="px-6 py-3 border-b border-gray-200 bg-white flex items-center justify-between">
       <h1 class="text-sm font-semibold text-gray-900">Presets</h1>
-      <%= link_to "New", new_preset_path,
-          data: { turbo_frame: "inspect" },
-          class: "inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-gray-900 rounded-md hover:bg-gray-700" %>
     </div>
     <% sort_url = ->(s, d) { presets_path(sort: s, direction: d) } %>
     <table class="min-w-full divide-y divide-gray-200">
@@ -33,7 +30,6 @@
 
   <div class="w-80 shrink-0 border-l border-gray-200 bg-white overflow-y-auto">
     <%= turbo_frame_tag "inspect" do %>
-      <%= render "form", preset: @preset %>
     <% end %>
   </div>
 </div>
