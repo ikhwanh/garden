@@ -135,14 +135,17 @@ class Dashboard::MonitoringController < ApplicationController
       phases = data[key]
       next if phases.blank?
 
-      active[key] = phases.find { |p|
-        r = p["dap_range"]
-        r && dap >= r["min"].to_i && dap <= r["max"].to_i
-      }
+      phase_objects = phases.map { |p| PresetPhase::Base.for(key, p) }
 
-      upcoming[key] = phases
-        .select  { |p| p.dig("dap_range", "min").to_i > dap }
-        .min_by  { |p| p.dig("dap_range", "min").to_i }
+      active_obj = phase_objects
+        .select { |ph| dap >= ph.dap_min && dap <= ph.dap_max }
+        .min_by { |ph| ph.dap_max }
+
+      active[key] = active_obj
+
+      upcoming[key] = phase_objects
+        .select { |ph| ph.dap_min > dap }
+        .min_by { |ph| ph.dap_min }
     end
 
     active.compact!
