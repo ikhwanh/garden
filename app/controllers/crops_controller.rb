@@ -61,6 +61,7 @@ class CropsController < ApplicationController
     @crop.destroy
     @crop = current_user.crops.new
     @nurseries = current_user.nurseries.order(:name)
+    @presets = Preset.order(:name, :grow_type)
     respond_to do |format|
       format.turbo_stream
       format.html { redirect_to crops_path }

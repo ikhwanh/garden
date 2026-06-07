@@ -4,7 +4,7 @@ class NurseriesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_nursery, only: [ :show, :edit, :update, :destroy ]
-  before_action :set_nursery_presets, only: [ :index, :new, :create, :edit, :update ]
+  before_action :set_nursery_presets, only: [ :index, :new, :create, :edit, :update, :destroy ]
 
   def index
     scope = apply_sort(current_user.nurseries, allowed_columns: %w[name started_on transplanted_on quantity_initial], default_column: :name)

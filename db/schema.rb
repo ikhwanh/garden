@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_03_065221) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_07_231502) do
   create_table "cashflow_entries", force: :cascade do |t|
     t.bigint "amount"
     t.string "category"
@@ -70,19 +70,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_03_065221) do
     t.index ["slug"], name: "index_presets_on_slug", unique: true
   end
 
-  create_table "reminders", force: :cascade do |t|
-    t.string "category", null: false
-    t.datetime "created_at", null: false
-    t.integer "crop_id", null: false
-    t.json "details", default: {}, null: false
-    t.date "due_on", null: false
-    t.datetime "notified_at"
-    t.string "phase", null: false
-    t.datetime "updated_at", null: false
-    t.index ["crop_id", "due_on"], name: "index_reminders_on_crop_id_and_due_on"
-    t.index ["crop_id"], name: "index_reminders_on_crop_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.integer "altitude_masl"
     t.decimal "avg_humidity_pct"
@@ -103,5 +90,4 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_03_065221) do
   add_foreign_key "crops", "users"
   add_foreign_key "nurseries", "presets"
   add_foreign_key "nurseries", "users"
-  add_foreign_key "reminders", "crops"
 end
