@@ -42,7 +42,9 @@
 
       <div>
         <label class="block text-xs font-medium text-gray-700 mb-1">Category</label>
-        <%= f.select :category, [],
+        <% category_options = entry.entry_type == "expense" ? CashflowEntry::EXPENSE_CATEGORIES : CashflowEntry::INCOME_CATEGORIES %>
+        <%= f.select :category,
+            category_options.map { |c| [c.tr("_", " ").capitalize, c] },
             { include_blank: "Select…" },
             class: "w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400",
             data: { cashflow_form_target: "categorySelect" } %>

@@ -7,6 +7,9 @@ class CashflowEntry < ApplicationRecord
   INCOME_CATEGORIES  = %w[sales grant service].freeze
   EXPENSE_CATEGORIES = %w[tool growing_media seed].freeze
 
+  normalizes :cost_type, with: ->(v) { v.presence }
+  normalizes :category, with: ->(v) { v.presence }
+
   validates :entry_type, inclusion: { in: ENTRY_TYPES }
   validates :amount, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :description, presence: true
